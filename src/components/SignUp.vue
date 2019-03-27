@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="signUp">
     <div class="logo">
-      <img src="/src/css/images/logo.png">
+      <img src="../css/images/logo.png">
     </div>
     <div class="signUp-form row">
       <div class="col-sm-5 signIn-prop">
@@ -164,7 +164,8 @@
     }
   }
 </script>
-<style>
+
+<style scoped>
   .signUp-form {
     width: 600px;
     margin: auto;
