@@ -1,0 +1,6 @@
+body.home {
+  background: url("/src/css/images/background.png") center no-repeat;
+}
+body.inside {
+  background: #f5f5f7;
+}

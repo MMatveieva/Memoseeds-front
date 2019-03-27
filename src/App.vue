@@ -6,18 +6,29 @@
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+  import signUp from './components/SignUp.vue';
+
+  export default {
+    name: 'app',
+    data() {
+      return {
+        msg: 'Welcome to Your Vue.js App'
+      }
+    },
+    components:
+      {
+        signUp: signUp
+      }
+  }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  body {
+    font-family: 'Aqua Grotesque', regular;
+  }
+
+  .logo img {
+    width: 100px;
+    height: 100px;
+  }
 </style>
