@@ -16,12 +16,17 @@
 </script>
 
 <style>
+  @font-face {
+    font-family: 'Aqua Grotesque';
+    src: url("css/fonts/aqua.ttf");
+  }
+
   body {
-    font-family: 'Aqua Grotesque', regular;
+    font-family: 'Aqua Grotesque', regular !important;
   }
 
   body.home {
-    background: url("./css/images/background.png") center no-repeat;
+    background: url("css/images/background.png") center no-repeat;
   }
   body.inside {
     background: #f5f5f7;
