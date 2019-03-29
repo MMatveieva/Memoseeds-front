@@ -6,6 +6,7 @@ import Settings from '@/components/Settings'
 import Recent from '@/components/Recent'
 import ModulePage from '@/components/ModulePage'
 import AllModules from '@/components/AllModules'
+import BuyCredits from '@/components/BuyCredits'
 
 Vue.use(Router);
 
@@ -45,6 +46,11 @@ export default new Router({
       path: '/allModules',
       name: 'allModules',
       component: AllModules
+    },
+    {
+      path: '/buyCredits',
+      name: 'buyCredits',
+      component: BuyCredits
     }
   ]
 })

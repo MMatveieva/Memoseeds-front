@@ -148,7 +148,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .header {
     background-color: #12496d;
     padding-top: 0;

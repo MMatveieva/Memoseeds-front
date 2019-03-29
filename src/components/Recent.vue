@@ -3,13 +3,13 @@
     <div class="card-header header">
       <div class="row">
         <div class="col-sm-1 logo">
-          <img src="/src/css/images/logo.png">
+          <img src="../css/images/logo.png">
         </div>
         <div class="col-sm-3 header-search input-group">
           <input type="text" class="form-control" placeholder="Search">
           <div class="input-group-append search-btn">
             <a href="#">
-              <img src="/src/css/images/search.png">
+              <img src="../css/images/search.png">
             </a>
           </div>
         </div>
@@ -107,7 +107,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .header {
     background-color: #12496d;
     padding-top: 0;

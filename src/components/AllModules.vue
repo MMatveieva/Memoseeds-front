@@ -147,7 +147,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .header {
     background-color: #12496d;
     padding-top: 0;
@@ -312,25 +312,12 @@
   }
 
   .modules-title {
-    margin-top: 10%;
-  }
-
-  .modules-words {
-    margin-left: 15%;
-    font-size: 20px;
-    color: #0b486d;
-    font-weight: 500;
+    margin-top: 7%;
   }
 
   .modules-info {
     font-size: 100%;
     color: #12496d;
-  }
-
-  .words-form {
-    width: 70%;
-    margin: auto;
-    margin-bottom: 25px;
   }
 
   .words-form .word-num {
@@ -358,12 +345,6 @@
     flex: 0 0 70%;
   }
 
-  .module-words-inside {
-    background: #eeeeee;
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-
   .module-words-inside h4 {
     margin-top: 20px;
     margin-bottom: 15px;
@@ -379,6 +360,10 @@
     height: 30px;
     border-color: white;
     margin: 0;
+  }
+
+  .action-btn a{
+    color: white;
   }
 
   .module-words-inside button:hover {
