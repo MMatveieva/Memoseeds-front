@@ -107,7 +107,7 @@
           console.log("have all comp");
           this.noPhoneOk = false;
           console.log("CLICK");
-          this.checkPhone(this.phone);
+          //this.checkPhone(this.phone);
           if (this.password === this.password_confirmation)
             this.signUp();
           else
@@ -116,11 +116,23 @@
 
       },
       signUp: function () {
-        axios.post('https://memeseeds.herokuapp.com/login', {body: JSON.stringify(this.email)})
+        let config = {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          }
+        };
+        axios.post('https://memeseeds.herokuapp.com/signup', {"Username": this.name_signUp, "Email": this.email, "Password": this.password}, config)
           .then(response => {
             this.responseData = response.data;
+            console.log(this.name_signUp)
             router.push('allModules');
-          }).catch(error => {
+          })
+          .catch(error => {
+            console.log(error)
+            console.log(this.name_signUp)
+
           });
       }
     }
