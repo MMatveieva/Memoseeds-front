@@ -34,7 +34,7 @@
                 </b-dropdown-item>
 
                 <b-dropdown-item class="user-dropdown" href="#">
-                  <router-link to="/signUp">Log out</router-link>
+                  <router-link to="/signIn">Log out</router-link>
                 </b-dropdown-item>
 
               </b-dropdown>

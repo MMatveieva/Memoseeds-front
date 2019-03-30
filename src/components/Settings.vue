@@ -19,8 +19,9 @@
         <div class="col-sm-3 header-user">
           <div class="row">
             <div class="col-sm-6">
-              <div class="user-photo-header">
-              </div>
+              <router-link to="/newModule">
+              <img src="../css/images/add-button.png">
+              </router-link>
             </div>
             <div class="user-acc col-sm-6">
               <b-dropdown class="user-name" offset="-16">
@@ -74,12 +75,6 @@
             </small>
             <input type="email" class="form-control" id="edit-email"
                    placeholder="Email" v-model="email">
-            <!--<input type="text" class="form-control" id="edit-phone"-->
-                   <!--placeholder="Phone number" v-model="phone" v-on:keyup="phoneEdit"-->
-                   <!--v-bind:class="{not_ok: noPhoneOk}">-->
-            <!--<small id="phoneError1" class="form-text text-muted" v-bind:class="{hidden: noPhoneOk}">Please enter-->
-              <!--phone number correctly.-->
-            <!--</small>-->
             <input type="password" class="form-control" id="edit-password"
                    placeholder="Old password" v-model="password" v-on:keyup="passwordEdit">
             <small id="passwordError" class="form-text text-muted" v-bind:class="{hidden: noPassOk}">Incorrect
@@ -115,11 +110,9 @@
 
         name_edit: "",
         email: "",
-        // phone: "",
         password: "",
         password_new: "",
         noNameOk: true,
-        // noPhoneOk: true,
         noPassOk: true,
         noPassMatch: true,
       }
@@ -137,9 +130,6 @@
       nameEdit: function () {
         this.noNameOk = true;
       },
-      // phoneEdit: function () {
-      //   this.noPhoneOk = true;
-      // },
       passwordEdit: function () {
         this.noPassOk = true;
         this.noPassMatch = true;
@@ -148,8 +138,6 @@
       },
       emailChange: function () {
       },
-      // phoneChange: function () {
-      // },
       passwordChange: function () {
       },
       checkName: function (data) {
@@ -157,11 +145,6 @@
         if (!nameReg.test(data))
           this.noNameOk = true;
       },
-      // checkPhone: function (data) {
-      //   let phoneReg = /^[0-9+]/;
-      //   if (!phoneReg.test(data))
-      //     this.noPhoneOk = true;
-      // },
       btnClick: function () {
         if (this.name_edit != "") {
           this.checkName(this.name_edit);
@@ -170,11 +153,6 @@
         }
         if (this.email != "")
           this.emailChange();
-        // if (this.phone != "") {
-        //   this.checkPhone(this.phone);
-        //   if (this.noPhoneOk == false)
-        //     this.phoneChange();
-        // }
         if ((this.password != "") && (this.password_new != ""))
           this.passwordChange();
       },
@@ -214,6 +192,12 @@
 
   .header-user {
     padding-left: 0;
+  }
+
+  .header-user img{
+    margin: 8px auto;
+    width: 55px;
+    height: 55px;
   }
 
   .header-user .user-photo-header {

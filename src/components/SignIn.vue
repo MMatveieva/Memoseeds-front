@@ -71,13 +71,11 @@
         this.noLogin = true;
       },
       btnClick: function () {
-        // console.log("CLICK");
         if (this.name == "")
           this.noName = false;
         if (this.password == "")
           this.noPass = false;
         if ((this.name != "") && (this.password != "")) {
-          // console.log("have all comp");
           this.signIn();
         }
       },
@@ -98,8 +96,12 @@
         };
         axios.post('https://memeseeds.herokuapp.com/login', {"Username": this.name, "Password": this.password}, config)
           .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             this.$cookies.set("user_session", response.data['token'], 60 * 60 * 2);
+            this.$cookies.set("userName", response.data.info.username, 60 * 60 * 2);
+            this.$cookies.set("userCredits", response.data.info.credits, 60 * 60 * 2);
+            this.$cookies.set("userMail", response.data.info.email, 60 * 60 * 2);
+            this.$cookies.set("userId", response.data.info.userId, 60 * 60 * 2);
             this.getCountry();
             router.push('recent');
           })
@@ -110,10 +112,9 @@
       getCountry: function () {
         axios.get('http://ip-api.com/json/?fields=3')
           .then(response =>{
-            console.log(response.data);
+            // console.log(response.data);
             this.$cookies.set('country', response.data.country, 60 * 60 * 2);
           });
-        console.log('cookie -  ', this.$cookies.get("country"));
       }
     }
   }
