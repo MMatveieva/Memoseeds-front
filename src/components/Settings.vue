@@ -24,7 +24,7 @@
             </div>
             <div class="user-acc col-sm-6">
               <b-dropdown class="user-name" offset="-16">
-                <template slot="button-content" style="background: transparent">user-acc</template>
+                <template slot="button-content" style="background: transparent">{{userName}} user-acc</template>
                 <b-dropdown-item class="user-dropdown" href="#">
                   <router-link to="/settings">Settings</router-link>
                 </b-dropdown-item>
@@ -32,7 +32,7 @@
                 <router-link to="/myModules">
                   <b-dropdown-item class="user-dropdown" href="#">My modules</b-dropdown-item>
                 </router-link>
-                <router-link to="/signUp">
+                <router-link to="/signIn">
                   <b-dropdown-item class="user-dropdown" href="#">Log out</b-dropdown-item>
                 </router-link>
               </b-dropdown>
@@ -47,7 +47,7 @@
         <div class="user-photo">
         </div>
         <div class="modules-info">
-          <p>Nuber of modules:</p>
+          <p>Number of modules:</p>
           <label id="modules">{{modulesNumber}}</label>
         </div>
         <div class="credits-info">
@@ -105,29 +105,37 @@
 
     data() {
       return {
-        modulesNumber: 0,
-        creditsNumber: 0,
+        modulesNumber: "",
+        creditsNumber: "",
+        userName: "",
+
         name_edit: "",
         email: "",
-        phone: "",
+        // phone: "",
         password: "",
         password_new: "",
         noNameOk: true,
-        noPhoneOk: true,
+        // noPhoneOk: true,
         noPassOk: true,
-        noPassMatch: true
+        noPassMatch: true,
       }
     },
     beforeCreate: function () {
       document.body.className = 'inside';
     },
+
+    created: function () {
+      this.getUserInfo();
+      this.getUserModules();
+    },
+
     methods: {
       nameEdit: function () {
         this.noNameOk = true;
       },
-      phoneEdit: function () {
-        this.noPhoneOk = true;
-      },
+      // phoneEdit: function () {
+      //   this.noPhoneOk = true;
+      // },
       passwordEdit: function () {
         this.noPassOk = true;
         this.noPassMatch = true;
@@ -136,8 +144,8 @@
       },
       emailChange: function () {
       },
-      phoneChange: function () {
-      },
+      // phoneChange: function () {
+      // },
       passwordChange: function () {
       },
       checkName: function (data) {
@@ -145,11 +153,11 @@
         if (!nameReg.test(data))
           this.noNameOk = true;
       },
-      checkPhone: function (data) {
-        let phoneReg = /^[0-9+]/;
-        if (!phoneReg.test(data))
-          this.noPhoneOk = true;
-      },
+      // checkPhone: function (data) {
+      //   let phoneReg = /^[0-9+]/;
+      //   if (!phoneReg.test(data))
+      //     this.noPhoneOk = true;
+      // },
       btnClick: function () {
         if (this.name_edit != "") {
           this.checkName(this.name_edit);
@@ -158,13 +166,22 @@
         }
         if (this.email != "")
           this.emailChange();
-        if (this.phone != "") {
-          this.checkPhone(this.phone);
-          if (this.noPhoneOk == false)
-            this.phoneChange();
-        }
+        // if (this.phone != "") {
+        //   this.checkPhone(this.phone);
+        //   if (this.noPhoneOk == false)
+        //     this.phoneChange();
+        // }
         if ((this.password != "") && (this.password_new != ""))
           this.passwordChange();
+      },
+
+      getUserInfo: function () {
+        this.creditsNumber = this.$cookies.get('userCredits');
+        this.userName = this.$cookies.get('userName');
+      },
+
+      getUserModules: function () {
+        
       }
     }
   }
@@ -259,7 +276,7 @@
     color: #ffffff;
   }
 
-  .dropdown-toggle{
+  .dropdown-toggle {
     background-color: transparent !important;
   }
 

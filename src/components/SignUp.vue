@@ -37,15 +37,15 @@
             <small id="emailError" class="form-text text-muted" v-bind:class="{hidden: noEmail}">Please enter
               e-mail.
             </small>
-            <input type="text" class="form-control" id="signUp-phone"
-                   placeholder="Phone number" v-model="phone" required v-on:keyup="phoneEdit"
-                   v-bind:class="{not_ok: noPhoneOk}">
-            <small id="phoneError" class="form-text text-muted" v-bind:class="{hidden: noPhone}">Please enter
-              phone number.
-            </small>
-            <small id="phoneError1" class="form-text text-muted" v-bind:class="{hidden: noPhoneOk}">Please enter
-              phone number correctly.
-            </small>
+            <!--<input type="text" class="form-control" id="signUp-phone"-->
+                   <!--placeholder="Phone number" v-model="phone" required v-on:keyup="phoneEdit"-->
+                   <!--v-bind:class="{not_ok: noPhoneOk}">-->
+            <!--<small id="phoneError" class="form-text text-muted" v-bind:class="{hidden: noPhone}">Please enter-->
+              <!--phone number.-->
+            <!--</small>-->
+            <!--<small id="phoneError1" class="form-text text-muted" v-bind:class="{hidden: noPhoneOk}">Please enter-->
+              <!--phone number correctly.-->
+            <!--</small>-->
             <input type="password" class="form-control" id="signUp-password"
                    placeholder="Password" v-model="password" required v-on:keyup="passwordEdit">
             <small id="passwordError1" class="form-text text-muted" v-bind:class="{hidden: noPass}">Please enter
@@ -79,15 +79,15 @@
       return {
         name_signUp: "",
         email: "",
-        phone: "",
+        // phone: "",
         password: "",
         password_confirmation: "",
 
         noNameOk: true,
         noName: true,
         noEmail: true,
-        noPhoneOk: true,
-        noPhone: true,
+        // noPhoneOk: true,
+        // noPhone: true,
         noPass: true,
         noPassRep: true,
         noPassMatch: true
@@ -138,7 +138,9 @@
           this.noPass = false;
         if (this.password_confirmation == "")
           this.noPassRep = false;
-        if ((this.name_signUp !== "") && (this.email !== "") && (this.phone !== "") && (this.password !== "") &&
+        if ((this.name_signUp !== "") && (this.email !== "") &&
+          // (this.phone !== "") &&
+          (this.password !== "") &&
           (this.password_confirmation !== "")) {
           console.log("have all comp");
           this.noNameOk = false;
@@ -146,7 +148,9 @@
           console.log("CLICK");
           this.checkName(this.name_signUp);
           this.checkPhone(this.phone);
-          if ((this.noNameOk == true) && (this.noPhoneOk == true)) {
+          if ((this.noNameOk == true)
+            // && (this.noPhoneOk == true)
+          ) {
             if (this.password === this.password_confirmation)
               this.signUp();
             else
@@ -216,7 +220,7 @@
   .signIn-prop .faq {
     text-align: center !important;
     position: relative;
-    bottom: -100px;
+    bottom: -65px;
   }
 
   .signIn-prop .faq a {

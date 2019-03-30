@@ -24,16 +24,18 @@
             </div>
             <div class="user-acc col-sm-6">
               <b-dropdown class="user-name" offset="-16">
-                <template slot="button-content">user-acc</template>
+                <template slot="button-content">{{userName}} user-acc</template>
                 <b-dropdown-item class="user-dropdown" href="#">
                   <router-link to="/settings">Settings</router-link>
                 </b-dropdown-item>
                 <b-dropdown-item class="user-dropdown" href="#">
                   <router-link to="/myModules">My modules</router-link>
                 </b-dropdown-item>
+                <router-link to="/signIn" v-on:click="logOut" >
                 <b-dropdown-item class="user-dropdown" href="#">
-                  <router-link to="/signUp">Log out</router-link>
+                  Log out
                 </b-dropdown-item>
+                </router-link>
               </b-dropdown>
             </div>
           </div>
@@ -75,7 +77,7 @@
 
       <div class="buy-option row">
         <div class="col-sm-1 coin-img">
-          <img src="../css/images/coin.png">
+          <img src="../css/images/coin2.png">
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
@@ -90,7 +92,7 @@
 
       <div class="buy-option row">
         <div class="col-sm-1 coin-img">
-          <img src="../css/images/coin.png">
+          <img src="../css/images/coin3.png">
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
@@ -105,7 +107,7 @@
 
       <div class="buy-option row">
         <div class="col-sm-1 coin-img">
-          <img src="../css/images/coin.png">
+          <img src="../css/images/coin4.png">
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
@@ -134,6 +136,7 @@
     name: "BuyCredits",
     data() {
       return {
+        userName: "",
         userCredits: "",
         currency: ""
       }
@@ -142,31 +145,48 @@
     beforeCreate: function () {
       document.body.className = 'inside';
 
+      //let cur = this.$cookies.get('country');
+      let cur = "Ukraine";
+
+      let config = {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        params: {
+          country: cur
+        }
+      };
+
+      axios.get('https://memeseeds.herokuapp.com/purchase/route', config)
+        .then(response => {
+          console.log(response.data);
+          //this.currency = response.data.currency;  // not sure about the field
+        })
+        .catch(error => {
+          console.log(error)
+        });
+
     },
     created: function () {
-      this.getCurrency();
-      this.getUserCredits();
+      // this.getCurrency();
+      this.getUserInfo();
     },
 
     methods: {
+      logOut:function(){},
+
       buyClick: function () {
       },
 
       getCurrency: function () {
-        //let cur = this.$cookies.get('country');
-        let cur = "Ukraine";
-        axios.get('https://memeseeds.herokuapp.com/purchase/options', {"country": cur})
-          .then(response => {
-            console.log(response.data);
-            //this.currency = response.data.currency;  // not sure about the field
-          })
-          .catch(error => {
-            console.log(error)
-          });
+
       },
 
-      getUserCredits: function () {
-        
+      getUserInfo: function () {
+        this.userCredits = this.$cookies.get('userCredits');
+        this.userName = this.$cookies.get('userName');
       }
       
     }

@@ -106,7 +106,7 @@
           });
       },
       getCountry: function () {
-        axios.get('http://ip-api.com/json/?fields=3')
+        axios.get('http://ip-api.com/json/?fields=3', config)
           .then(response => (this.country = response.data.country));
         console.log("country - ", this.country);
         this.$cookies.set('country', this.country);
@@ -162,7 +162,7 @@
   .signUp-prop .faq {
     text-align: center !important;
     position: relative;
-    bottom: -50px;
+    bottom: -58px;
   }
 
   .signUp-prop .faq a {
