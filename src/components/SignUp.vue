@@ -48,6 +48,9 @@
             <small id="passwordError" class="form-text text-muted" v-bind:class="{hidden: noPassMatch}">Repeated
               password doesn`t match password.
             </small>
+            <small id="signUpError" class="form-text text-muted" v-bind:class="{hidden: signUpSuccess}">Error occurredd
+              during Sign Up.
+            </small>
           </div>
           <button id="signUp-btn" type="button" class="btn signUp-btn" v-on:click="btnClick">SIGN UP</button>
         </form>
@@ -73,7 +76,9 @@
         noEmail: true,
         noPass: true,
         noPassRep: true,
-        noPassMatch: true
+        noPassMatch: true,
+
+        signUpSuccess: true
       }
     },
     beforeCreate: function () {
@@ -107,7 +112,6 @@
           console.log("have all comp");
           this.noPhoneOk = false;
           console.log("CLICK");
-          //this.checkPhone(this.phone);
           if (this.password === this.password_confirmation)
             this.signUp();
           else
@@ -123,16 +127,20 @@
             'Content-Type': 'application/json',
           }
         };
-        axios.post('https://memeseeds.herokuapp.com/signup', {"Username": this.name_signUp, "Email": this.email, "Password": this.password}, config)
+        axios.post('https://memeseeds.herokuapp.com/signup', {
+          "Username": this.name_signUp,
+          "Email": this.email,
+          "Password": this.password
+        }, config)
           .then(response => {
             this.responseData = response.data;
-            console.log(this.name_signUp)
+            console.log(this.name_signUp);
             router.push('allModules');
           })
           .catch(error => {
-            console.log(error)
-            console.log(this.name_signUp)
-
+            console.log(error);
+            console.log(this.name_signUp);
+            this.signUpSuccess = false;
           });
       }
     }
