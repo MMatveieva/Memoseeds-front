@@ -28,13 +28,12 @@
                 <b-dropdown-item class="user-dropdown" href="#">
                   <router-link to="/settings">Settings</router-link>
                 </b-dropdown-item>
-
                 <router-link to="/myModules">
                   <b-dropdown-item class="user-dropdown" href="#">My modules</b-dropdown-item>
                 </router-link>
-                <router-link to="/signUp">
-                  <b-dropdown-item class="user-dropdown" href="#">Log out</b-dropdown-item>
-                </router-link>
+                  <b-dropdown-item class="user-dropdown" href="#">
+                    <router-link to="/signIn">Log out</router-link>
+                  </b-dropdown-item>
               </b-dropdown>
             </div>
           </div>

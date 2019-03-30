@@ -32,9 +32,9 @@
                 <router-link to="/myModules">
                   <b-dropdown-item class="user-dropdown" href="#">My modules</b-dropdown-item>
                 </router-link>
-                <router-link to="/signIn">
-                  <b-dropdown-item class="user-dropdown" href="#">Log out</b-dropdown-item>
-                </router-link>
+                  <b-dropdown-item class="user-dropdown" href="#">
+                    <router-link to="/signIn">Log out</router-link>
+                  </b-dropdown-item>
               </b-dropdown>
             </div>
           </div>
@@ -70,12 +70,12 @@
             </small>
             <input type="email" class="form-control" id="edit-email"
                    placeholder="Email" v-model="email">
-            <input type="text" class="form-control" id="edit-phone"
-                   placeholder="Phone number" v-model="phone" v-on:keyup="phoneEdit"
-                   v-bind:class="{not_ok: noPhoneOk}">
-            <small id="phoneError1" class="form-text text-muted" v-bind:class="{hidden: noPhoneOk}">Please enter
-              phone number correctly.
-            </small>
+            <!--<input type="text" class="form-control" id="edit-phone"-->
+                   <!--placeholder="Phone number" v-model="phone" v-on:keyup="phoneEdit"-->
+                   <!--v-bind:class="{not_ok: noPhoneOk}">-->
+            <!--<small id="phoneError1" class="form-text text-muted" v-bind:class="{hidden: noPhoneOk}">Please enter-->
+              <!--phone number correctly.-->
+            <!--</small>-->
             <input type="password" class="form-control" id="edit-password"
                    placeholder="Old password" v-model="password" v-on:keyup="passwordEdit">
             <small id="passwordError" class="form-text text-muted" v-bind:class="{hidden: noPassOk}">Incorrect

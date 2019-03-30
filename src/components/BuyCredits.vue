@@ -31,11 +31,9 @@
                 <b-dropdown-item class="user-dropdown" href="#">
                   <router-link to="/myModules">My modules</router-link>
                 </b-dropdown-item>
-                <router-link to="/signIn" v-on:click="logOut" >
                 <b-dropdown-item class="user-dropdown" href="#">
-                  Log out
+                  <router-link to="/signIn" v-on:click="logOut" >Log out</router-link>
                 </b-dropdown-item>
-                </router-link>
               </b-dropdown>
             </div>
           </div>
