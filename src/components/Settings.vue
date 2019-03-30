@@ -3,7 +3,9 @@
     <div class="card-header header ">
       <div class="row">
         <div class="col-sm-1 logo">
-          <img src="../css/images/logo.png">
+          <router-link to="/allModules">
+            <img src="../css/images/logo.png">
+          </router-link>
         </div>
         <div class="col-sm-3 header-search input-group">
           <input type="text" class="form-control" placeholder="Search">
@@ -20,7 +22,7 @@
           <div class="row">
             <div class="col-sm-6">
               <router-link to="/newModule">
-              <img src="../css/images/add-button.png">
+                <img src="../css/images/add-button.png">
               </router-link>
             </div>
             <div class="user-acc col-sm-6">
@@ -33,9 +35,9 @@
                 <router-link to="/myModules">
                   <b-dropdown-item class="user-dropdown" href="#">My modules</b-dropdown-item>
                 </router-link>
-                  <b-dropdown-item class="user-dropdown" href="#">
-                    <router-link to="/signIn">Log out</router-link>
-                  </b-dropdown-item>
+                <b-dropdown-item class="user-dropdown" href="#">
+                  <router-link to="/signIn">Log out</router-link>
+                </b-dropdown-item>
               </b-dropdown>
             </div>
           </div>
@@ -68,11 +70,10 @@
         <form>
           <div class="form-group edit-group">
             <input type="text" class="form-control" id="edit-name"
-                   placeholder="Name" v-model="name_edit" v-on:keyup="nameEdit"
-                   v-bind:class="{not_ok: noNameOk}">
-            <small id="nameError1" class="form-text text-muted" v-bind:class="{hidden: noNameOk}">Please
-              enter name without numbers.
-            </small>
+                   placeholder="Name" v-model="name_edit" v-on:keyup="nameEdit">
+            <!--<small id="nameError1" class="form-text text-muted" v-bind:class="{hidden: noNameOk}">Username already-->
+            <!--exists-->
+            <!--</small>-->
             <input type="email" class="form-control" id="edit-email"
                    placeholder="Email" v-model="email">
             <input type="password" class="form-control" id="edit-password"
@@ -140,11 +141,7 @@
       },
       passwordChange: function () {
       },
-      checkName: function (data) {
-        let nameReg = /^[a-zA-Z-а-яА-Яії'є\s]*$/;
-        if (!nameReg.test(data))
-          this.noNameOk = true;
-      },
+
       btnClick: function () {
         if (this.name_edit != "") {
           this.checkName(this.name_edit);
@@ -163,7 +160,7 @@
       },
 
       getUserModules: function () {
-        
+
       }
     }
   }
@@ -194,18 +191,10 @@
     padding-left: 0;
   }
 
-  .header-user img{
+  .header-user img {
     margin: 8px auto;
     width: 55px;
     height: 55px;
-  }
-
-  .header-user .user-photo-header {
-    margin: 5px auto;
-    width: 60px;
-    height: 60px;
-    background-color: white;
-    border-radius: 50%;
   }
 
   .header-search {
@@ -310,12 +299,12 @@
     border-radius: 20px;
     font-size: 13px;
     color: white !important;
-    width: 160px;
+    width: 155px;
     height: 30px;
     margin-top: 10px;
   }
 
-  .settings-btn a{
+  .settings-btn a {
     color: white !important;
   }
 
@@ -402,7 +391,7 @@
     border-radius: 20px;
     font-size: 13px;
     color: white;
-    width: 160px;
+    width: 155px;
     height: 30px;
     margin-top: -10px;
     border-color: white;

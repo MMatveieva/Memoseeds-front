@@ -3,7 +3,9 @@
     <div class="card-header header ">
       <div class="row">
         <div class="col-sm-1 logo">
-          <img src="../css/images/logo.png">
+          <router-link to="/allModules">
+            <img src="../css/images/logo.png">
+          </router-link>
         </div>
         <div class="col-sm-3 header-search input-group">
           <input type="text" class="form-control" placeholder="Search">
@@ -25,16 +27,17 @@
             </div>
             <div class="user-acc col-sm-6">
               <b-dropdown class="user-name" offset="-16">
-                <template slot="button-content">user-acc</template>
+                <template slot="button-content" style="background: transparent">{{userName}} acc</template>
                 <b-dropdown-item class="user-dropdown" href="#">
                   <router-link to="/settings">Settings</router-link>
                 </b-dropdown-item>
+
                 <router-link to="/myModules">
                   <b-dropdown-item class="user-dropdown" href="#">My modules</b-dropdown-item>
                 </router-link>
-                  <b-dropdown-item class="user-dropdown" href="#">
-                    <router-link to="/signIn">Log out</router-link>
-                  </b-dropdown-item>
+                <b-dropdown-item class="user-dropdown" href="#">
+                  <router-link to="/signIn">Log out</router-link>
+                </b-dropdown-item>
               </b-dropdown>
             </div>
           </div>
@@ -46,50 +49,49 @@
       <div class="settings-form">
         <div class="row" style="width: 100%; margin: 0">
           <div class="col-sm-3 info-part">
-            <h2 class="modules-title">Family</h2>
+            <h2 class="modules-title">{{moduleName}}Family</h2>
             <div class="modules-info">
               <p>Number of words:</p>
-              <label id="modules">{{wordsNumber}}</label>
+              <label id="modules">{{wordsNumber}}100</label>
             </div>
           </div>
           <div class="col-sm-9 actions-part">
-            <button type="submit" class="btn action-btn" v-on:click="learnClick">Learn</button>
-            <button type="submit" class="btn action-btn" v-on:click="writeClick">Write</button>
-            <button type="submit" class="btn action-btn" v-on:click="testClick">Test</button>
-            <button type="submit" class="btn action-btn" v-on:click="matchClick">Match</button>
+            <button type="submit" class="btn action-btn" v-on:click="learnClick" v-bind:disabled=!added>Learn</button>
+            <button type="submit" class="btn action-btn" v-on:click="writeClick" v-bind:disabled=!added>Write</button>
+            <button type="submit" class="btn action-btn" v-on:click="testClick" v-bind:disabled=!added>Test</button>
           </div>
 
         </div>
       </div>
 
-      <div class="carousel-wrapper">
-        <b-carousel
-          id="module-carousel"
-          controls
-          background="#C5EED7"
-          :interval="40000"
-          v-model="slide"
-          img-height="130"
-          img-width="200"
-        >
+      <!--<div class="carousel-wrapper">-->
+        <!--<b-carousel-->
+          <!--id="module-carousel"-->
+          <!--controls-->
+          <!--background="#C5EED7"-->
+          <!--:interval="40000"-->
+          <!--v-model="slide"-->
+          <!--img-height="130"-->
+          <!--img-width="200"-->
+        <!--&gt;-->
 
-          <b-carousel-slide img-blank img-alt="Sibling">
-            <div class="card-title">Sibling</div>
-            <div class="card-num">22/200</div>
-          </b-carousel-slide>
+          <!--<b-carousel-slide img-blank img-alt="Sibling">-->
+            <!--<div class="card-title">Sibling</div>-->
+            <!--<div class="card-num">22/200</div>-->
+          <!--</b-carousel-slide>-->
 
-          <b-carousel-slide img-blank img-alt="Father">
-            <div class="card-title">Father</div>
-            <div class="card-num">23/200</div>
-          </b-carousel-slide>
+          <!--<b-carousel-slide img-blank img-alt="Father">-->
+            <!--<div class="card-title">Father</div>-->
+            <!--<div class="card-num">23/200</div>-->
+          <!--</b-carousel-slide>-->
 
-          <b-carousel-slide img-blank img-alt="Brother">
-            <div class="card-title">Brother</div>
-            <div class="card-num">24/200</div>
-          </b-carousel-slide>
+          <!--<b-carousel-slide img-blank img-alt="Brother">-->
+            <!--<div class="card-title">Brother</div>-->
+            <!--<div class="card-num">24/200</div>-->
+          <!--</b-carousel-slide>-->
 
-        </b-carousel>
-      </div>
+        <!--</b-carousel>-->
+      <!--</div>-->
 
       <div class="modules-words">
         Words in this set:
@@ -127,10 +129,25 @@
 
     data() {
       return {
-        wordsNumber: 0,
-        creditsNumber: 0
+        wordsNumber: "",
+        creditsNumber: "",
+        userName: "",
+        moduleName: "",
+
+        free: false,
+        added: false
       }
     },
+
+    beforeCreate: function () {
+      document.body.className = 'inside';
+    },
+
+    created: function () {
+      this.getUserInfo();
+      this.getModuleInfo();
+    },
+
     methods: {
       learnClick: function () {
 
@@ -141,8 +158,14 @@
       testClick: function () {
 
       },
-      matchClick: function () {
 
+      getUserInfo: function () {
+        this.creditsNumber = this.$cookies.get('userCredits');
+        this.userName = this.$cookies.get('userName');
+      },
+
+      getModuleInfo: function () {
+        console.log('module');
       }
     }
   }
@@ -310,14 +333,15 @@
   .settings-form {
     padding: 30px 40px;
     margin-top: 10px;
+    margin-bottom: 20px;
   }
 
   .info-part {
     background: #acd8c7;
     width: 20%;
     color: #ffffff;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
     text-align: center;
     align-content: center;
   }
@@ -327,7 +351,7 @@
   }
 
   .modules-title {
-    margin-top: 10%;
+    margin-top: 7%;
   }
 
   .modules-words {
@@ -365,9 +389,9 @@
 
   .settings-form .actions-part {
     background: #eeeeee;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    padding-top: 40px;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    padding-top: 47px;
     padding-bottom: 40px;
     text-align: center;
     flex: 0 0 70%;
@@ -396,9 +420,14 @@
     margin: 0 10px;
   }
 
-  .module-words-inside button:hover {
+  .actions-part button:hover {
     background-color: #f56e72 !important;
     cursor: pointer;
+  }
+
+  .actions-part button:disabled {
+    background-color: #f59699 !important;
+    cursor: not-allowed;
   }
 
   /***********************************************/
@@ -410,6 +439,7 @@
     letter-spacing: 5px;
     position: absolute;
     width: 100%;
+    bottom: 0;
   }
 
   .hidden {

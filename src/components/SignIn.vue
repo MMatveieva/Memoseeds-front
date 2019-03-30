@@ -80,13 +80,13 @@
         }
       },
       signIn: function () {
-        let data =
-          {
-            data: {
-              'Login': this.name,
-              'Password': this.password
-            }
-          };
+        // let data =
+        //   {
+        //     data: {
+        //       'Login': this.name,
+        //       'Password': this.password
+        //     }
+        //   };
         let config = {
           headers: {
             'Access-Control-Allow-Origin': '*',

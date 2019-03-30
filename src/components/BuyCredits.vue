@@ -3,7 +3,9 @@
     <div class="card-header header">
       <div class="row">
         <div class="col-sm-1 logo">
-          <img src="../css/images/logo.png">
+          <router-link to="/allModules">
+            <img src="../css/images/logo.png">
+          </router-link>
         </div>
         <div class="col-sm-3 header-search input-group">
           <input type="text" class="form-control" placeholder="Search">
@@ -33,7 +35,7 @@
                   <router-link to="/myModules">My modules</router-link>
                 </b-dropdown-item>
                 <b-dropdown-item class="user-dropdown" href="#">
-                  <router-link to="/signIn" v-on:click="logOut" >Log out</router-link>
+                  <router-link to="/signIn" v-on:click="logOut">Log out</router-link>
                 </b-dropdown-item>
               </b-dropdown>
             </div>
@@ -137,6 +139,7 @@
       return {
         userName: "",
         userCredits: "",
+        price: [],
         currency: ""
       }
     },
@@ -145,7 +148,7 @@
       document.body.className = 'inside';
 
       //let cur = this.$cookies.get('country');
-      let cur = "USA";
+      let cur = "France";
 
       let config = {
         headers: {
@@ -155,10 +158,13 @@
         }
       };
 
-      axios.post('https://memeseeds.herokuapp.com/purchase/options', {"country": cur}, config)
+      axios.post('https://memeseeds.herokuapp.com/purchase/options', {"country": "USA"}, config)
         .then(response => {
           console.log(response.data);
-          //this.currency = response.data.currency;  // not sure about the field
+          for (let i = 0; i < 4; i++) {
+            let data = response.data.purchases[i];
+            this.price[i] = data.price.amount;
+          }
         })
         .catch(error => {
           console.log(error)
@@ -171,7 +177,8 @@
     },
 
     methods: {
-      logOut:function(){},
+      logOut: function () {
+      },
 
       buyClick: function () {
       },
@@ -184,7 +191,7 @@
         this.userCredits = this.$cookies.get('userCredits');
         this.userName = this.$cookies.get('userName');
       }
-      
+
     }
   }
 </script>
@@ -311,7 +318,7 @@
     padding-left: 0;
   }
 
-  .header-user img{
+  .header-user img {
     margin: 8px auto;
     width: 55px;
     height: 55px;

@@ -3,7 +3,9 @@
     <div class="card-header header">
       <div class="row">
         <div class="col-sm-1 logo">
-          <img src="../css/images/logo.png">
+          <router-link to="/allModules">
+            <img src="../css/images/logo.png">
+          </router-link>
         </div>
         <div class="col-sm-3 header-search input-group">
           <input type="text" class="form-control" placeholder="Search">
