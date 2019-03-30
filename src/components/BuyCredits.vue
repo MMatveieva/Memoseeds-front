@@ -19,8 +19,9 @@
         <div class="col-sm-3 header-user">
           <div class="row">
             <div class="col-sm-6">
-              <div class="user-photo-header">
-              </div>
+              <router-link to="/newModule">
+                <img src="../css/images/add-button.png">
+              </router-link>
             </div>
             <div class="user-acc col-sm-6">
               <b-dropdown class="user-name" offset="-16">
@@ -310,6 +311,12 @@
     padding-left: 0;
   }
 
+  .header-user img{
+    margin: 8px auto;
+    width: 55px;
+    height: 55px;
+  }
+
   .header-user .user-photo-header {
     margin: 5px auto;
     width: 60px;
@@ -410,9 +417,6 @@
     background-color: transparent !important;
     border: none !important;
   }
-
-  /*************************************/
-
 
   /*************************************/
 
