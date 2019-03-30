@@ -99,6 +99,7 @@
         axios.post('https://memeseeds.herokuapp.com/login', {"Username": this.name, "Password": this.password}, config)
           .then(response => {
             console.log(response.data);
+            this.$cookies.set("user_session", response.data['token'], 60 * 60 * 2);
             this.getCountry();
             router.push('recent');
           })
@@ -110,7 +111,7 @@
         axios.get('http://ip-api.com/json/?fields=3')
           .then(response =>{
             console.log(response.data);
-            this.$cookies.set('country', response.data.country);
+            this.$cookies.set('country', response.data.country, 60 * 60 * 2);
           });
         console.log('cookie -  ', this.$cookies.get("country"));
       }
