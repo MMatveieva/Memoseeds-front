@@ -170,7 +170,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .header {
     background-color: #12496d;
     padding-top: 0;

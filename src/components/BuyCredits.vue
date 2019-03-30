@@ -141,28 +141,39 @@
 
     beforeCreate: function () {
       document.body.className = 'inside';
-      this.getCurrency();
+
     },
+    created: function () {
+      this.getCurrency();
+      this.getUserCredits();
+    },
+
     methods: {
       buyClick: function () {
-
       },
+
       getCurrency: function () {
-        let cur = this.$cookies.get('country');
-        axios.post('https://memeseeds.herokuapp.com/options', {"country": cur})
+        //let cur = this.$cookies.get('country');
+        let cur = "Ukraine";
+        axios.get('https://memeseeds.herokuapp.com/purchase/options', {"country": cur})
           .then(response => {
             console.log(response.data);
-            this.currency = response.data.currency;  // not sure about the field
+            //this.currency = response.data.currency;  // not sure about the field
           })
           .catch(error => {
             console.log(error)
           });
+      },
+
+      getUserCredits: function () {
+        
       }
+      
     }
   }
 </script>
 
-<style>
+<style scoped>
   .credits-info {
     width: 100%;
     padding: 30px 40px;
@@ -213,7 +224,7 @@
     width: 100%;
   }
 
-  .coin-img img{
+  .coin-img img {
     width: 35px;
     height: 35px;
   }
@@ -223,7 +234,7 @@
     background-color: white;
     color: black;
     margin: auto 25px;
-    flex: 0 0 65%;
+    flex: 0 0 60%;
   }
 
   .buy-info .buy-number {
