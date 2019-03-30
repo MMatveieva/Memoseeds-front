@@ -45,7 +45,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import axios from 'axios'
 
   export default {
     name: "SignIn",
@@ -55,10 +55,11 @@
         password: "",
         noEmail: true,
         noPass: true,
-        noLogin: true
+        noLogin: true,
+        country: ""
       }
     },
-    beforeCreate: function() {
+    beforeCreate: function () {
       document.body.className = 'home';
     },
     methods: {
@@ -79,6 +80,8 @@
           console.log("have all comp");
           this.signIn();
         }
+      },
+      signIn: function () {
         let data =
           {
             data: {
@@ -95,13 +98,19 @@
         };
         axios.post('https://memeseeds.herokuapp.com/login', {"Login": this.email, "Password": this.password}, config)
           .then(response => {
-            console.log(response.data)
+            console.log(response.data);
+            this.getCountry();
           })
           .catch(error => {
             console.log(error)
           });
       },
-      signIn: function () {
+      getCountry: function () {
+        axios.get('http://ip-api.com/json/?fields=3')
+          .then(response => (this.country = response.data.country));
+        console.log("country - ", this.country);
+        this.$cookies.set('country', this.country);
+        console.log('cookie -  ', this.$cookies.get('country'));
       }
     }
   }

@@ -6,7 +6,10 @@ import router from './router'
 import BootstrapVue from "bootstrap-vue"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
+import VueCookies from "vue-cookies"
 
+
+Vue.use(VueCookies);
 Vue.use(BootstrapVue);
 Vue.config.productionTip = false;
 

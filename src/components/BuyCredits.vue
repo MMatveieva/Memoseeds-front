@@ -128,20 +128,35 @@
 </template>
 
 <script>
+  import axios from 'axios'
+
   export default {
     name: "BuyCredits",
     data() {
       return {
-        userCredits: ""
+        userCredits: "",
+        currency: ""
       }
     },
 
     beforeCreate: function () {
       document.body.className = 'inside';
+      this.getCurrency();
     },
     methods: {
       buyClick: function () {
 
+      },
+      getCurrency: function () {
+        let cur = this.$cookies.get('country');
+        axios.post('https://memeseeds.herokuapp.com/options', {"country": cur})
+          .then(response => {
+            console.log(response.data);
+            this.currency = response.data.currency;  // not sure about the field
+          })
+          .catch(error => {
+            console.log(error)
+          });
       }
     }
   }

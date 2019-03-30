@@ -17,6 +17,7 @@
     "express": "^4.16.4",
     "require": "^2.4.20",
     "vue": "^2.5.2",
+    "vue-cookies": "^1.5.13",
     "vue-router": "^3.0.1",
     "webpack-config-file": "^1.0.5"
   },
