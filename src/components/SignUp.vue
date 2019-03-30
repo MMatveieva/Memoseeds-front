@@ -23,13 +23,9 @@
         <form>
           <div class="form-group signUp-group">
             <input type="text" class="form-control" id="signUp-name"
-                   placeholder="Name" v-model="name_signUp" required v-on:keyup="nameEdit"
-                   v-bind:class="{not_ok: noNameOk}">
+                   placeholder="Name" v-model="name_signUp" required v-on:keyup="nameEdit">
             <small id="nameError" class="form-text text-muted" v-bind:class="{hidden: noName}">Please enter
               name.
-            </small>
-            <small id="nameError1" class="form-text text-muted" v-bind:class="{hidden: noNameOk}">Please
-              enter name without numbers.
             </small>
             <input type="email"
                    class="form-control" id="signUp-email"
@@ -37,15 +33,6 @@
             <small id="emailError" class="form-text text-muted" v-bind:class="{hidden: noEmail}">Please enter
               e-mail.
             </small>
-            <!--<input type="text" class="form-control" id="signUp-phone"-->
-                   <!--placeholder="Phone number" v-model="phone" required v-on:keyup="phoneEdit"-->
-                   <!--v-bind:class="{not_ok: noPhoneOk}">-->
-            <!--<small id="phoneError" class="form-text text-muted" v-bind:class="{hidden: noPhone}">Please enter-->
-              <!--phone number.-->
-            <!--</small>-->
-            <!--<small id="phoneError1" class="form-text text-muted" v-bind:class="{hidden: noPhoneOk}">Please enter-->
-              <!--phone number correctly.-->
-            <!--</small>-->
             <input type="password" class="form-control" id="signUp-password"
                    placeholder="Password" v-model="password" required v-on:keyup="passwordEdit">
             <small id="passwordError1" class="form-text text-muted" v-bind:class="{hidden: noPass}">Please enter
@@ -79,36 +66,26 @@
       return {
         name_signUp: "",
         email: "",
-        // phone: "",
         password: "",
         password_confirmation: "",
 
-        noNameOk: true,
         noName: true,
         noEmail: true,
-        // noPhoneOk: true,
-        // noPhone: true,
         noPass: true,
         noPassRep: true,
         noPassMatch: true
       }
     },
-    beforeCreate: function() {
+    beforeCreate: function () {
       document.body.className = 'home';
     },
 
     methods: {
       nameEdit: function () {
         this.noName = true;
-        this.noNameOk = true;
-        console.log("NAME");
       },
       emailEdit: function () {
         this.noEmail = true;
-      },
-      phoneEdit: function () {
-        this.noPhone = true;
-        this.noPhoneOk = true;
       },
       passwordEdit: function () {
         this.noPass = true;
@@ -117,52 +94,33 @@
         this.noPassRep = true;
         this.noPassMatch = true;
       },
-      checkName: function (data) {
-        let nameReg = /^[a-zA-Z-а-яА-Яії'є\s]*$/;
-        if (nameReg.test(data))
-          this.noNameOk = true;
-      },
-      checkPhone: function (data) {
-        let phoneReg = /^[0-9+]/;
-        if (phoneReg.test(data))
-          this.noPhoneOk = true;
-      },
       btnClick: function () {
         if (this.name_signUp == "")
           this.noName = false;
         if (this.email == "")
           this.noEmail = false;
-        if (this.phone == "")
-          this.noPhone = false;
         if (this.password == "")
           this.noPass = false;
         if (this.password_confirmation == "")
           this.noPassRep = false;
-        if ((this.name_signUp !== "") && (this.email !== "") &&
-          // (this.phone !== "") &&
-          (this.password !== "") &&
-          (this.password_confirmation !== "")) {
+        if ((this.name_signUp !== "") && (this.email !== "") && (this.password !== "") && (this.password_confirmation !== "")) {
           console.log("have all comp");
-          this.noNameOk = false;
           this.noPhoneOk = false;
           console.log("CLICK");
-          this.checkName(this.name_signUp);
           this.checkPhone(this.phone);
-          if ((this.noNameOk == true)
-            // && (this.noPhoneOk == true)
-          ) {
-            if (this.password === this.password_confirmation)
-              this.signUp();
-            else
-              this.noPassMatch = false;
-          }
+          if (this.password === this.password_confirmation)
+            this.signUp();
+          else
+            this.noPassMatch = false;
         }
 
       },
       signUp: function () {
-        axios.post('https://memeseeds.herokuapp.com/login', {body: JSON.stringify(this.email)},)
-          .then(response => this.responseData = response.data)
-          .catch(error => {
+        axios.post('https://memeseeds.herokuapp.com/login', {body: JSON.stringify(this.email)})
+          .then(response => {
+            this.responseData = response.data;
+            router.push('allModules');
+          }).catch(error => {
           });
       }
     }

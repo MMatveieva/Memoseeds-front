@@ -144,20 +144,17 @@
       document.body.className = 'inside';
 
       //let cur = this.$cookies.get('country');
-      let cur = "Ukraine";
+      let cur = "USA";
 
       let config = {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-        },
-        params: {
-          country: cur
         }
       };
 
-      axios.get('https://memeseeds.herokuapp.com/purchase/route', config)
+      axios.post('https://memeseeds.herokuapp.com/purchase/options', {"country": cur}, config)
         .then(response => {
           console.log(response.data);
           //this.currency = response.data.currency;  // not sure about the field

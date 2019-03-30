@@ -54,8 +54,12 @@
           <p>Credits available:</p>
           <label id="credits">{{creditsNumber}}</label>
         </div>
-        <a href="#" class="btn settings-btn" style="margin-bottom: 13px">GET CREDITS</a>
-        <a href="#" class="btn settings-btn">CREATE MODULES</a>
+        <a href="#" class="btn settings-btn" style="margin-bottom: 13px">
+          <router-link to="/buyCredits">GET CREDITS</router-link>
+        </a>
+        <a href="#" class="btn settings-btn">
+          <router-link to="/newModule">CREATE MODULES</router-link>
+        </a>
 
       </div>
       <div class="col-sm-7 module-words-inside">
@@ -321,10 +325,14 @@
     background-color: #f59699 !important;
     border-radius: 20px;
     font-size: 13px;
-    color: white;
-    width: 150px;
+    color: white !important;
+    width: 160px;
     height: 30px;
     margin-top: 10px;
+  }
+
+  .settings-btn a{
+    color: white !important;
   }
 
   .btn:hover {
@@ -410,7 +418,7 @@
     border-radius: 20px;
     font-size: 13px;
     color: white;
-    width: 150px;
+    width: 160px;
     height: 30px;
     margin-top: -10px;
     border-color: white;

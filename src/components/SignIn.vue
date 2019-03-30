@@ -23,9 +23,9 @@
         <form>
           <div class="form-group signIn-group">
             <input type="email" class="form-control" id="signIn-email"
-                   placeholder="Email" v-model="email" required v-on:keyup="emailEdit">
-            <small id="emailError" class="form-text text-muted hidden" v-bind:class="{hidden: noEmail}">Please
-              enter e-mail.
+                   placeholder="Name" v-model="name" required v-on:keyup="nameEdit">
+            <small id="emailError" class="form-text text-muted hidden" v-bind:class="{hidden: noName}">Please
+              enter nickname.
             </small>
             <input type="password" class="form-control" id="signIn-password"
                    placeholder="Password" v-model="password" required v-on:keyup="passwordEdit">
@@ -46,38 +46,38 @@
 
 <script>
   import axios from 'axios'
+  import router from '../router'
 
   export default {
     name: "SignIn",
     data() {
       return {
-        email: "",
+        name: "",
         password: "",
-        noEmail: true,
+        noName: true,
         noPass: true,
         noLogin: true,
-        country: ""
       }
     },
     beforeCreate: function () {
       document.body.className = 'home';
     },
     methods: {
-      emailEdit: function () {
-        this.noEmail = true;
+      nameEdit: function () {
+        this.noName = true;
       },
       passwordEdit: function () {
         this.noPass = true;
         this.noLogin = true;
       },
       btnClick: function () {
-        console.log("CLICK");
-        if (this.email == "")
-          this.noEmail = false;
+        // console.log("CLICK");
+        if (this.name == "")
+          this.noName = false;
         if (this.password == "")
           this.noPass = false;
-        if ((this.email != "") && (this.password != "")) {
-          console.log("have all comp");
+        if ((this.name != "") && (this.password != "")) {
+          // console.log("have all comp");
           this.signIn();
         }
       },
@@ -85,7 +85,7 @@
         let data =
           {
             data: {
-              'Login': this.email,
+              'Login': this.name,
               'Password': this.password
             }
           };
@@ -96,21 +96,23 @@
             'Content-Type': 'application/json',
           }
         };
-        axios.post('https://memeseeds.herokuapp.com/login', {"Login": this.email, "Password": this.password}, config)
+        axios.post('https://memeseeds.herokuapp.com/login', {"Username": this.name, "Password": this.password}, config)
           .then(response => {
             console.log(response.data);
             this.getCountry();
+            router.push('recent');
           })
           .catch(error => {
             console.log(error)
           });
       },
       getCountry: function () {
-        axios.get('http://ip-api.com/json/?fields=3', config)
-          .then(response => (this.country = response.data.country));
-        console.log("country - ", this.country);
-        this.$cookies.set('country', this.country);
-        console.log('cookie -  ', this.$cookies.get('country'));
+        axios.get('http://ip-api.com/json/?fields=3')
+          .then(response =>{
+            console.log(response.data);
+            this.$cookies.set('country', response.data.country);
+          });
+        console.log('cookie -  ', this.$cookies.get("country"));
       }
     }
   }
