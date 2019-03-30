@@ -68,11 +68,11 @@
         <div class="col-sm-9 buy-info">
           <div class="row">
             <div class="col-sm-6 buy-number">10 credits</div>
-            <div class="col-sm-6 buy-sum">0.99 $</div>
+            <div class="col-sm-6 buy-sum">{{price[0]}}0.99 $</div>
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
-          <button type="submit" class="btn buy-btn" v-on:click="buyClick">BUY</button>
+          <button id="buy10" type="submit" class="btn buy-btn" v-on:click="buyClick">BUY</button>
         </div>
       </div>
 
@@ -82,12 +82,12 @@
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
-            <div class="col-sm-6 buy-number">20 credits</div>
+            <div class="col-sm-6 buy-number">{{price[1]}}20 credits</div>
             <div class="col-sm-6 buy-sum">1.99 $</div>
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
-          <button type="submit" class="btn buy-btn" v-on:click="buyClick">BUY</button>
+          <button id="buy20" type="submit" class="btn buy-btn" v-on:click="buyClick">BUY</button>
         </div>
       </div>
 
@@ -97,12 +97,12 @@
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
-            <div class="col-sm-6 buy-number">30 credits</div>
+            <div class="col-sm-6 buy-number">{{price[2]}}30 credits</div>
             <div class="col-sm-6 buy-sum">3.99 $</div>
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
-          <button type="submit" class="btn buy-btn" v-on:click="buyClick">BUY</button>
+          <button id="buy30" type="submit" class="btn buy-btn" v-on:click="buyClick">BUY</button>
         </div>
       </div>
 
@@ -112,12 +112,12 @@
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
-            <div class="col-sm-6 buy-number">40 credits</div>
+            <div class="col-sm-6 buy-number">{{price[3]}}40 credits</div>
             <div class="col-sm-6 buy-sum">0.99 $</div>
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
-          <button type="submit" class="btn buy-btn" v-on:click="buyClick">BUY</button>
+          <button id="buy40" type="submit" class="btn buy-btn" v-on:click="buyClick">BUY</button>
         </div>
       </div>
 
@@ -158,13 +158,13 @@
         }
       };
 
-      axios.post('https://memeseeds.herokuapp.com/purchase/options', {"country": "USA"}, config)
+      axios.post('https://memeseeds.herokuapp.com/purchase/options', {"country": cur}, config)
         .then(response => {
           console.log(response.data);
           for (let i = 0; i < 4; i++) {
-            let data = response.data.purchases[i];
-            this.price[i] = data.price.amount;
+            this.price[i] = response.data.purchases[i].price.amount;
           }
+          this.currency = response.data.purchases[0].price.currency;
         })
         .catch(error => {
           console.log(error)
