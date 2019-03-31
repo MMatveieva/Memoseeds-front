@@ -149,7 +149,7 @@
               'Access-Control-Allow-Origin': '*',
               'Accept': 'application/json',
               'Content-Type': 'application/json',
-              'Authorization': this.$cookies.get('user_session')
+              'Authorization': 'Bearer' + this.$cookies.get('user_session')
             }
           };
           let pass = 'https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/username';
@@ -179,7 +179,7 @@
               'Access-Control-Allow-Origin': '*',
               'Accept': 'application/json',
               'Content-Type': 'application/json',
-              'Authorization': this.$cookies.get('user_session')
+              'Authorization': 'Bearer' + this.$cookies.get('user_session')
             }
           };
           let pass = 'https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/email';
@@ -204,7 +204,7 @@
             'Access-Control-Allow-Origin': '*',
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': this.$cookies.get('user_session')
+            'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
         let pass = 'https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/password';

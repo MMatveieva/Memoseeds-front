@@ -156,7 +156,7 @@
           'Access-Control-Allow-Origin': '*',
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': this.$cookies.get('user_session')
+          'Authorization': 'Bearer' + this.$cookies.get('user_session')
         }
       };
 
