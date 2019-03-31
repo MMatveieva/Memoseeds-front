@@ -1,56 +1,49 @@
 <template>
-  <div>
-  <Header></Header>
-    <div class="settings-form row">
-      <div class="col-sm-5 info-part">
-        <div class="user-photo">
+    <div class="card-header header">
+      <div class="row">
+        <div class="col-sm-1 logo">
+          <router-link to="/allModules">
+            <img src="../css/images/logo.png">
+          </router-link>
         </div>
-        <div class="modules-info">
-          <p>Number of modules:</p>
-          <label id="modules">{{modulesNumber}}</label>
-        </div>
-        <div class="credits-info">
-          <p>Credits available:</p>
-          <label id="credits">{{creditsNumber}}</label>
-        </div>
-        <a href="#" class="btn settings-btn" style="margin-bottom: 13px">
-          <router-link to="/buyCredits">GET CREDITS</router-link>
-        </a>
-        <a href="#" class="btn settings-btn">
-          <router-link to="/newModule">CREATE MODULE</router-link>
-        </a>
-
-      </div>
-      <div class="col-sm-7 module-words-inside">
-        <h4>EDIT ACCOUNT</h4>
-        <form v-on:keyup.enter="btnClick">
-          <div class="form-group edit-group">
-            <input type="text" class="form-control" id="edit-name"
-                   placeholder="Name" v-model="name_edit" v-on:keyup="nameEdit">
-            <small id="nameError1" class="form-text text-muted" v-bind:class="{hidden: noNameOk}">{{nameError}}</small>
-            <input type="email" class="form-control" id="edit-email"
-                   placeholder="Email" v-model="email">
-            <small id="mailError1" class="form-text text-muted" v-bind:class="{hidden: noMailOk}">{{mailError}}</small>
-            <input type="password" class="form-control" id="edit-password"
-                   placeholder="Old password" v-model="password" v-on:keyup="passwordEdit">
-            <small id="passwordError" class="form-text text-muted" v-bind:class="{hidden: noPassOk}">{{OldPassError}}
-            </small>
-            <input type="password" class="form-control" id="edit-new-password"
-                   placeholder="New password" v-model="password_new" v-on:keyup="passwordEdit">
-            <small class="form-text text-muted" v-bind:class="{hidden: noPassMatch}">{{passError}}
-            </small>
+        <div class="col-sm-3 header-search input-group">
+          <input type="text" class="form-control" placeholder="Search">
+          <div class="input-group-append search-btn">
+            <a href="#">
+              <img src="../css/images/search.png">
+            </a>
           </div>
-          <button type="submit" class="btn save-btn" v-on:click="btnClick">SAVE</button>
-        </form>
+        </div>
+        <div class="col-sm-5 header-text">
+          MEMOSEEDS
+        </div>
+        <div class="col-sm-3 header-user">
+          <div class="row">
+            <div class="col-sm-6">
+              <router-link to="/newModule">
+                <img src="../css/images/add-button.png">
+              </router-link>
+            </div>
+            <div class="user-acc col-sm-6">
+              <b-dropdown class="user-name" offset="-16">
+                <template slot="button-content">{{userName}}</template>
+                <b-dropdown-item class="user-dropdown" href="#">
+                  <router-link to="/settings">Settings</router-link>
+                </b-dropdown-item>
+                <b-dropdown-item class="user-dropdown" href="#">
+                  <router-link to="/recent">My modules</router-link>
+                </b-dropdown-item>
+                <b-dropdown-item class="user-dropdown" href="#">
+                  <label  v-on:click="logOut">Log out</label>
+                </b-dropdown-item>
+              </b-dropdown>
+            </div>
+          </div>
+        </div>
       </div>
-
     </div>
-
-    <div class="card-footer footer">
-      MEMOSEEDS INC., ALL RIGHTS RESERVED
-    </div>
-  </div>
 </template>
+
 
 <script>
   import axios from 'axios'
@@ -229,6 +222,15 @@
             console.log(error);
             alert("Error occurred during loading modules. Please try again");
           });
+      },
+      logOut: function () {
+        this.$cookies.remove("user_session");
+        this.$cookies.remove("userName");
+        this.$cookies.remove("userCredits");
+        this.$cookies.remove("userMail");
+        this.$cookies.remove("userId");
+        this.$cookies.remove('country');
+        router.push('signIn');
       }
     }
   }
@@ -239,6 +241,7 @@
     background-color: #12496d;
     padding-top: 0;
     padding-bottom: 0;
+    margin-bottom: 20px;
   }
 
   .logo img {
@@ -315,14 +318,10 @@
     color: #0b486d !important;
   }
 
-  .user-name .btn {
-    background-color: transparent !important;
+  .user-name button {
+    background-color: transparent;
     border: none;
     color: #ffffff;
-  }
-
-  .dropdown-toggle {
-    background-color: transparent !important;
   }
 
   .user-name button:hover {
@@ -362,113 +361,87 @@
     color: white;
   }
 
-  .settings-btn {
-    background-color: #f59699 !important;
-    border-radius: 20px;
-    font-size: 13px;
-    color: white !important;
-    width: 155px;
-    height: 30px;
-    margin-top: 10px;
+  /***********************************************/
+
+  .actions-part .action-text {
+    margin: auto;
   }
 
-  .settings-btn a {
-    color: white !important;
+  .actions-part .btn-container {
+    margin: auto;
   }
+
+  /*********************************/
 
   .btn:hover {
     color: white !important;
-    background: #f56e72 !important;
+    background: #12587c !important;
     text-decoration: none;
+    cursor: pointer;
   }
 
   .settings-form {
-    width: 600px;
-    margin: auto;
-    padding: 30px 0;
+    padding: 10px 40px;
+  }
+
+  .settings-form .row {
+    width: 100%;
+    margin: 0;
   }
 
   .info-part {
-    background: #12496d;
+    background: #acd8c7;
     color: #ffffff;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    padding-top: 0;
-    padding-bottom: 40px;
-    padding-left: 20px;
-    padding-right: 20px;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
     text-align: center;
-    align-content: center;
-  }
-
-  .user-photo {
-    margin: 30px auto;
-    width: 110px;
-    height: 110px;
-    background-color: white;
-    border-radius: 50%;
+    box-sizing: content-box;
   }
 
   .info-part p {
     margin-bottom: 0;
   }
 
+  .modules-title {
+    margin-top: 7%;
+    font-size: 1.7rem;
+  }
+
   .modules-info {
-    margin-bottom: 10px;
-  }
-
-  .credits-info {
-    margin-bottom: 10px;
-  }
-
-  .module-words-inside {
-    background: #ffffff;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 20px;
-    text-align: center;
-  }
-
-  .module-words-inside h4 {
-    margin-top: 20px;
-    margin-bottom: 15px;
+    font-size: 100%;
     color: #12496d;
   }
 
-  .module-words-inside .form-group {
-    padding: 10px 45px;
-    margin-bottom: 0 !important;
+  .modules-info label {
+    margin-bottom: 0.1rem;
   }
 
-  .module-words-inside .form-control {
-    margin: 15px 0;
-    background-color: #f5f6f7;
-    height: 30px;
-    border: none !important;
+  .settings-form .actions-part {
+    background: #eeeeee;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    padding-top: 30px;
+    padding-bottom: 0;
+    text-align: center;
+    flex: 0 0 70%;
   }
 
-  .form-group input::placeholder {
-    color: #000000 !important;
-    font-weight: 500 !important;
-  }
-
-  .module-words-inside .save-btn {
-    background-color: #f59699 !important;
+  .actions-part .action-btn {
+    background-color: #2095a6 !important;
     border-radius: 20px;
-    font-size: 13px;
+    font-size: 15px;
     color: white;
-    width: 155px;
+    width: 120px;
     height: 30px;
-    margin-top: -10px;
     border-color: white;
+    margin: 0;
   }
 
-  .module-words-inside button:hover {
-    background-color: #f56e72 !important;
-    cursor: pointer;
+  .action-btn a {
+    color: white;
   }
+
+  /***********************************************/
 
   .footer {
     text-align: center;
@@ -477,6 +450,7 @@
     letter-spacing: 5px;
     position: absolute;
     width: 100%;
+    bottom: 0;
   }
 
   .hidden {
