@@ -27,7 +27,7 @@
             </div>
             <div class="user-acc col-sm-6">
               <b-dropdown class="user-name" offset="-16">
-                <template slot="button-content">{{userName}} user-acc</template>
+                <template slot="button-content">{{userName}}</template>
                 <b-dropdown-item class="user-dropdown" href="#">
                   <router-link to="/settings">Settings</router-link>
                 </b-dropdown-item>
@@ -60,7 +60,7 @@
           <router-link to="/buyCredits">GET CREDITS</router-link>
         </a>
         <a href="#" class="btn settings-btn">
-          <router-link to="/newModule">CREATE MODULES</router-link>
+          <router-link to="/newModule">CREATE MODULE</router-link>
         </a>
 
       </div>
@@ -70,20 +70,17 @@
           <div class="form-group edit-group">
             <input type="text" class="form-control" id="edit-name"
                    placeholder="Name" v-model="name_edit" v-on:keyup="nameEdit">
-            <!--<small id="nameError1" class="form-text text-muted" v-bind:class="{hidden: noNameOk}">Username already-->
-            <!--exists-->
-            <!--</small>-->
+            <small id="nameError1" class="form-text text-muted" v-bind:class="{hidden: noNameOk}">{{nameError}}</small>
             <input type="email" class="form-control" id="edit-email"
                    placeholder="Email" v-model="email">
+            <small id="mailError1" class="form-text text-muted" v-bind:class="{hidden: noMailOk}">{{mailError}}</small>
             <input type="password" class="form-control" id="edit-password"
                    placeholder="Old password" v-model="password" v-on:keyup="passwordEdit">
-            <small id="passwordError" class="form-text text-muted" v-bind:class="{hidden: noPassOk}">Incorrect
-              password.
+            <small id="passwordError" class="form-text text-muted" v-bind:class="{hidden: noPassOk}">{{OldPassError}}
             </small>
             <input type="password" class="form-control" id="edit-new-password"
                    placeholder="New password" v-model="password_new" v-on:keyup="passwordEdit">
-            <small class="form-text text-muted" v-bind:class="{hidden: noPassMatch}">New password can`t match
-              new password.
+            <small class="form-text text-muted" v-bind:class="{hidden: noPassMatch}">{{passError}}
             </small>
           </div>
           <button type="submit" class="btn save-btn" v-on:click="btnClick">SAVE</button>
@@ -99,6 +96,8 @@
 </template>
 
 <script>
+  import axios from 'axios'
+
   export default {
     name: "Settings",
 
@@ -113,8 +112,13 @@
         password: "",
         password_new: "",
         noNameOk: true,
+        noMailOk: true,
         noPassOk: true,
         noPassMatch: true,
+        nameError: "",
+        passError: "",
+        OldPassError: "",
+        mailError: ""
       }
     },
     beforeCreate: function () {
@@ -135,22 +139,103 @@
         this.noPassMatch = true;
       },
       nameChange: function () {
+        if (this.$cookies.get('userName') == this.name_edit) {
+          this.nameError = "New username matches old username.";
+          this.noNameOk = false;
+        } else {
+
+          let config = {
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': this.$cookies.get('user_session')
+            }
+          };
+          let pass = 'https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/username';
+          axios.post(pass, {"Old": this.$cookies.get('userName'), "New": this.name_edit}, config)
+            .then(response => {
+              if (response.data.error != null) {
+                this.nameError = response.data.error;
+                this.noNameOk = false;
+              } else {
+                console.log(response.data);
+                this.$cookies.set('userName', this.name_edit);
+              }
+            })
+            .catch(error => {
+              console.log(error)
+            });
+        }
+
       },
       emailChange: function () {
+        if (this.$cookies.get('userName') == this.name_edit) {
+          this.mailError = "New email matches old email.";
+          this.noMailOk = false;
+        } else {
+          let config = {
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': this.$cookies.get('user_session')
+            }
+          };
+          let pass = 'https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/email';
+          axios.post(pass, {"Old": this.$cookies.get('userMail'), "New": this.email}, config)
+            .then(response => {
+              if (response.data.error != null) {
+                this.mailError = response.data.error;
+                this.noMailOk = false;
+              } else {
+                console.log(response.data);
+                this.$cookies.set('userMail', this.email);
+              }
+            })
+            .catch(error => {
+              console.log(error)
+            });
+        }
       },
       passwordChange: function () {
+        let config = {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': this.$cookies.get('user_session')
+          }
+        };
+        let pass = 'https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/password';
+        axios.post(pass, {"Old": this.password, "New": this.password_new}, config)
+          .then(response => {
+            if (response.data.error != null) {
+              this.noPassMatch = false;
+              this.passError = response.data.error;
+            } else {
+              console.log(response.data);
+            }
+          })
+          .catch(error => {
+            console.log(error)
+          });
       },
 
       btnClick: function () {
-        if (this.name_edit != "") {
-          this.checkName(this.name_edit);
-          if (this.noNameOk == false)
-            this.nameChange();
-        }
+        if (this.name_edit != "")
+          this.nameChange();
+
         if (this.email != "")
           this.emailChange();
+
         if ((this.password != "") && (this.password_new != ""))
           this.passwordChange();
+        else if (((this.password == "") && (this.password_new != "")) ||
+          ((this.password != "") && (this.password_new == ""))) {
+          this.noPassMatch = false;
+          this.passError = "Please fill both fields.";
+        }
       },
 
       getUserInfo: function () {
@@ -159,6 +244,27 @@
       },
 
       getUserModules: function () {
+        let config = {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': this.$cookies.get('user_session')
+          }
+        };
+        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
+        axios.get(pass, config)
+          .then(response => {
+            console.log(response.data);
+            this.modulesNumber = response.data.length;
+          })
+          .catch(error => {
+            console.log(error);
+            alert("Error occurred during loading modules. Please try again");
+          });
+      },
+
+      logOut: function () {
 
       }
     }

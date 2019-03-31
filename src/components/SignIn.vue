@@ -22,7 +22,7 @@
         <h4>SIGN IN</h4>
         <form>
           <div class="form-group signIn-group">
-            <input type="email" class="form-control" id="signIn-email"
+            <input type="text" class="form-control" id="signIn-name"
                    placeholder="Name" v-model="name" required v-on:keyup="nameEdit">
             <small id="emailError" class="form-text text-muted hidden" v-bind:class="{hidden: noName}">Please
               enter nickname.

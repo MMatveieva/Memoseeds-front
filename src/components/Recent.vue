@@ -101,8 +101,29 @@
 <script>
   export default {
     name: "Recent",
+
+    data() {
+      return {
+        userName: ""
+      }
+    },
+
     beforeCreate: function () {
       document.body.className = 'inside';
+    },
+
+    created: function () {
+      this.getUserInfo();
+    },
+
+    methods: {
+      getUserInfo: function () {
+        this.userName = this.$cookies.get('userName');
+      },
+      
+      logOut: function () {
+        
+      }
     }
   }
 </script>
@@ -136,14 +157,6 @@
     margin: 8px auto;
     width: 55px;
     height: 55px;
-  }
-
-  .header-user .user-photo-header {
-    margin: 5px auto;
-    width: 60px;
-    height: 60px;
-    background-color: white;
-    border-radius: 50%;
   }
 
   .header-search {

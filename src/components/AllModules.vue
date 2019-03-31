@@ -157,6 +157,7 @@
             'Access-Control-Allow-Origin': '*',
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Authorization': this.$cookies.get('user_session')
           }
         };
 
@@ -209,14 +210,6 @@
     margin: 8px auto;
     width: 55px;
     height: 55px;
-  }
-
-  .header-user .user-photo-header {
-    margin: 5px auto;
-    width: 60px;
-    height: 60px;
-    background-color: white;
-    border-radius: 50%;
   }
 
   .header-search {
