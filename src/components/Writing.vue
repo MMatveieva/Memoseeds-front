@@ -48,7 +48,7 @@
       <div class="settings-form">
         <div class="row" style="width: 100%; margin: 0">
           <div class="col-sm-3 info-part">
-            <h2 class="modules-title">{{moduleName}}</h2>
+            <h2 class="modules-title">{{moduleName}}F</h2>
             <div class="modules-info">
               <p>Number of words:</p>
               <label id="modules1">{{wordsAll}}</label>
@@ -64,13 +64,13 @@
             </div>
             <div class="modules-info">
               <p>Incorrect:</p>
-              <label id="modules4">{{wordsIncorrect}}</label>
+              <label id="modules4">{{wordsIncorrect}}0</label>
             </div>
           </div>
 
           <div class="col-sm-9 actions-part">
             <div class="action-text">
-              Your brother's wife
+              Your brother's wife{{wordDef}}
             </div>
             <div class="action-input">
               <input type="text" class="ans-input" placeholder="Write your answer here">
@@ -111,7 +111,8 @@
         moduleName: "",
         wordsLeft: "",
         wordsCorrect: "",
-        wordsIncorrect: ""
+        wordsIncorrect: "",
+        wordDef: ""
 
       }
     },
@@ -259,19 +260,20 @@
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
     padding-top: 40px;
+    padding-bottom: 8px;
     text-align: center;
     flex: 0 0 70%;
   }
 
   .actions-part .action-text {
-    margin-top: 11%;
+    margin-top: 7%;
     color: #0b486d;
     font-size: 1.7rem;
     font-weight: 500;
   }
 
   .actions-part .action-input {
-    margin-top: 20px;
+    margin-top: 15%;
   }
 
   .actions-part .btn-container {
@@ -295,7 +297,7 @@
   }
 
   .actions-part .action-service {
-    margin-top: 50px;
+    margin-top: 30px;
   }
 
   /*********************************/
