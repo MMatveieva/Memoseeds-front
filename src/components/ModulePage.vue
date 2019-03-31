@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card-header header ">
+    <div class="card-header header">
       <div class="row">
         <div class="col-sm-1 logo">
           <router-link to="/allModules">
@@ -27,16 +27,15 @@
             </div>
             <div class="user-acc col-sm-6">
               <b-dropdown class="user-name" offset="-16">
-                <template slot="button-content" style="background: transparent">{{userName}} acc</template>
+                <template slot="button-content">{{userName}} user-acc</template>
                 <b-dropdown-item class="user-dropdown" href="#">
                   <router-link to="/settings">Settings</router-link>
                 </b-dropdown-item>
-
-                <router-link to="/myModules">
-                  <b-dropdown-item class="user-dropdown" href="#">My modules</b-dropdown-item>
-                </router-link>
                 <b-dropdown-item class="user-dropdown" href="#">
-                  <router-link to="/signIn">Log out</router-link>
+                  <router-link to="/recent">My modules</router-link>
+                </b-dropdown-item>
+                <b-dropdown-item class="user-dropdown" href="#">
+                  <router-link to="/signIn" v-on:click="logOut">Log out</router-link>
                 </b-dropdown-item>
               </b-dropdown>
             </div>

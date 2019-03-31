@@ -32,7 +32,7 @@
                   <router-link to="/settings">Settings</router-link>
                 </b-dropdown-item>
                 <b-dropdown-item class="user-dropdown" href="#">
-                  <router-link to="/myModules">My modules</router-link>
+                  <router-link to="/recent">My modules</router-link>
                 </b-dropdown-item>
                 <b-dropdown-item class="user-dropdown" href="#">
                   <router-link to="/signIn" v-on:click="logOut">Log out</router-link>

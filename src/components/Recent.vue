@@ -27,19 +27,16 @@
             </div>
             <div class="user-acc col-sm-6">
               <b-dropdown class="user-name" offset="-16">
-                <template slot="button-content">user-acc</template>
+                <template slot="button-content">{{userName}} user-acc</template>
                 <b-dropdown-item class="user-dropdown" href="#">
                   <router-link to="/settings">Settings</router-link>
                 </b-dropdown-item>
-
                 <b-dropdown-item class="user-dropdown" href="#">
-                  <router-link to="/myModules">My modules</router-link>
+                  <router-link to="/recent">My modules</router-link>
                 </b-dropdown-item>
-
                 <b-dropdown-item class="user-dropdown" href="#">
-                  <router-link to="/signIn">Log out</router-link>
+                  <router-link to="/signIn" v-on:click="logOut">Log out</router-link>
                 </b-dropdown-item>
-
               </b-dropdown>
             </div>
           </div>
@@ -104,7 +101,7 @@
 <script>
   export default {
     name: "Recent",
-    beforeCreate: function() {
+    beforeCreate: function () {
       document.body.className = 'inside';
     }
   }
@@ -135,7 +132,7 @@
     padding-left: 0;
   }
 
-  .header-user img{
+  .header-user img {
     margin: 8px auto;
     width: 55px;
     height: 55px;
