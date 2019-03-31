@@ -27,7 +27,7 @@
             </div>
             <div class="user-acc col-sm-6">
               <b-dropdown class="user-name" offset="-16">
-                <template slot="button-content">{{userName}} user-acc</template>
+                <template slot="button-content">{{userName}}</template>
                 <b-dropdown-item class="user-dropdown" href="#">
                   <router-link to="/settings">Settings</router-link>
                 </b-dropdown-item>
@@ -45,50 +45,40 @@
     </div>
 
 
-    <div class="recent-container row">
-      <div class="col-sm-3 recent">
-        <div class="recent-title">Transport</div>
-        <div class="recent-info">
-          <div class="words-info">
-            <p>Number of words:</p>
-            <label>123/200</label>
+    <div class="recent-wrapper">
+
+      <div class="module-container">
+        <div class="settings-form">
+          <div class="row">
+            <div class="col-sm-3 info-part">
+              <h2 class="modules-title">Family</h2>
+              <div class="modules-info">
+                <p>Number of words:</p>
+                <label id="module">{{wordsNumber[0]}}</label>
+              </div>
+            </div>
+
+            <div class="col-sm-9 actions-part">
+              <div class="row">
+                <div class="col-sm-8 action-text">
+                  Marriage, household, vehicle, airplane railway station
+                </div>
+                <div class="col-sm-4 btn-container">
+                  <button type="submit" class="btn action-btn" v-on:click="startClick">
+                    <router-link to="/module">START</router-link>
+                  </button>
+                </div>
+              </div>
+            </div>
+
           </div>
-          <div class="example">
-            <p>Example:</p>
-            <label>Car, Tram, Vehicle, Airplane, Petrol, Wheels</label>
-          </div>
-          <button type="submit" class="btn start-btn">START</button>
-        </div>
-      </div>
-      <div class="col-sm-3 recent">
-        <div class="recent-title">Transport</div>
-        <div class="recent-info">
-          <div class="words-info">
-            <p>Number of words:</p>
-            <label>123/200</label>
-          </div>
-          <div class="example">
-            <p>Example:</p>
-            <label>Car, Tram, Vehicle, Airplane, Petrol, Wheels</label>
-          </div>
-          <button type="submit" class="btn start-btn">START</button>
-        </div>
-      </div>
-      <div class="col-sm-3 recent">
-        <div class="recent-title">Transport</div>
-        <div class="recent-info">
-          <div class="words-info">
-            <p>Number of words:</p>
-            <label>123/200</label>
-          </div>
-          <div class="example">
-            <p>Example:</p>
-            <label>Car, Tram, Vehicle, Airplane, Petrol, Wheels</label>
-          </div>
-          <button type="submit" class="btn start-btn">START</button>
         </div>
       </div>
 
+    </div>
+
+    <div class="go-to-shop">
+      <button type="button" class="go-btn">GO TO ALL MODULES</button>
     </div>
 
 
@@ -99,12 +89,16 @@
 </template>
 
 <script>
+  import axios from 'axios'
+  import router from '../router'
+
   export default {
     name: "Recent",
 
     data() {
       return {
-        userName: ""
+        userName: "",
+        wordsNumber: []
       }
     },
 
@@ -123,6 +117,26 @@
       },
 
       getUserModules: function () {
+        let config = {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + this.$cookies.get('user_session')
+          }
+        };
+        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
+        axios.get(pass, config)
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.log(error);
+            alert("Error occurred during loading modules. Please try again");
+          });
+      },
+
+      startClick: function () {
       },
 
       logOut: function () {
@@ -253,69 +267,114 @@
 
   /*************************************/
 
-  .recent-container {
+  .recent-wrapper {
+    margin-top: 20px;
+  }
+
+  .actions-part .action-text {
+    margin: auto;
+  }
+
+  .actions-part .btn-container {
+    margin: auto;
+  }
+
+  .btn:hover {
+    color: white !important;
+    background: #12587c !important;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .settings-form {
+    padding: 10px 40px;
+  }
+
+  .settings-form .row {
     width: 100%;
-    margin: auto;
-    padding: 70px 0;
-  }
-
-  .recent-container .recent {
-    margin: auto;
-    background-color: #ffffff;
-    border-radius: 10px;
-    text-align: center;
-    padding: 0 !important;
-  }
-
-  .recent .recent-title {
-    background-color: #acd8c7;
-    color: #ffffff;
-    font-size: 21px;
-    font-weight: 500;
-    letter-spacing: 3px;
-    height: 70px;
-    line-height: 70px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    vertical-align: center;
-  }
-
-  .recent .words-info {
-    margin-bottom: 10px;
-    margin-top: 10px;
-    color: #0b486d;
-  }
-
-  .recent .words-info p, .recent .example p {
     margin: 0;
   }
 
-  .recent .example {
-    color: #0b486d;
-    margin-bottom: 10px;
+  .info-part {
+    background: #acd8c7;
+    color: #ffffff;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+    text-align: center;
+    box-sizing: content-box;
   }
 
-  .recent .recent-info {
-    padding: 10px 15px;
-    font-size: 16px;
+  .info-part p {
+    margin-bottom: 0;
   }
 
-  .start-btn {
-    background-color: #f59699 !important;
+  .modules-title {
+    margin-top: 7%;
+    font-size: 1.7rem;
+  }
+
+  .modules-info {
+    font-size: 100%;
+    color: #12496d;
+  }
+
+  .modules-info label {
+    margin-bottom: 0.1rem;
+  }
+
+  .settings-form .actions-part {
+    background: #eeeeee;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    padding-top: 30px;
+    padding-bottom: 0;
+    text-align: center;
+    flex: 0 0 70%;
+  }
+
+  .actions-part .action-btn {
+    background-color: #2095a6 !important;
     border-radius: 20px;
-    font-size: 13px;
+    font-size: 15px;
     color: white;
-    width: 150px;
-    height: 20px;
-    padding: 0 !important;
-    margin-bottom: 5px;
+    width: 120px;
+    height: 30px;
+    border-color: white;
+    margin: 0;
   }
 
-  .recent button:hover {
-    background-color: #f56e72 !important;
+  .action-btn a {
+    color: white;
+  }
+
+  .action-btn a:hover {
+    color: white;
+    text-decoration: none;
+  }
+
+  .actions-part button:hover {
+    background-color: #186e7a !important;
+    cursor: pointer;
   }
 
   /*************************************/
+
+  .go-to-shop {
+    margin-top: 10px;
+    padding: 10px 40px;
+    text-align: right;
+  }
+
+  .go-to-shop .go-btn {
+    background-color: #0b486d;
+    color: white;
+    width: 210px;
+    border-radius: 20px;
+    font-size: 14px;
+    height: 35px;
+    border-color: white;
+    padding-top: 4px;
+  }
 
   .footer {
     text-align: center;
