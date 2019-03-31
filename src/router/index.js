@@ -7,6 +7,8 @@ import Recent from '@/components/Recent'
 import ModulePage from '@/components/ModulePage'
 import AllModules from '@/components/AllModules'
 import BuyCredits from '@/components/BuyCredits'
+import Learning from '@/components/Learning'
+import Writing from '@/components/Writing'
 
 Vue.use(Router);
 
@@ -51,6 +53,16 @@ export default new Router({
       path: '/buyCredits',
       name: 'buyCredits',
       component: BuyCredits
+    },
+    {
+      path: '/learn',
+      name: 'learn',
+      component: Learning
+    },
+    {
+      path: '/write',
+      name: 'write',
+      component: Writing
     }
   ]
 })
