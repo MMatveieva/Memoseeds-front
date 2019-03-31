@@ -114,15 +114,19 @@
 
     created: function () {
       this.getUserInfo();
+      this.getUserModules();
     },
 
     methods: {
       getUserInfo: function () {
         this.userName = this.$cookies.get('userName');
       },
-      
+
+      getUserModules: function () {
+      },
+
       logOut: function () {
-        
+
       }
     }
   }

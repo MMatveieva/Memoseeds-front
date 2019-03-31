@@ -164,6 +164,8 @@
               }
             })
             .catch(error => {
+              this.noPassMatch = false;
+              this.passError = "An error occured.";
               console.log(error)
             });
         }
@@ -194,6 +196,8 @@
               }
             })
             .catch(error => {
+              this.noPassMatch = false;
+              this.passError = "An error occured.";
               console.log(error)
             });
         }
@@ -218,6 +222,8 @@
             }
           })
           .catch(error => {
+            this.noPassMatch = false;
+            this.passError = "An error occured.";
             console.log(error)
           });
       },
