@@ -12,6 +12,17 @@ import Writing from '@/components/Writing'
 
 Vue.use(Router);
 
+const ifAuthenticated = (to, from, next) =>
+{
+  let access_token = Vue.cookies.isKey("user_session");
+  if(access_token)
+  {
+    next()
+    return
+  }
+  next('/signIn')
+}
+
 export default new Router({
   routes: [
     {
@@ -32,37 +43,44 @@ export default new Router({
     {
       path: '/settings',
       name: 'settings',
-      component: Settings
+      component: Settings,
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/recent',
       name: 'recent',
-      component: Recent
+      component: Recent,
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/module',
       name: 'modulePage',
-      component: ModulePage
+      component: ModulePage,
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/allModules',
       name: 'allModules',
-      component: AllModules
+      component: AllModules,
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/buyCredits',
       name: 'buyCredits',
-      component: BuyCredits
+      component: BuyCredits,
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/learn',
       name: 'learn',
-      component: Learning
+      component: Learning,
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/write',
       name: 'write',
-      component: Writing
+      component: Writing,
+      beforeEnter: ifAuthenticated
     }
   ]
 })
