@@ -66,7 +66,7 @@
       </div>
       <div class="col-sm-7 module-words-inside">
         <h4>EDIT ACCOUNT</h4>
-        <form>
+        <form v-on:keyup.enter="btnClick">
           <div class="form-group edit-group">
             <input type="text" class="form-control" id="edit-name"
                    placeholder="Name" v-model="name_edit" v-on:keyup="nameEdit">

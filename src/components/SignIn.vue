@@ -20,20 +20,20 @@
       </div>
       <div class="col-sm-7 signIn-prop">
         <h4>SIGN IN</h4>
-        <form>
+        <form v-on:keyup.enter="btnClick">
           <div class="form-group signIn-group">
             <input type="text" class="form-control" id="signIn-name"
                    placeholder="Name" v-model="name" required v-on:keyup="nameEdit">
-            <small id="emailError" class="form-text text-muted hidden" v-bind:class="{hidden: noName}">Please
-              enter nickname.
+            <small id="emailError" class="form-text text-muted hidden" v-bind:class="{hidden: noName}">
+              {{nameError}}
             </small>
             <input type="password" class="form-control" id="signIn-password"
                    placeholder="Password" v-model="password" required v-on:keyup="passwordEdit">
-            <small id="passwordError" class="form-text text-muted hidden" v-bind:class="{hidden: noPass}">Please
-              enter password.
+            <small id="passwordError" class="form-text text-muted hidden" v-bind:class="{hidden: noPass}">
+              {{passError}}
             </small>
             <small id="signInError" class="form-text text-muted hidden" v-bind:class="{hidden: noLogin}"
-                   style="margin-bottom: 10px">
+                   style="margin-bottom: 10px">{{loginError}}
               Incorrect email or password.
             </small>
           </div>
@@ -58,6 +58,10 @@
         noName: true,
         noPass: true,
         noLogin: true,
+
+        nameError: "",
+        passError: "",
+        loginError: ""
       }
     },
     beforeCreate: function () {
@@ -72,22 +76,27 @@
         this.noLogin = true;
       },
       btnClick: function () {
-        if (this.name == "")
+        if (this.name == "") {
           this.noName = false;
-        if (this.password == "")
+          this.nameError = "Please enter username or email.";
+        }
+        if (this.password == "") {
           this.noPass = false;
+          this.passError = "Please enter password.";
+        }
         if ((this.name != "") && (this.password != "")) {
           this.signIn();
         }
       },
       signIn: function () {
-        // let data =
-        //   {
-        //     data: {
-        //       'Login': this.name,
-        //       'Password': this.password
-        //     }
-        //   };
+        this.noName = true;
+        this.noPass = true;
+        this.noLogin = true;
+
+        let isUserName = true;
+        if (this.name.includes('@'))
+          isUserName = false;
+
         let config = {
           headers: {
             'Access-Control-Allow-Origin': '*',
@@ -95,16 +104,24 @@
             'Content-Type': 'application/json',
           }
         };
-        axios.post('https://memeseeds.herokuapp.com/login', {"Username": this.name, "Password": this.password}, config)
+        axios.post('https://memeseeds.herokuapp.com/login', {
+          "Username": this.name,
+          "isUsername": isUserName,
+          "Password": this.password
+        }, config)
           .then(response => {
-            // console.log(response.data);
-            this.$cookies.set("user_session", response.data['token'], 60 * 60 * 2);
-            this.$cookies.set("userName", response.data.info.username, 60 * 60 * 2);
-            this.$cookies.set("userCredits", response.data.info.credits, 60 * 60 * 2);
-            this.$cookies.set("userMail", response.data.info.email, 60 * 60 * 2);
-            this.$cookies.set("userId", response.data.info.userId, 60 * 60 * 2);
-            this.getCountry();
-            router.push('recent');
+            if (response.data.error != null) {
+              this.noLogin = false;
+              this.loginError = response.data.error;
+            } else {
+              this.$cookies.set("user_session", response.data['token'], 60 * 60 * 2);
+              this.$cookies.set("userName", response.data.info.username, 60 * 60 * 2);
+              this.$cookies.set("userCredits", response.data.info.credits, 60 * 60 * 2);
+              this.$cookies.set("userMail", response.data.info.email, 60 * 60 * 2);
+              this.$cookies.set("userId", response.data.info.userId, 60 * 60 * 2);
+              this.getCountry();
+              router.push('recent');
+            }
           })
           .catch(error => {
             console.log(error)
@@ -113,7 +130,6 @@
       getCountry: function () {
         axios.get('http://ip-api.com/json/?fields=3')
           .then(response => {
-            // console.log(response.data);
             this.$cookies.set('country', response.data.country, 60 * 60 * 2);
           });
       }

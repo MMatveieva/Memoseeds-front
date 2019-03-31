@@ -20,7 +20,7 @@
       </div>
       <div class="col-sm-7 signUp-prop">
         <h4>CREATE ACCOUNT</h4>
-        <form>
+        <form v-on:keyup.enter="btnClick">
           <div class="form-group signUp-group">
             <input type="text" class="form-control" id="signUp-name"
                    placeholder="Name" v-model="name_signUp" required v-on:keyup="nameEdit">
@@ -150,15 +150,19 @@
           "Password": this.password
         }, config)
           .then(response => {
-            //this.responseData = response.data;
-            console.log(response.data);
-            this.$cookies.set("user_session", response.data['token'], 60 * 60 * 2);
-            this.$cookies.set("userName", response.data.info.username, 60 * 60 * 2);
-            this.$cookies.set("userCredits", response.data.info.credits, 60 * 60 * 2);
-            this.$cookies.set("userMail", response.data.info.email, 60 * 60 * 2);
-            this.$cookies.set("userId", response.data.info.userId, 60 * 60 * 2);
-            this.getCountry();
-            router.push('allModules');
+            if (response.data.error != null) {
+              this.signUpError = false;
+              this.signUpError = response.data.error;
+            } else {
+              console.log(response.data);
+              this.$cookies.set("user_session", response.data['token'], 60 * 60 * 2);
+              this.$cookies.set("userName", response.data.info.username, 60 * 60 * 2);
+              this.$cookies.set("userCredits", response.data.info.credits, 60 * 60 * 2);
+              this.$cookies.set("userMail", response.data.info.email, 60 * 60 * 2);
+              this.$cookies.set("userId", response.data.info.userId, 60 * 60 * 2);
+              this.getCountry();
+              router.push('allModules');
+            }
           })
           .catch(error => {
             console.log(error);
