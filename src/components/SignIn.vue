@@ -32,7 +32,8 @@
             <small id="passwordError" class="form-text text-muted hidden" v-bind:class="{hidden: noPass}">Please
               enter password.
             </small>
-            <small id="signInError" class="form-text text-muted hidden" v-bind:class="{hidden: noLogin}">
+            <small id="signInError" class="form-text text-muted hidden" v-bind:class="{hidden: noLogin}"
+                   style="margin-bottom: 10px">
               Incorrect email or password.
             </small>
           </div>
@@ -111,7 +112,7 @@
       },
       getCountry: function () {
         axios.get('http://ip-api.com/json/?fields=3')
-          .then(response =>{
+          .then(response => {
             // console.log(response.data);
             this.$cookies.set('country', response.data.country, 60 * 60 * 2);
           });

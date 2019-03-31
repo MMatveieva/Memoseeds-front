@@ -24,32 +24,23 @@
           <div class="form-group signUp-group">
             <input type="text" class="form-control" id="signUp-name"
                    placeholder="Name" v-model="name_signUp" required v-on:keyup="nameEdit">
-            <small id="nameError" class="form-text text-muted" v-bind:class="{hidden: noName}">Please enter
-              name.
-            </small>
+            <small id="nameError" class="form-text text-muted" v-bind:class="{hidden: noName}">{{nameError}}</small>
             <input type="email"
                    class="form-control" id="signUp-email"
                    placeholder="Email" v-model="email" required v-on:keyup="emailEdit">
-            <small id="emailError" class="form-text text-muted" v-bind:class="{hidden: noEmail}">Please enter
-              e-mail.
-            </small>
+            <small id="emailError" class="form-text text-muted" v-bind:class="{hidden: noEmail}">{{mailError}}</small>
             <input type="password" class="form-control" id="signUp-password"
                    placeholder="Password" v-model="password" required v-on:keyup="passwordEdit">
-            <small id="passwordError1" class="form-text text-muted" v-bind:class="{hidden: noPass}">Please enter
-              password.
+            <small id="passwordError1" class="form-text text-muted" v-bind:class="{hidden: noPass}">{{passError}}
             </small>
             <input type="password" class="form-control" id="signUp-rep-password"
                    placeholder="Repeat password" v-model="password_confirmation" required
                    v-on:keyup="passwordConfirmEdit">
-            <small id="passwordMissing" class="form-text text-muted" v-bind:class="{hidden: noPassRep}">Please
-              repeat password.
+            <small id="passwordMissing" class="form-text text-muted" v-bind:class="{hidden: noPassRep}"
+                   style="margin-bottom: 10px">{{passError1}}
             </small>
-
-            <small id="passwordError" class="form-text text-muted" v-bind:class="{hidden: noPassMatch}">Repeated
-              password doesn`t match password.
-            </small>
-            <small id="signUpError" class="form-text text-muted" v-bind:class="{hidden: signUpSuccess}">Error occurredd
-              during Sign Up.
+            <small id="signUpError" class="form-text text-muted" v-bind:class="{hidden: signUpSuccess}"
+                   style="margin-bottom: 10px">{{signUpError}}
             </small>
           </div>
           <button id="signUp-btn" type="button" class="btn signUp-btn" v-on:click="btnClick">SIGN UP</button>
@@ -76,9 +67,14 @@
         noEmail: true,
         noPass: true,
         noPassRep: true,
-        noPassMatch: true,
 
-        signUpSuccess: true
+        signUpSuccess: true,
+        nameOk: true,
+        nameError: "",
+        mailError: "",
+        passError1: "",
+        passError: "",
+        signUpError: ""
       }
     },
     beforeCreate: function () {
@@ -88,6 +84,7 @@
     methods: {
       nameEdit: function () {
         this.noName = true;
+        this.nameOk = true;
       },
       emailEdit: function () {
         this.noEmail = true;
@@ -97,29 +94,49 @@
       },
       passwordConfirmEdit: function () {
         this.noPassRep = true;
-        this.noPassMatch = true;
       },
-      btnClick: function () {
-        if (this.name_signUp == "")
+      checkName: function () {
+        if (this.name_signUp.includes('@')) {
+          this.nameOk = false;
+          this.nameError = "Please enter username without '@'.";
           this.noName = false;
-        if (this.email == "")
-          this.noEmail = false;
-        if (this.password == "")
-          this.noPass = false;
-        if (this.password_confirmation == "")
-          this.noPassRep = false;
-        if ((this.name_signUp !== "") && (this.email !== "") && (this.password !== "") && (this.password_confirmation !== "")) {
-          console.log("have all comp");
-          this.noPhoneOk = false;
-          console.log("CLICK");
-          if (this.password === this.password_confirmation)
-            this.signUp();
-          else
-            this.noPassMatch = false;
         }
+      },
 
+      btnClick: function () {
+        if (this.name_signUp == "") {
+          this.noName = false;
+          this.nameError = "Please enter name.";
+        } else this.checkName();
+        if (this.email == "") {
+          this.noEmail = false;
+          this.mailError = "Please enter e-mail.";
+        }
+        if (this.password == "") {
+          this.noPass = false;
+          this.passError = "Please enter password.";
+        }
+        if (this.password_confirmation == "") {
+          this.noPassRep = false;
+          this.passError1 = "Please repeat password.";
+        }
+        if ((this.name_signUp !== "") && (this.email !== "") && (this.password !== "") && (this.password_confirmation !== "")) {
+          if ((this.password === this.password_confirmation) && (this.nameOk))
+            this.signUp();
+          else {
+            this.noPassRep = false;
+            this.passError1 = "Repeated password doesn`t match password.";
+          }
+        }
       },
       signUp: function () {
+        this.noName = true;
+        this.nameOk = true;
+        this.noEmail = true;
+        this.noPass = true;
+        this.noPassRep = true;
+        this.signUpSuccess = true;
+
         let config = {
           headers: {
             'Access-Control-Allow-Origin': '*',
@@ -133,14 +150,29 @@
           "Password": this.password
         }, config)
           .then(response => {
-            this.responseData = response.data;
-            console.log(this.name_signUp);
+            //this.responseData = response.data;
+            console.log(response.data);
+            this.$cookies.set("user_session", response.data['token'], 60 * 60 * 2);
+            this.$cookies.set("userName", response.data.info.username, 60 * 60 * 2);
+            this.$cookies.set("userCredits", response.data.info.credits, 60 * 60 * 2);
+            this.$cookies.set("userMail", response.data.info.email, 60 * 60 * 2);
+            this.$cookies.set("userId", response.data.info.userId, 60 * 60 * 2);
+            this.getCountry();
             router.push('allModules');
           })
           .catch(error => {
             console.log(error);
-            console.log(this.name_signUp);
+            //console.log(this.name_signUp);
+            this.signUpError = "Error occurred during Sign Up. Please, try again.";
             this.signUpSuccess = false;
+          });
+      },
+
+      getCountry: function () {
+        axios.get('http://ip-api.com/json/?fields=3')
+          .then(response => {
+            // console.log(response.data);
+            this.$cookies.set('country', response.data.country, 60 * 60 * 2);
           });
       }
     }
