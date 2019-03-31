@@ -35,7 +35,7 @@
                   <router-link to="/recent">My modules</router-link>
                 </b-dropdown-item>
                 <b-dropdown-item class="user-dropdown" href="#">
-                  <router-link to="/signIn" v-on:click="logOut">Log out</router-link>
+                  <label v-on:click="logOut">Log out</label>
                 </b-dropdown-item>
               </b-dropdown>
             </div>
@@ -99,7 +99,10 @@
 </template>
 
 <script>
+  import router from '../router'
+
   export default {
+
     name: "Recent",
 
     data() {
@@ -126,7 +129,13 @@
       },
 
       logOut: function () {
-
+        this.$cookies.remove("user_session");
+        this.$cookies.remove("userName");
+        this.$cookies.remove("userCredits");
+        this.$cookies.remove("userMail");
+        this.$cookies.remove("userId");
+        this.$cookies.remove('country');
+        router.push('signIn');
       }
     }
   }
