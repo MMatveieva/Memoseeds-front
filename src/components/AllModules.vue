@@ -35,7 +35,7 @@
                   <router-link to="/recent">My modules</router-link>
                 </b-dropdown-item>
                 <b-dropdown-item class="user-dropdown" href="#">
-                  <label  v-on:click="logOut">Log out</label>
+                  <router-link to="/signIn" v-on:click="logOut">Log out</router-link>
                 </b-dropdown-item>
               </b-dropdown>
             </div>
@@ -44,89 +44,93 @@
       </div>
     </div>
 
-    <div class="module-container">
-      <div class="settings-form">
-        <div class="row">
-          <div class="col-sm-3 info-part">
-            <h2 class="modules-title">Transport</h2>
-            <div class="modules-info">
-              <p>Number of words:</p>
-              <label id="modules1">{{wordsNumber}}</label>
-            </div>
-          </div>
 
-          <div class="col-sm-9 actions-part">
-            <div class="row">
-              <div class="col-sm-8 action-text">
-                Car, tram, vehicle, airplane railway station, petrol
+    <div class="shop-wrapper">
+
+      <div class="module-container">
+        <div class="settings-form">
+          <div class="row">
+            <div class="col-sm-3 info-part">
+              <h2 class="modules-title">Transport</h2>
+              <div class="modules-info">
+                <p>Number of words:</p>
+                <label id="modules1">{{wordsNumber}}</label>
               </div>
-              <div class="col-sm-4 btn-container">
-                <button type="submit" class="btn action-btn" v-on:click="startClick">
-                  <router-link to="/module">START</router-link>
-                </button>
+            </div>
+
+            <div class="col-sm-9 actions-part">
+              <div class="row">
+                <div class="col-sm-8 action-text">
+                  Car, tram, vehicle, airplane railway station, petrol
+                </div>
+                <div class="col-sm-4 btn-container">
+                  <button type="submit" class="btn action-btn" v-on:click="startClick">
+                    <router-link to="/module">START</router-link>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
 
-    <div class="module-container">
-      <div class="settings-form">
-        <div class="row">
-          <div class="col-sm-3 info-part">
-            <h2 class="modules-title">Wildlife</h2>
-            <div class="modules-info">
-              <p>Number of words:</p>
-              <label id="modules2">{{wordsNumber}}</label>
-            </div>
-          </div>
-
-          <div class="col-sm-9 actions-part">
-            <div class="row">
-              <div class="col-sm-8 action-text">
-                Species, habitat, ecosystem, recreation, forest
-              </div>
-              <div class="col-sm-4 btn-container">
-                <button type="submit" class="btn action-btn" v-on:click="startClick">
-                  <router-link to="/module">START</router-link>
-                </button>
+      <div class="module-container">
+        <div class="settings-form">
+          <div class="row">
+            <div class="col-sm-3 info-part">
+              <h2 class="modules-title">Wildlife</h2>
+              <div class="modules-info">
+                <p>Number of words:</p>
+                <label id="modules2">{{wordsNumber}}</label>
               </div>
             </div>
-          </div>
 
+            <div class="col-sm-9 actions-part">
+              <div class="row">
+                <div class="col-sm-8 action-text">
+                  Species, habitat, ecosystem, recreation, forest
+                </div>
+                <div class="col-sm-4 btn-container">
+                  <button type="submit" class="btn action-btn" v-on:click="startClick">
+                    <router-link to="/module">START</router-link>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
-    </div>
-    <div class="module-container">
-      <div class="settings-form">
-        <div class="row">
-          <div class="col-sm-3 info-part">
-            <h2 class="modules-title">Family</h2>
-            <div class="modules-info">
-              <p>Number of words:</p>
-              <label id="modules3">{{wordsNumber}}</label>
-            </div>
-          </div>
-
-          <div class="col-sm-9 actions-part">
-            <div class="row">
-              <div class="col-sm-8 action-text">
-                Marriage, household, vehicle, airplane railway station
-              </div>
-              <div class="col-sm-4 btn-container">
-                <button type="submit" class="btn action-btn" v-on:click="startClick">
-                  <router-link to="/module">START</router-link>
-                </button>
+      <div class="module-container">
+        <div class="settings-form">
+          <div class="row">
+            <div class="col-sm-3 info-part">
+              <h2 class="modules-title">Family</h2>
+              <div class="modules-info">
+                <p>Number of words:</p>
+                <label id="modules3">{{wordsNumber}}</label>
               </div>
             </div>
-          </div>
 
+            <div class="col-sm-9 actions-part">
+              <div class="row">
+                <div class="col-sm-8 action-text">
+                  Marriage, household, vehicle, airplane railway station
+                </div>
+                <div class="col-sm-4 btn-container">
+                  <button type="submit" class="btn action-btn" v-on:click="startClick">
+                    <router-link to="/module">START</router-link>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
-    </div>
 
+    </div>
 
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
@@ -175,16 +179,6 @@
 
       startClick: function () {
 
-      },
-
-      logOut: function () {
-        this.$cookies.remove("user_session");
-        this.$cookies.remove("userName");
-        this.$cookies.remove("userCredits");
-        this.$cookies.remove("userMail");
-        this.$cookies.remove("userId");
-        this.$cookies.remove('country');
-        router.push('signIn');
       }
     }
   }
@@ -338,8 +332,8 @@
     padding: 10px 40px;
   }
 
-  .settings-form .row{
-    width:100%;
+  .settings-form .row {
+    width: 100%;
     margin: 0;
   }
 
@@ -366,7 +360,7 @@
     color: #12496d;
   }
 
-  .modules-info label{
+  .modules-info label {
     margin-bottom: 0.1rem;
   }
 
@@ -380,14 +374,8 @@
     flex: 0 0 70%;
   }
 
-  .module-words-inside h4 {
-    margin-top: 20px;
-    margin-bottom: 15px;
-    color: #12496d;
-  }
-
   .actions-part .action-btn {
-    background-color: #12496d !important;
+    background-color: #2095a6 !important;
     border-radius: 20px;
     font-size: 15px;
     color: white;
@@ -399,11 +387,6 @@
 
   .action-btn a {
     color: white;
-  }
-
-  .module-words-inside button:hover {
-    background-color: #12496d !important;
-    cursor: pointer;
   }
 
   /***********************************************/

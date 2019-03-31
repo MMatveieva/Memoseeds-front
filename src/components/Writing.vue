@@ -44,41 +44,49 @@
       </div>
     </div>
 
-
-    <div class="recent-wrapper">
-
-      <div class="module-container">
-        <div class="settings-form">
-          <div class="row">
-            <div class="col-sm-3 info-part">
-              <h2 class="modules-title">Family</h2>
-              <div class="modules-info">
-                <p>Number of words:</p>
-                <label id="module">{{wordsNumber[0]}}</label>
-              </div>
+    <div class="module-container">
+      <div class="settings-form">
+        <div class="row" style="width: 100%; margin: 0">
+          <div class="col-sm-3 info-part">
+            <h2 class="modules-title">{{moduleName}}</h2>
+            <div class="modules-info">
+              <p>Number of words:</p>
+              <label id="modules1">{{wordsAll}}</label>
             </div>
-
-            <div class="col-sm-9 actions-part">
-              <div class="row">
-                <div class="col-sm-8 action-text">
-                  Marriage, household, vehicle, airplane railway station
-                </div>
-                <div class="col-sm-4 btn-container">
-                  <button type="submit" class="btn action-btn" v-on:click="startClick">
-                    <router-link to="/module">START</router-link>
-                  </button>
-                </div>
-              </div>
+            <h2 class="modules-title">Writing</h2>
+            <div class="modules-info">
+              <p>Left:</p>
+              <label id="modules2">{{wordsLeft}}</label>
             </div>
-
+            <div class="modules-info">
+              <p>Correct:</p>
+              <label id="modules3">{{wordsCorrect}}</label>
+            </div>
+            <div class="modules-info">
+              <p>Incorrect:</p>
+              <label id="modules4">{{wordsIncorrect}}</label>
+            </div>
           </div>
+
+          <div class="col-sm-9 actions-part">
+            <div class="action-text">
+              Your brother's wife
+            </div>
+            <div class="action-input">
+              <input type="text" class="ans-input" placeholder="Write your answer here">
+            </div>
+            <div class="row action-service">
+              <div class="col-sm-9 words-num">{{wordNow}}/{{wordsAll}}</div>
+              <div class="col-sm-3 btn-container">
+                <button type="submit" class="btn next-btn" v-on:click="nextClick">
+                  NEXT
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-
-    </div>
-
-    <div class="go-to-shop">
-      <button type="button" class="go-btn">GO TO ALL MODULES</button>
     </div>
 
 
@@ -89,64 +97,38 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import router from '../router'
+  import router from '../router';
 
   export default {
-    name: "Recent",
+    name: "ModulePage",
 
     data() {
       return {
-        userName: "",
-        wordsNumber: []
+        wordsNumber: "",
+        wordsAll: "",
+        wordNow: "",
+
+        moduleName: "",
+        wordsLeft: "",
+        wordsCorrect: "",
+        wordsIncorrect: ""
+
       }
     },
-
     beforeCreate: function () {
       document.body.className = 'inside';
     },
 
-    created: function () {
-      this.getUserInfo();
-      this.getUserModules();
-    },
-
     methods: {
-      getUserInfo: function () {
-        this.userName = this.$cookies.get('userName');
-      },
-
-      getUserModules: function () {
-        let config = {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + this.$cookies.get('user_session')
-          }
-        };
-        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
-        axios.get(pass, config)
-          .then(response => {
-            console.log(response.data);
-          })
-          .catch(error => {
-            console.log(error);
-            alert("Error occurred during loading modules. Please try again");
-          });
-      },
-
-      startClick: function () {
-      },
-
-      logOut: function () {
+      nextClick: function () {
 
       }
+
     }
   }
 </script>
 
-<style scoped>
+<style>
   .header {
     background-color: #12496d;
     padding-top: 0;
@@ -233,16 +215,6 @@
     color: #ffffff;
   }
 
-  .user-name a {
-    color: #0b486d !important;
-    text-decoration: none;
-  }
-
-  .user-name a:hover {
-    color: #0b486d !important;
-    text-decoration: none;
-  }
-
   .user-name button:hover {
     background-color: transparent !important;
     text-decoration: underline;
@@ -265,34 +237,78 @@
     min-width: 7rem;
   }
 
-  /*************************************/
+  .user-name a {
+    color: #0b486d !important;
+    text-decoration: none;
+  }
 
-  .recent-wrapper {
-    margin-top: 20px;
+  .user-name a:hover {
+    color: #0b486d !important;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: none;
+    color: white;
+  }
+
+  /***********************************************/
+
+  .settings-form .actions-part {
+    background: #ffffff;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    padding-top: 40px;
+    text-align: center;
+    flex: 0 0 70%;
   }
 
   .actions-part .action-text {
-    margin: auto;
+    margin-top: 11%;
+    color: #0b486d;
+    font-size: 1.7rem;
+    font-weight: 500;
+  }
+
+  .actions-part .action-input {
+    margin-top: 20px;
   }
 
   .actions-part .btn-container {
-    margin: auto;
+    margin-left: -85px;
   }
+
+  .actions-part .ans-input {
+    margin: 15px 0;
+    background-color: #f5f5f7;
+    color: black;
+    height: 30px;
+    width: 270px;
+    border: none !important;
+    text-align: center;
+  }
+
+  .actions-part .words-num {
+    color: #2095a6;
+    font-size: 15px;
+    margin-left: 40px;
+  }
+
+  .actions-part .action-service {
+    margin-top: 50px;
+  }
+
+  /*********************************/
 
   .btn:hover {
     color: white !important;
-    background: #12587c !important;
     text-decoration: none;
     cursor: pointer;
   }
 
   .settings-form {
-    padding: 10px 40px;
-  }
-
-  .settings-form .row {
-    width: 100%;
-    margin: 0;
+    padding: 30px 40px;
+    margin-top: 10px;
   }
 
   .info-part {
@@ -308,9 +324,12 @@
     margin-bottom: 0;
   }
 
+  .info-part label {
+    margin: 0.1rem;
+  }
+
   .modules-title {
     margin-top: 7%;
-    font-size: 1.7rem;
   }
 
   .modules-info {
@@ -318,63 +337,25 @@
     color: #12496d;
   }
 
-  .modules-info label {
-    margin-bottom: 0.1rem;
-  }
-
-  .settings-form .actions-part {
-    background: #eeeeee;
-    border-top-right-radius: 40px;
-    border-bottom-right-radius: 40px;
-    padding-top: 30px;
-    padding-bottom: 0;
-    text-align: center;
-    flex: 0 0 70%;
-  }
-
-  .actions-part .action-btn {
-    background-color: #2095a6 !important;
+  .actions-part .next-btn {
+    background-color: #f59699 !important;
     border-radius: 20px;
-    font-size: 15px;
+    font-size: 14px;
     color: white;
-    width: 120px;
-    height: 30px;
+    width: 130px;
+    height: 25px;
     border-color: white;
     margin: 0;
-  }
-
-  .action-btn a {
-    color: white;
-  }
-
-  .action-btn a:hover {
-    color: white;
-    text-decoration: none;
+    padding-top: 3px;
   }
 
   .actions-part button:hover {
-    background-color: #186e7a !important;
-    cursor: pointer;
+    color: white !important;
+    background: #f56e72 !important;
+    text-decoration: none;
   }
 
-  /*************************************/
-
-  .go-to-shop {
-    margin-top: 10px;
-    padding: 10px 40px;
-    text-align: right;
-  }
-
-  .go-to-shop .go-btn {
-    background-color: #0b486d;
-    color: white;
-    width: 210px;
-    border-radius: 20px;
-    font-size: 14px;
-    height: 35px;
-    border-color: white;
-    padding-top: 4px;
-  }
+  /***********************************************/
 
   .footer {
     text-align: center;
@@ -384,6 +365,10 @@
     position: absolute;
     width: 100%;
     bottom: 0;
+  }
+
+  .hidden {
+    display: none;
   }
 
 </style>

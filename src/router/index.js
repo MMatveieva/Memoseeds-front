@@ -7,19 +7,10 @@ import Recent from '@/components/Recent'
 import ModulePage from '@/components/ModulePage'
 import AllModules from '@/components/AllModules'
 import BuyCredits from '@/components/BuyCredits'
-
+import Learning from '@/components/Learning'
+import Writing from '@/components/Writing'
 
 Vue.use(Router);
-
-const ifAuthenticated = (to, from, next) => {
-  let access_token = Vue.cookies.isKey("user_session")
-  if (access_token ) {
-    next()
-    return
-  }
-  next('/signIn')
-}
-
 
 export default new Router({
   routes: [
@@ -41,33 +32,37 @@ export default new Router({
     {
       path: '/settings',
       name: 'settings',
-      component: Settings,
-      beforeEnter: ifAuthenticated
+      component: Settings
     },
     {
       path: '/recent',
       name: 'recent',
-      component: Recent,
-      beforeEnter: ifAuthenticated
+      component: Recent
     },
     {
       path: '/module',
       name: 'modulePage',
-      component: ModulePage,
-      beforeEnter: ifAuthenticated
+      component: ModulePage
     },
     {
       path: '/allModules',
       name: 'allModules',
-      component: AllModules,
-      beforeEnter: ifAuthenticated
+      component: AllModules
     },
     {
       path: '/buyCredits',
       name: 'buyCredits',
-      component: BuyCredits,
-      beforeEnter: ifAuthenticated
+      component: BuyCredits
+    },
+    {
+      path: '/learn',
+      name: 'learn',
+      component: Learning
+    },
+    {
+      path: '/write',
+      name: 'write',
+      component: Writing
     }
   ]
 })
-

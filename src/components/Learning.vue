@@ -44,41 +44,73 @@
       </div>
     </div>
 
-
-    <div class="recent-wrapper">
-
-      <div class="module-container">
-        <div class="settings-form">
-          <div class="row">
-            <div class="col-sm-3 info-part">
-              <h2 class="modules-title">Family</h2>
-              <div class="modules-info">
-                <p>Number of words:</p>
-                <label id="module">{{wordsNumber[0]}}</label>
-              </div>
+    <div class="module-container">
+      <div class="settings-form">
+        <div class="row" style="width: 100%; margin: 0">
+          <div class="col-sm-3 info-part">
+            <h2 class="modules-title">Family</h2>
+            <div class="modules-info">
+              <p>Number of words:</p>
+              <label id="modules1">{{wordsNumber}}</label>
             </div>
-
-            <div class="col-sm-9 actions-part">
-              <div class="row">
-                <div class="col-sm-8 action-text">
-                  Marriage, household, vehicle, airplane railway station
-                </div>
-                <div class="col-sm-4 btn-container">
-                  <button type="submit" class="btn action-btn" v-on:click="startClick">
-                    <router-link to="/module">START</router-link>
-                  </button>
-                </div>
-              </div>
+            <h2 class="modules-title">Learning</h2>
+            <div class="modules-info">
+              <p>Left:</p>
+              <label id="modules2">{{wordsNumber}}</label>
             </div>
-
+            <div class="modules-info">
+              <p>Correct:</p>
+              <label id="modules3">{{wordsNumber}}</label>
+            </div>
+            <div class="modules-info">
+              <p>Incorrect:</p>
+              <label id="modules4">{{wordsNumber}}</label>
+            </div>
           </div>
+
+
+          <div class="col-sm-9 actions-part">
+            <div class="row">
+              <div class="carousel-wrapper">
+                <b-carousel
+                  id="module-carousel"
+                  controls
+                  background="#C5EED7"
+                  :interval="40000"
+                  v-model="slide"
+                  img-height="130"
+                  img-width="200"
+                >
+
+                  <b-carousel-slide img-blank img-alt="Sibling">
+                    <div class="card-title">Your brother's wife</div>
+                    <div class="card-num">22/200</div>
+                  </b-carousel-slide>
+
+                  <b-carousel-slide img-blank img-alt="Father">
+                    <div class="card-title">Your brother's wife</div>
+                    <div class="card-num">23/200</div>
+                  </b-carousel-slide>
+
+                  <b-carousel-slide img-blank img-alt="Brother">
+                    <div class="card-title">Your brother's wife</div>
+                    <div class="card-num">24/200</div>
+                  </b-carousel-slide>
+
+                </b-carousel>
+              </div>
+
+              <div class="col-sm-8 btn-container"></div>
+              <div class="col-sm-4 btn-container">
+                <button type="submit" class="btn next-btn" v-on:click="matchClick">
+                  <router-link to="/module" style="color: white">EDIT</router-link>
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-
-    </div>
-
-    <div class="go-to-shop">
-      <button type="button" class="go-btn">GO TO ALL MODULES</button>
     </div>
 
 
@@ -89,64 +121,34 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import router from '../router'
+  import router from '../router';
 
   export default {
-    name: "Recent",
+    name: "ModulePage",
 
     data() {
       return {
-        userName: "",
-        wordsNumber: []
+        wordsNumber: 0
       }
     },
-
-    beforeCreate: function () {
-      document.body.className = 'inside';
-    },
-
-    created: function () {
-      this.getUserInfo();
-      this.getUserModules();
-    },
-
     methods: {
-      getUserInfo: function () {
-        this.userName = this.$cookies.get('userName');
-      },
+      learnClick: function () {
 
-      getUserModules: function () {
-        let config = {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + this.$cookies.get('user_session')
-          }
-        };
-        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
-        axios.get(pass, config)
-          .then(response => {
-            console.log(response.data);
-          })
-          .catch(error => {
-            console.log(error);
-            alert("Error occurred during loading modules. Please try again");
-          });
       },
+      writeClick: function () {
 
-      startClick: function () {
       },
+      testClick: function () {
 
-      logOut: function () {
+      },
+      matchClick: function () {
 
       }
     }
   }
 </script>
 
-<style scoped>
+<style>
   .header {
     background-color: #12496d;
     padding-top: 0;
@@ -171,12 +173,6 @@
     padding-left: 0;
   }
 
-  .header-user img {
-    margin: 8px auto;
-    width: 55px;
-    height: 55px;
-  }
-
   .header-search {
     margin: auto;
     margin-left: 10px;
@@ -184,6 +180,16 @@
 
   .header-search input {
     border: none;
+  }
+  .carousel-wrapper {
+    margin-top: 10%;
+    width:100%;
+  }
+  .card-num {
+    position: relative;
+    top: 25px;
+    color: #0b486d;
+    font-size: 13px;
   }
 
   .header-search .search-btn {
@@ -207,6 +213,19 @@
 
   .header-text {
     margin-left: -10px;
+  }
+
+  .header-user img {
+    margin: 8px auto;
+    width: 55px;
+    height: 55px;
+  }
+
+  .words-num {
+    position: relative;
+    top: 25px;
+    color: #0b486d;
+    font-size: 13px;
   }
 
   .header-user .user-acc {
@@ -233,16 +252,6 @@
     color: #ffffff;
   }
 
-  .user-name a {
-    color: #0b486d !important;
-    text-decoration: none;
-  }
-
-  .user-name a:hover {
-    color: #0b486d !important;
-    text-decoration: none;
-  }
-
   .user-name button:hover {
     background-color: transparent !important;
     text-decoration: underline;
@@ -265,43 +274,56 @@
     min-width: 7rem;
   }
 
-  /*************************************/
-
-  .recent-wrapper {
-    margin-top: 20px;
+  .user-name a {
+    color: #0b486d !important;
+    text-decoration: none;
   }
 
+  .user-name a:hover {
+    color: #0b486d !important;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: none;
+    color: white;
+  }
+
+  /***********************************************/
+
   .actions-part .action-text {
-    margin: auto;
+    margin-top: 10%;
+   }
+  .actions-part .action-input {
+    margin-top: 10%;
   }
 
   .actions-part .btn-container {
     margin: auto;
   }
 
+  /*********************************/
+
   .btn:hover {
     color: white !important;
-    background: #12587c !important;
+    /*background: #12587c !important;*/
     text-decoration: none;
     cursor: pointer;
   }
 
   .settings-form {
-    padding: 10px 40px;
-  }
-
-  .settings-form .row {
-    width: 100%;
-    margin: 0;
+    padding: 30px 40px;
+    margin-top: 10px;
   }
 
   .info-part {
     background: #acd8c7;
+    width: 20%;
     color: #ffffff;
     border-top-left-radius: 40px;
     border-bottom-left-radius: 40px;
     text-align: center;
-    box-sizing: content-box;
+    align-content: center;
   }
 
   .info-part p {
@@ -309,8 +331,14 @@
   }
 
   .modules-title {
-    margin-top: 7%;
-    font-size: 1.7rem;
+    margin-top: 10%;
+  }
+
+  .modules-words {
+    margin-left: 15%;
+    font-size: 20px;
+    color: #0b486d;
+    font-weight: 500;
   }
 
   .modules-info {
@@ -318,22 +346,51 @@
     color: #12496d;
   }
 
-  .modules-info label {
-    margin-bottom: 0.1rem;
+  .words-form {
+    width: 70%;
+    margin: auto;
+    margin-bottom: 25px;
+  }
+
+  .words-form .word-num {
+    color: #12496d;
+    padding-right: 0;
+    text-align: center;
+  }
+
+  .words-form .word {
+    text-align: left;
+  }
+
+  .words-form .word-def {
+    text-align: right;
+    padding-right: 50px;
   }
 
   .settings-form .actions-part {
     background: #eeeeee;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
-    padding-top: 30px;
-    padding-bottom: 0;
+    padding-top: 40px;
+    padding-bottom: 40px;
     text-align: center;
     flex: 0 0 70%;
   }
 
-  .actions-part .action-btn {
-    background-color: #2095a6 !important;
+  .module-words-inside {
+    background: #eeeeee;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .module-words-inside h4 {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    color: #12496d;
+  }
+
+  .actions-part .start-btn {
+    background-color: #1781b8 !important;
     border-radius: 20px;
     font-size: 15px;
     color: white;
@@ -343,38 +400,34 @@
     margin: 0;
   }
 
-  .action-btn a {
+  .actions-part .next-btn {
+    background-color: #f491ac !important;
+    border-radius: 20px;
+    font-size: 15px;
     color: white;
+    width: 120px;
+    height: 30px;
+    border-color: white;
+    margin: 0;
   }
 
-  .action-btn a:hover {
+  .actions-part .buy-btn {
+    background-color: #12496d !important;
+    border-radius: 20px;
+    font-size: 15px;
     color: white;
-    text-decoration: none;
+    width: 120px;
+    height: 30px;
+    border-color: white;
+    margin: 0;
   }
 
-  .actions-part button:hover {
-    background-color: #186e7a !important;
+  .module-words-inside button:hover {
+    background-color: #12496d !important;
     cursor: pointer;
   }
 
-  /*************************************/
-
-  .go-to-shop {
-    margin-top: 10px;
-    padding: 10px 40px;
-    text-align: right;
-  }
-
-  .go-to-shop .go-btn {
-    background-color: #0b486d;
-    color: white;
-    width: 210px;
-    border-radius: 20px;
-    font-size: 14px;
-    height: 35px;
-    border-color: white;
-    padding-top: 4px;
-  }
+  /***********************************************/
 
   .footer {
     text-align: center;
@@ -384,6 +437,10 @@
     position: absolute;
     width: 100%;
     bottom: 0;
+  }
+
+  .hidden {
+    display: none;
   }
 
 </style>
