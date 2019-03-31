@@ -47,7 +47,7 @@
 
     <div class="module-container">
       <div class="settings-form">
-        <div class="row" style="width: 100%; margin: 0">
+        <div class="row">
           <div class="col-sm-3 info-part">
             <h2 class="modules-title">Transport</h2>
             <div class="modules-info">
@@ -62,19 +62,20 @@
                 Car, tram, vehicle, airplane railway station, petrol
               </div>
               <div class="col-sm-4 btn-container">
-                <button type="submit" class="btn action-btn" v-on:click="matchClick">
+                <button type="submit" class="btn action-btn" v-on:click="startClick">
                   <router-link to="/module">START</router-link>
                 </button>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
+
+
     <div class="module-container">
       <div class="settings-form">
-        <div class="row" style="width: 100%; margin: 0">
+        <div class="row">
           <div class="col-sm-3 info-part">
             <h2 class="modules-title">Wildlife</h2>
             <div class="modules-info">
@@ -89,7 +90,7 @@
                 Species, habitat, ecosystem, recreation, forest
               </div>
               <div class="col-sm-4 btn-container">
-                <button type="submit" class="btn action-btn" v-on:click="matchClick">
+                <button type="submit" class="btn action-btn" v-on:click="startClick">
                   <router-link to="/module">START</router-link>
                 </button>
               </div>
@@ -101,7 +102,7 @@
     </div>
     <div class="module-container">
       <div class="settings-form">
-        <div class="row" style="width: 100%; margin: 0">
+        <div class="row">
           <div class="col-sm-3 info-part">
             <h2 class="modules-title">Family</h2>
             <div class="modules-info">
@@ -113,10 +114,10 @@
           <div class="col-sm-9 actions-part">
             <div class="row">
               <div class="col-sm-8 action-text">
-                Marriage, household, vehicle, airplane railway station, petrol
+                Marriage, household, vehicle, airplane railway station
               </div>
               <div class="col-sm-4 btn-container">
-                <button type="submit" class="btn action-btn" v-on:click="matchClick">
+                <button type="submit" class="btn action-btn" v-on:click="startClick">
                   <router-link to="/module">START</router-link>
                 </button>
               </div>
@@ -135,6 +136,9 @@
 </template>
 
 <script>
+  import axios from 'axios'
+  import router from '../router'
+
   export default {
     name: "ModulePage",
 
@@ -144,8 +148,34 @@
         creditsNumber: 0
       }
     },
+    created: function () {
+      this.getAllModules();
+    },
     methods: {
+      getAllModules: function () {
+        let config = {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          }
+        };
 
+        axios.get('https://memeseeds.herokuapp.com/public/modules', config)
+          .then(response => {
+            console.log(response.data);
+
+          })
+          .catch(error => {
+            console.log(error);
+            alert("Error occurred during loading modules. Please try again");
+          });
+        
+      },
+
+      startClick: function () {
+        
+      }
     }
   }
 </script>
@@ -155,6 +185,7 @@
     background-color: #12496d;
     padding-top: 0;
     padding-bottom: 0;
+    margin-bottom: 20px;
   }
 
   .logo img {
@@ -175,7 +206,7 @@
     padding-left: 0;
   }
 
-  .header-user img{
+  .header-user img {
     margin: 8px auto;
     width: 55px;
     height: 55px;
@@ -284,11 +315,11 @@
 
   /***********************************************/
 
-  .actions-part .action-text{
+  .actions-part .action-text {
     margin: auto;
   }
 
-  .actions-part .btn-container{
+  .actions-part .btn-container {
     margin: auto;
   }
 
@@ -302,18 +333,21 @@
   }
 
   .settings-form {
-    padding: 30px 40px;
-    margin-top: 10px;
+    padding: 10px 40px;
+  }
+
+  .settings-form .row{
+    width:100%;
+    margin: 0;
   }
 
   .info-part {
     background: #acd8c7;
-    width: 20%;
     color: #ffffff;
     border-top-left-radius: 40px;
     border-bottom-left-radius: 40px;
     text-align: center;
-    align-content: center;
+    box-sizing: content-box;
   }
 
   .info-part p {
@@ -322,6 +356,7 @@
 
   .modules-title {
     margin-top: 7%;
+    font-size: 1.7rem;
   }
 
   .modules-info {
@@ -329,27 +364,16 @@
     color: #12496d;
   }
 
-  .words-form .word-num {
-    color: #12496d;
-    padding-right: 0;
-    text-align: center;
-  }
-
-  .words-form .word {
-    text-align: left;
-  }
-
-  .words-form .word-def {
-    text-align: right;
-    padding-right: 50px;
+  .modules-info label{
+    margin-bottom: 0.1rem;
   }
 
   .settings-form .actions-part {
     background: #eeeeee;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 30px;
+    padding-bottom: 0;
     text-align: center;
     flex: 0 0 70%;
   }
@@ -371,7 +395,7 @@
     margin: 0;
   }
 
-  .action-btn a{
+  .action-btn a {
     color: white;
   }
 

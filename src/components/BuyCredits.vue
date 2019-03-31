@@ -68,11 +68,11 @@
         <div class="col-sm-9 buy-info">
           <div class="row">
             <div class="col-sm-6 buy-number">10 credits</div>
-            <div class="col-sm-6 buy-sum">{{price[0]}}0.99 $</div>
+            <div class="col-sm-6 buy-sum">{{price[0]}}0.99 {{currencySymbol}}$</div>
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
-          <button id="buy10" type="submit" class="btn buy-btn" v-on:click="buyClick">BUY</button>
+          <button id="buy10" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
         </div>
       </div>
 
@@ -82,12 +82,12 @@
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
-            <div class="col-sm-6 buy-number">{{price[1]}}20 credits</div>
-            <div class="col-sm-6 buy-sum">1.99 $</div>
+            <div class="col-sm-6 buy-number">20 credits</div>
+            <div class="col-sm-6 buy-sum">{{price[1]}}1.99 {{currencySymbol}}$</div>
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
-          <button id="buy20" type="submit" class="btn buy-btn" v-on:click="buyClick">BUY</button>
+          <button id="buy20" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
         </div>
       </div>
 
@@ -97,12 +97,12 @@
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
-            <div class="col-sm-6 buy-number">{{price[2]}}30 credits</div>
-            <div class="col-sm-6 buy-sum">3.99 $</div>
+            <div class="col-sm-6 buy-number">30 credits</div>
+            <div class="col-sm-6 buy-sum">{{price[2]}}3.99 {{currencySymbol}}$</div>
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
-          <button id="buy30" type="submit" class="btn buy-btn" v-on:click="buyClick">BUY</button>
+          <button id="buy30" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
         </div>
       </div>
 
@@ -112,12 +112,12 @@
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
-            <div class="col-sm-6 buy-number">{{price[3]}}40 credits</div>
-            <div class="col-sm-6 buy-sum">0.99 $</div>
+            <div class="col-sm-6 buy-number">40 credits</div>
+            <div class="col-sm-6 buy-sum">{{price[3]}}0.99 {{currencySymbol}}$</div>
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
-          <button id="buy40" type="submit" class="btn buy-btn" v-on:click="buyClick">BUY</button>
+          <button id="buy40" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
         </div>
       </div>
 
@@ -140,7 +140,8 @@
         userName: "",
         userCredits: "",
         price: [],
-        currency: ""
+        currency: "",
+        currencySymbol: ""
       }
     },
 
@@ -167,12 +168,12 @@
           this.currency = response.data.purchases[0].price.currency;
         })
         .catch(error => {
-          console.log(error)
+          console.log(error);
+          alert("Error occurred during operation. Please try again");
         });
 
     },
     created: function () {
-      // this.getCurrency();
       this.getUserInfo();
     },
 
@@ -180,10 +181,24 @@
       logOut: function () {
       },
 
-      buyClick: function () {
-      },
+      buyClick: function (event) {
+        let targetId = event.currentTarget.id;
+        let resAmount = 0;
+        switch (targetId) {
+          case 'buy10':
+            resAmount = 10;
+            break;
+          case 'buy20':
+            resAmount = 20;
+            break;
+          case 'buy30':
+            resAmount = 30;
+            break;
+          case 'buy40':
+            resAmount = 40;
+            break;
+        }
 
-      getCurrency: function () {
 
       },
 
