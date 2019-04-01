@@ -24,15 +24,15 @@
           <div class="form-group signIn-group">
             <input type="text" class="form-control" id="signIn-name"
                    placeholder="Name" v-model="name" required v-on:keyup="nameEdit">
-            <small id="emailError" class="form-text text-muted hidden" v-bind:class="{hidden: noName}">
+            <small id="emailError" class="form-text text-muted" v-bind:class="{hidden: noName}">
               {{nameError}}
             </small>
             <input type="password" class="form-control" id="signIn-password"
                    placeholder="Password" v-model="password" required v-on:keyup="passwordEdit">
-            <small id="passwordError" class="form-text text-muted hidden" v-bind:class="{hidden: noPass}">
+            <small id="passwordError" class="form-text text-muted" v-bind:class="{hidden: noPass}">
               {{passError}}
             </small>
-            <small id="signInError" class="form-text text-muted hidden" v-bind:class="{hidden: noLogin}"
+            <small id="signInError" class="form-text text-muted" v-bind:class="{hidden: noLogin}"
                    style="margin-bottom: 10px">{{loginError}}
             </small>
           </div>
@@ -75,6 +75,8 @@
         this.noLogin = true;
       },
       btnClick: function () {
+        this.noLogin = true;
+        this.loginError = "";
         if (this.name == "") {
           this.noName = false;
           this.nameError = "Please enter username or email.";
@@ -91,6 +93,7 @@
         this.noName = true;
         this.noPass = true;
         this.noLogin = true;
+        this.loginError = "";
 
         let isUserName = true;
         if (this.name.includes('@'))
@@ -110,8 +113,9 @@
         }, config)
           .then(response => {
             if (response.data.error != null) {
-              this.noLogin = false;
+              console.log(response.data.error);
               this.loginError = response.data.error;
+              this.noLogin = false;
             } else {
               this.$cookies.set("user_session", response.data['token'], 60 * 60 * 2);
               this.$cookies.set("userName", response.data.info.username, 60 * 60 * 2);
@@ -245,4 +249,5 @@
   .hidden {
     display: none;
   }
+
 </style>

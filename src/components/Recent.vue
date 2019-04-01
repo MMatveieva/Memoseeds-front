@@ -103,7 +103,7 @@
           };
           mm[i] = m;
         }
-        console.log(this.modules);
+        // console.log(this.modules);
         this.modules = mm;
       }
     }
