@@ -59,170 +59,20 @@
       return {
         modulesNumber: "",
         creditsNumber: "",
-        userName: "",
-
-        name_edit: "",
-        email: "",
-        password: "",
-        password_new: "",
-        noNameOk: true,
-        noMailOk: true,
-        noPassOk: true,
-        noPassMatch: true,
-        nameError: "",
-        passError: "",
-        OldPassError: "",
-        mailError: ""
+        userName: ""
       }
-    },
-    beforeCreate: function () {
-      document.body.className = 'inside';
     },
 
     created: function () {
       this.getUserInfo();
-      this.getUserModules();
     },
 
     methods: {
-      nameEdit: function () {
-        this.noNameOk = true;
-      },
-      passwordEdit: function () {
-        this.noPassOk = true;
-        this.noPassMatch = true;
-      },
-      nameChange: function () {
-        if (this.$cookies.get('userName') == this.name_edit) {
-          this.nameError = "New username matches old username.";
-          this.noNameOk = false;
-        } else {
-
-          let config = {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer' + this.$cookies.get('user_session')
-            }
-          };
-          let pass = 'https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/username';
-          axios.post(pass, {"Old": this.$cookies.get('userName'), "New": this.name_edit}, config)
-            .then(response => {
-              if (response.data.error != null) {
-                this.nameError = response.data.error;
-                this.noNameOk = false;
-              } else {
-                console.log(response.data);
-                this.$cookies.set('userName', this.name_edit);
-              }
-            })
-            .catch(error => {
-              this.noPassMatch = false;
-              this.passError = "An error occured.";
-              console.log(error)
-            });
-        }
-
-      },
-      emailChange: function () {
-        if (this.$cookies.get('userName') == this.name_edit) {
-          this.mailError = "New email matches old email.";
-          this.noMailOk = false;
-        } else {
-          let config = {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer' + this.$cookies.get('user_session')
-            }
-          };
-          let pass = 'https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/email';
-          axios.post(pass, {"Old": this.$cookies.get('userMail'), "New": this.email}, config)
-            .then(response => {
-              if (response.data.error != null) {
-                this.mailError = response.data.error;
-                this.noMailOk = false;
-              } else {
-                console.log(response.data);
-                this.$cookies.set('userMail', this.email);
-              }
-            })
-            .catch(error => {
-              this.noPassMatch = false;
-              this.passError = "An error occured.";
-              console.log(error)
-            });
-        }
-      },
-      passwordChange: function () {
-        let config = {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + this.$cookies.get('user_session')
-          }
-        };
-        let pass = 'https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/password';
-        axios.post(pass, {"Old": this.password, "New": this.password_new}, config)
-          .then(response => {
-            if (response.data.error != null) {
-              this.noPassMatch = false;
-              this.passError = response.data.error;
-            } else {
-              console.log(response.data);
-            }
-          })
-          .catch(error => {
-            this.noPassMatch = false;
-            this.passError = "An error occured.";
-            console.log(error)
-          });
-      },
-
-      btnClick: function () {
-        if (this.name_edit != "")
-          this.nameChange();
-
-        if (this.email != "")
-          this.emailChange();
-
-        if ((this.password != "") && (this.password_new != ""))
-          this.passwordChange();
-        else if (((this.password == "") && (this.password_new != "")) ||
-          ((this.password != "") && (this.password_new == ""))) {
-          this.noPassMatch = false;
-          this.passError = "Please fill both fields.";
-        }
-      },
-
       getUserInfo: function () {
         this.creditsNumber = this.$cookies.get('userCredits');
         this.userName = this.$cookies.get('userName');
       },
 
-      getUserModules: function () {
-        let config = {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': this.$cookies.get('user_session')
-          }
-        };
-        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
-        axios.get(pass, config)
-          .then(response => {
-            console.log(response.data);
-            this.modulesNumber = response.data.length;
-          })
-          .catch(error => {
-            console.log(error);
-            alert("Error occurred during loading modules. Please try again");
-          });
-      },
       logOut: function () {
         this.$cookies.remove("user_session");
         this.$cookies.remove("userName");
@@ -359,102 +209,6 @@
   a:hover {
     text-decoration: none;
     color: white;
-  }
-
-  /***********************************************/
-
-  .actions-part .action-text {
-    margin: auto;
-  }
-
-  .actions-part .btn-container {
-    margin: auto;
-  }
-
-  /*********************************/
-
-  .btn:hover {
-    color: white !important;
-    background: #12587c !important;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .settings-form {
-    padding: 10px 40px;
-  }
-
-  .settings-form .row {
-    width: 100%;
-    margin: 0;
-  }
-
-  .info-part {
-    background: #acd8c7;
-    color: #ffffff;
-    border-top-left-radius: 40px;
-    border-bottom-left-radius: 40px;
-    text-align: center;
-    box-sizing: content-box;
-  }
-
-  .info-part p {
-    margin-bottom: 0;
-  }
-
-  .modules-title {
-    margin-top: 7%;
-    font-size: 1.7rem;
-  }
-
-  .modules-info {
-    font-size: 100%;
-    color: #12496d;
-  }
-
-  .modules-info label {
-    margin-bottom: 0.1rem;
-  }
-
-  .settings-form .actions-part {
-    background: #eeeeee;
-    border-top-right-radius: 40px;
-    border-bottom-right-radius: 40px;
-    padding-top: 30px;
-    padding-bottom: 0;
-    text-align: center;
-    flex: 0 0 70%;
-  }
-
-  .actions-part .action-btn {
-    background-color: #2095a6 !important;
-    border-radius: 20px;
-    font-size: 15px;
-    color: white;
-    width: 120px;
-    height: 30px;
-    border-color: white;
-    margin: 0;
-  }
-
-  .action-btn a {
-    color: white;
-  }
-
-  /***********************************************/
-
-  .footer {
-    text-align: center;
-    background-color: #bebfc0;
-    color: white;
-    letter-spacing: 5px;
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-  }
-
-  .hidden {
-    display: none;
   }
 
 </style>
