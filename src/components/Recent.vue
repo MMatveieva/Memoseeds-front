@@ -2,43 +2,16 @@
   <div>
     <Header></Header>
 
-
     <div class="recent-wrapper">
-
-      <!--<div class="module-container">-->
-      <!--<div class="settings-form">-->
-      <!--<div class="row">-->
-      <!--<div class="col-sm-3 info-part">-->
-      <!--<h2 class="modules-title">Family</h2>-->
-      <!--<div class="modules-info">-->
-      <!--<p>Number of words:</p>-->
-      <!--<label id="module">1</label>-->
-      <!--</div>-->
-      <!--</div>-->
-
-      <!--<div class="col-sm-9 actions-part">-->
-      <!--<div class="row">-->
-      <!--<div class="col-sm-8 action-text">-->
-      <!--Marriage, household, vehicle, airplane railway station-->
-      <!--</div>-->
-      <!--<div class="col-sm-4 btn-container">-->
-      <!--<button type="submit" class="btn action-btn" v-on:click="startClick">-->
-      <!--<router-link to="/module">START</router-link>-->
-      <!--</button>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--</div>-->
-
-      <!--</div>-->
-      <!--</div>-->
-      <!--</div>-->
-
       <RecentModule
-        v-for="module in this.modules" v-bind:key="module.moduleId" v-bind:module="module" v-bind:title="module.title"
+        v-for="module in this.modules"
+        v-bind:key="module.moduleId"
+        v-bind:module="module"
+        v-bind:title="module.title"
         v-bind:wordsInModule="module.wordsInModule"
-        v-bind:words="module.words">
+        v-bind:words="module.words"
+        v-bind:id="module.moduleId">
       </RecentModule>
-
     </div>
 
     <div class="go-to-shop">
@@ -46,7 +19,6 @@
         <router-link to="/allModules">GO TO ALL MODULES</router-link>
       </button>
     </div>
-
 
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
@@ -133,17 +105,12 @@
         }
         console.log(this.modules);
         this.modules = mm;
-      },
-
-      startClick: function () {
       }
     }
   }
 </script>
 
 <style scoped>
-  /*************************************/
-
   .recent-wrapper {
     margin-top: 20px;
   }

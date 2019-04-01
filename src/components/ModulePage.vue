@@ -21,35 +21,6 @@
         </div>
       </div>
 
-      <!--<div class="carousel-wrapper">-->
-        <!--<b-carousel-->
-          <!--id="module-carousel"-->
-          <!--controls-->
-          <!--background="#C5EED7"-->
-          <!--:interval="40000"-->
-          <!--v-model="slide"-->
-          <!--img-height="130"-->
-          <!--img-width="200"-->
-        <!--&gt;-->
-
-          <!--<b-carousel-slide img-blank img-alt="Sibling">-->
-            <!--<div class="card-title">Sibling</div>-->
-            <!--<div class="card-num">22/200</div>-->
-          <!--</b-carousel-slide>-->
-
-          <!--<b-carousel-slide img-blank img-alt="Father">-->
-            <!--<div class="card-title">Father</div>-->
-            <!--<div class="card-num">23/200</div>-->
-          <!--</b-carousel-slide>-->
-
-          <!--<b-carousel-slide img-blank img-alt="Brother">-->
-            <!--<div class="card-title">Brother</div>-->
-            <!--<div class="card-num">24/200</div>-->
-          <!--</b-carousel-slide>-->
-
-        <!--</b-carousel>-->
-      <!--</div>-->
-
       <div class="modules-words">
         Words in this set:
       </div>

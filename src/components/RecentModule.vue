@@ -16,7 +16,7 @@
             </div>
             <div class="col-sm-4 btn-container">
               <button type="submit" class="btn action-btn" v-on:click="startClick">
-                <router-link to="/module">START</router-link>
+                START
               </button>
             </div>
           </div>
@@ -28,20 +28,27 @@
 
 <script>
   import RecentModule from './RecentModule'
+  import router from '../router'
 
   export default {
     name: "RecentModule",
-    props: ['id','title', 'wordsInModule', 'words'],
+    props: ['id', 'title', 'wordsInModule', 'words'],
     components: {
       RecentModule
     },
-    data: function () {
-      return {
-        title: this.title,
-        wordsInModule: this.wordsInModule,
-        words: this.words
+    // data: function () {
+    //   return {
+    //     title: this.title,
+    //     wordsInModule: this.wordsInModule,
+    //     words: this.words,
+    //     id: this.id
+    //   }
+    // },
+    methods: {
+      startClick: function () {
+        router.push('module/' + this.id);
       }
-    },
+    }
   }
 </script>
 
@@ -101,7 +108,7 @@
     background: #eeeeee;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
-    padding-top: 30px;
+    padding-top: 32px;
     padding-bottom: 0;
     text-align: center;
     flex: 0 0 70%;

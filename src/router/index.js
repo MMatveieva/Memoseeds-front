@@ -53,7 +53,7 @@ export default new Router({
       beforeEnter: ifAuthenticated
     },
     {
-      path: '/module',
+      path: '/module/:id',
       name: 'modulePage',
       component: ModulePage,
       beforeEnter: ifAuthenticated
