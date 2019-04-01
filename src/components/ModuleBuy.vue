@@ -6,16 +6,16 @@
       <div class="settings-form">
         <div class="row" style="width: 100%; margin: 0">
           <div class="col-sm-3 info-part">
-            <h2 class="modules-title">{{moduleName}}Family</h2>
+            <h2 class="modules-title">{{moduleName}}</h2>
             <div class="modules-info">
               <p>Number of words:</p>
-              <label id="modules">{{wordsNumber}}100</label>
+              <label id="modules">{{wordsNumber}}</label>
             </div>
           </div>
           <div class="col-sm-9 actions-part">
-            <button type="submit" class="btn action-btn" v-on:click="learnClick" v-bind:disabled=!added>Learn</button>
-            <button type="submit" class="btn action-btn" v-on:click="writeClick" v-bind:disabled=!added>Write</button>
-            <button type="submit" class="btn action-btn" v-on:click="testClick" v-bind:disabled=!added>Test</button>
+            <button type="submit" class="btn action-btn" disabled="disabled">Learn</button>
+            <button type="submit" class="btn action-btn" disabled="disabled">Write</button>
+            <button type="submit" class="btn action-btn" disabled="disabled">Test</button>
           </div>
 
         </div>
@@ -24,26 +24,25 @@
       <div class="modules-words">
         Words in this set:
       </div>
-      <div class="words-form row">
-        <div class="col-sm-1 module-words-inside word-num">
-          <div>1</div>
-          <div>2</div>
-          <div>3</div>
-        </div>
-        <div class="col-sm-5 module-words-inside word" id="words">
-          <div>Word from set</div>
-          <div>Word from set</div>
-          <div>Word from set</div>
-        </div>
-        <div class="col-sm-6 module-words-inside word-def" id="definition">
-          <div>Translation or definition</div>
-          <div>Translation or definition</div>
-          <div>Translation or definition</div>
-        </div>
+      <div class="words-wrapper">
 
+        <Terms
+          v-for="term in this.terms"
+          v-bind:key="term.id"
+          v-bind:word="term.word"
+          v-bind:definition="term.definition"
+          v-bind:id="term.id"
+          v-bind:pos="term.pos">
+        </Terms>
       </div>
-    </div>
 
+      <div class="btn-container">
+        <button type="button" class="btn add-btn" v-on:click="editClick">
+          {{addOption}}
+        </button>
+      </div>
+
+    </div>
 
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
@@ -53,12 +52,15 @@
 
 <script>
   import router from '../router'
+  import axios from 'axios'
   import Header from './Header'
+  import Terms from './Terms'
 
   export default {
     name: "ModuleBuy",
     components: {
-      Header
+      Header,
+      Terms
     },
     data() {
       return {
@@ -66,11 +68,12 @@
         creditsNumber: "",
         userName: "",
         moduleName: "",
+        addOption: "",
 
-        pass: "",
+        terms: [],
 
-        free: false,
-        added: false,
+        added: false
+
       }
     },
 
@@ -79,37 +82,79 @@
     },
 
     created: function () {
-      this.getUserInfo();
       this.getModuleInfo();
     },
 
     methods: {
-      learnClick: function () {
-
-      },
-      writeClick: function () {
-
-      },
-      testClick: function () {
-
+      editClick: function () {
       },
 
-      getUserInfo: function () {
-        this.creditsNumber = this.$cookies.get('userCredits');
-        this.userName = this.$cookies.get('userName');
-      },
 
       getModuleInfo: function () {
+        let config = {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + this.$cookies.get('user_session')
+          }
+        };
+        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules/' +
+          this.$route.params.id;
 
+        axios.get(pass, config)
+          .then(response => {
+            this.moduleName = response.data.name;
+            this.drawTerms(response.data);
+          })
+          .catch(error => {
+            console.log(error);
+            alert("Error occurred during loading modules. Please try again");
+          });
 
+      },
+
+      drawTerms: function (data) {
+        console.log('data ', data);
+        let mm = new Array(data.terms.length);
+        this.wordsNumber = data.terms.length;
+
+        for (let i = 0; (i < data.terms.length && i < 5); i++) {
+          let m = {
+            word: data.terms[i].name,
+            definition: data.terms[i].definition,
+            id: data.terms[i].termId,
+            pos: i + 1
+          };
+          mm[i] = m;
+        }
+        this.terms = mm;
       }
     }
   }
 </script>
 
 <style scoped>
+  .btn-container {
+    margin: 10px auto;
+    text-align: center;
+  }
 
-  /*********************************/
+  .btn-container button:hover {
+    background-color: #12496d !important;
+  }
+
+  .add-btn {
+    background-color: #12496d !important;
+    border-radius: 20px;
+    font-size: 16px;
+    color: white;
+    width: 150px;
+    height: 35px;
+    border-color: white;
+    margin: 0;
+    padding-top: 6px;
+  }
 
   .btn:hover {
     color: white !important;
@@ -153,27 +198,6 @@
     color: #12496d;
   }
 
-  .words-form {
-    width: 70%;
-    margin: auto;
-    margin-bottom: 25px;
-  }
-
-  .words-form .word-num {
-    color: #12496d;
-    padding-right: 0;
-    text-align: center;
-  }
-
-  .words-form .word {
-    text-align: left;
-  }
-
-  .words-form .word-def {
-    text-align: right;
-    padding-right: 50px;
-  }
-
   .settings-form .actions-part {
     background: #eeeeee;
     border-top-right-radius: 40px;
@@ -182,18 +206,6 @@
     padding-bottom: 40px;
     text-align: center;
     flex: 0 0 70%;
-  }
-
-  .module-words-inside {
-    background: #eeeeee;
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-
-  .module-words-inside h4 {
-    margin-top: 20px;
-    margin-bottom: 15px;
-    color: #12496d;
   }
 
   .actions-part .action-btn {
@@ -215,6 +227,11 @@
   .actions-part button:disabled {
     background-color: #f59699 !important;
     cursor: not-allowed;
+  }
+
+  .words-wrapper {
+    margin-top: 15px;
+    margin-bottom: 25px;
   }
 
   /***********************************************/

@@ -37,7 +37,7 @@
       </div>
 
       <div class="btn-container">
-        <button type="button" class="btn edit-btn" v-on:click="editClick">
+        <button type="button" class="btn add-btn" v-on:click="editClick">
           EDIT
         </button>
       </div>
@@ -66,7 +66,6 @@
       return {
         wordsNumber: "",
         creditsNumber: "",
-        userName: "",
         moduleName: "",
 
         terms: [],
@@ -81,7 +80,6 @@
     },
 
     created: function () {
-      this.getUserInfo();
       this.getModuleInfo();
 
       // router.afterEach((to, from) => {
@@ -168,7 +166,7 @@
     background-color: #12496d !important;
   }
 
-  .edit-btn {
+  .add-btn {
     background-color: #12496d !important;
     border-radius: 20px;
     font-size: 16px;
