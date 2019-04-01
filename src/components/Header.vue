@@ -51,7 +51,7 @@
   import Header from './Header'
 
   export default {
-    name: "Settings",
+    name: "Header",
     components: {
       Header
     },

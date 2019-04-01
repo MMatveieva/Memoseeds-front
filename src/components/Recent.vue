@@ -5,33 +5,39 @@
 
     <div class="recent-wrapper">
 
-      <div class="module-container">
-        <div class="settings-form">
-          <div class="row">
-            <div class="col-sm-3 info-part">
-              <h2 class="modules-title">Family</h2>
-              <div class="modules-info">
-                <p>Number of words:</p>
-                <label id="module">{{wordsNumber[0]}}</label>
-              </div>
-            </div>
+      <!--<div class="module-container">-->
+      <!--<div class="settings-form">-->
+      <!--<div class="row">-->
+      <!--<div class="col-sm-3 info-part">-->
+      <!--<h2 class="modules-title">Family</h2>-->
+      <!--<div class="modules-info">-->
+      <!--<p>Number of words:</p>-->
+      <!--<label id="module">1</label>-->
+      <!--</div>-->
+      <!--</div>-->
 
-            <div class="col-sm-9 actions-part">
-              <div class="row">
-                <div class="col-sm-8 action-text">
-                  Marriage, household, vehicle, airplane railway station
-                </div>
-                <div class="col-sm-4 btn-container">
-                  <button type="submit" class="btn action-btn" v-on:click="startClick">
-                    <router-link to="/module">START</router-link>
-                  </button>
-                </div>
-              </div>
-            </div>
+      <!--<div class="col-sm-9 actions-part">-->
+      <!--<div class="row">-->
+      <!--<div class="col-sm-8 action-text">-->
+      <!--Marriage, household, vehicle, airplane railway station-->
+      <!--</div>-->
+      <!--<div class="col-sm-4 btn-container">-->
+      <!--<button type="submit" class="btn action-btn" v-on:click="startClick">-->
+      <!--<router-link to="/module">START</router-link>-->
+      <!--</button>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
 
-          </div>
-        </div>
-      </div>
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+
+      <RecentModule
+        v-for="module in this.modules" v-bind:key="module.moduleId" v-bind:module="module" v-bind:title="module.title"
+        v-bind:wordsInModule="module.wordsInModule"
+        v-bind:words="module.words">
+      </RecentModule>
 
     </div>
 
@@ -52,16 +58,18 @@
   import axios from 'axios'
   import router from '../router'
   import Header from './Header'
+  import RecentModule from './RecentModule'
 
   export default {
     name: "Recent",
     components: {
-      Header
+      Header,
+      RecentModule
     },
     data() {
       return {
         userName: "",
-        wordsNumber: []
+        modules: []
       }
     },
 
@@ -91,7 +99,6 @@
         let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
         axios.get(pass, config)
           .then(response => {
-            console.log(response.data);
             this.drawModules(response.data);
           })
           .catch(error => {
@@ -101,7 +108,31 @@
       },
 
       drawModules: function (data) {
+        data.sort(function (a, b) {
+          return new Date(b.lastEdit) - new Date(a.lastEdit);
+        });
 
+        let mm = new Array(data.length);
+
+        for (let i = 0; i < data.length; i++) {
+          let terms = "";
+          for (let j = 0; (j < data[i].module.terms.length && j < 4); j++) {
+            if (j == 3 || j == data[i].module.terms.length - 1)
+              terms += data[i].module.terms[j].name + ".";
+            else
+              terms += data[i].module.terms[j].name + ", ";
+          }
+
+          let m = {
+            title: data[i].module.name,
+            wordsInModule: data[i].module.terms.length,
+            words: terms,
+            moduleId: data[i].module.moduleId
+          };
+          mm[i] = m;
+        }
+        console.log(this.modules);
+        this.modules = mm;
       },
 
       startClick: function () {
@@ -111,96 +142,10 @@
 </script>
 
 <style scoped>
-   /*************************************/
+  /*************************************/
 
   .recent-wrapper {
     margin-top: 20px;
-  }
-
-  .actions-part .action-text {
-    margin: auto;
-  }
-
-  .actions-part .btn-container {
-    margin: auto;
-  }
-
-  .btn:hover {
-    color: white !important;
-    background: #12587c !important;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .settings-form {
-    padding: 10px 40px;
-  }
-
-  .settings-form .row {
-    width: 100%;
-    margin: 0;
-  }
-
-  .info-part {
-    background: #acd8c7;
-    color: #ffffff;
-    border-top-left-radius: 40px;
-    border-bottom-left-radius: 40px;
-    text-align: center;
-    box-sizing: content-box;
-  }
-
-  .info-part p {
-    margin-bottom: 0;
-  }
-
-  .modules-title {
-    margin-top: 7%;
-    font-size: 1.7rem;
-  }
-
-  .modules-info {
-    font-size: 100%;
-    color: #12496d;
-  }
-
-  .modules-info label {
-    margin-bottom: 0.1rem;
-  }
-
-  .settings-form .actions-part {
-    background: #eeeeee;
-    border-top-right-radius: 40px;
-    border-bottom-right-radius: 40px;
-    padding-top: 30px;
-    padding-bottom: 0;
-    text-align: center;
-    flex: 0 0 70%;
-  }
-
-  .actions-part .action-btn {
-    background-color: #2095a6 !important;
-    border-radius: 20px;
-    font-size: 15px;
-    color: white;
-    width: 120px;
-    height: 30px;
-    border-color: white;
-    margin: 0;
-  }
-
-  .action-btn a {
-    color: white;
-  }
-
-  .action-btn a:hover {
-    color: white;
-    text-decoration: none;
-  }
-
-  .actions-part button:hover {
-    background-color: #186e7a !important;
-    cursor: pointer;
   }
 
   /*************************************/
@@ -209,6 +154,11 @@
     margin-top: 10px;
     padding: 10px 40px;
     text-align: right;
+  }
+
+  .go-to-shop a {
+    color: white;
+    text-decoration: none;
   }
 
   .go-to-shop .go-btn {
@@ -220,6 +170,7 @@
     height: 35px;
     border-color: white;
     padding-top: 4px;
+    margin-bottom: 25px;
   }
 
   .footer {
@@ -227,7 +178,7 @@
     background-color: #bebfc0;
     color: white;
     letter-spacing: 5px;
-    position: absolute;
+    position: relative;
     width: 100%;
     bottom: 0;
   }
