@@ -34,7 +34,6 @@
             </small>
             <small id="signInError" class="form-text text-muted hidden" v-bind:class="{hidden: noLogin}"
                    style="margin-bottom: 10px">{{loginError}}
-              Incorrect email or password.
             </small>
           </div>
           <button id="signIn-btn" type="button" class="btn signIn-btn" v-on:click="btnClick">SIGN IN</button>

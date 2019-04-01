@@ -137,7 +137,6 @@
       },
 
       drawTerms: function (data) {
-        console.log('data ', data);
         let mm = new Array(data.terms.length);
         this.wordsNumber = data.terms.length;
 
