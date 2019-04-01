@@ -129,11 +129,16 @@
         axios.get(pass, config)
           .then(response => {
             console.log(response.data);
+            this.drawModules(response.data);
           })
           .catch(error => {
             console.log(error);
             alert("Error occurred during loading modules. Please try again");
           });
+      },
+
+      drawModules: function(data){
+
       },
 
       startClick: function () {
