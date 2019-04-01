@@ -1,49 +1,6 @@
 <template>
   <div>
-    <div class="card-header header">
-      <div class="row">
-        <div class="col-sm-1 logo">
-          <router-link to="/allModules">
-            <img src="../css/images/logo.png">
-          </router-link>
-        </div>
-        <div class="col-sm-3 header-search input-group">
-          <input type="text" class="form-control" placeholder="Search">
-          <div class="input-group-append search-btn">
-            <a href="#">
-              <img src="../css/images/search.png">
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-5 header-text">
-          MEMOSEEDS
-        </div>
-        <div class="col-sm-3 header-user">
-          <div class="row">
-            <div class="col-sm-6">
-              <router-link to="/newModule">
-                <img src="../css/images/add-button.png">
-              </router-link>
-            </div>
-            <div class="user-acc col-sm-6">
-              <b-dropdown class="user-name" offset="-16">
-                <template slot="button-content">{{userName}}</template>
-                <b-dropdown-item class="user-dropdown" href="#">
-                  <router-link to="/settings">Settings</router-link>
-                </b-dropdown-item>
-                <b-dropdown-item class="user-dropdown" href="#">
-                  <router-link to="/recent">My modules</router-link>
-                </b-dropdown-item>
-                <b-dropdown-item class="user-dropdown" href="#">
-                  <label v-on:click="logOut">Log out</label>
-                </b-dropdown-item>
-              </b-dropdown>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <Header></Header>
     <div class="module-container">
       <div class="settings-form">
         <div class="row" style="width: 100%; margin: 0">
@@ -133,10 +90,13 @@
 
 <script>
   import router from '../router';
+  import Header from './Header'
 
   export default {
     name: "ModulePage",
-
+    components: {
+      Header
+    },
     data() {
       return {
         wordsNumber: "",
@@ -158,15 +118,6 @@
     methods: {
       translateClick: function () {
 
-      },
-      logOut: function () {
-        this.$cookies.remove("user_session");
-        this.$cookies.remove("userName");
-        this.$cookies.remove("userCredits");
-        this.$cookies.remove("userMail");
-        this.$cookies.remove("userId");
-        this.$cookies.remove('country');
-        router.push('signIn');
       }
     }
   }
