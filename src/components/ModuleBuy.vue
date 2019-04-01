@@ -6,10 +6,10 @@
       <div class="settings-form">
         <div class="row" style="width: 100%; margin: 0">
           <div class="col-sm-3 info-part">
-            <h2 class="modules-title">{{moduleName}}</h2>
+            <h2 class="modules-title">{{moduleName}}Family</h2>
             <div class="modules-info">
               <p>Number of words:</p>
-              <label id="modules">{{wordsNumber}}</label>
+              <label id="modules">{{wordsNumber}}100</label>
             </div>
           </div>
           <div class="col-sm-9 actions-part">
@@ -24,25 +24,26 @@
       <div class="modules-words">
         Words in this set:
       </div>
-      <div class="words-wrapper">
+      <div class="words-form row">
+        <div class="col-sm-1 module-words-inside word-num">
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+        </div>
+        <div class="col-sm-5 module-words-inside word" id="words">
+          <div>Word from set</div>
+          <div>Word from set</div>
+          <div>Word from set</div>
+        </div>
+        <div class="col-sm-6 module-words-inside word-def" id="definition">
+          <div>Translation or definition</div>
+          <div>Translation or definition</div>
+          <div>Translation or definition</div>
+        </div>
 
-        <Terms
-          v-for="term in this.terms"
-          v-bind:key="term.id"
-          v-bind:word="term.word"
-          v-bind:definition="term.definition"
-          v-bind:id="term.id"
-          v-bind:pos="term.pos">
-        </Terms>
       </div>
-
-      <div class="btn-container">
-        <button type="button" class="btn edit-btn" v-on:click="editClick">
-          EDIT
-        </button>
-      </div>
-
     </div>
+
 
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
@@ -52,15 +53,12 @@
 
 <script>
   import router from '../router'
-  import axios from 'axios'
   import Header from './Header'
-  import Terms from './Terms'
 
   export default {
-    name: "ModulePage",
+    name: "ModuleBuy",
     components: {
-      Header,
-      Terms
+      Header
     },
     data() {
       return {
@@ -69,10 +67,10 @@
         userName: "",
         moduleName: "",
 
-        terms: [],
+        pass: "",
 
-        added: false
-
+        free: false,
+        added: false,
       }
     },
 
@@ -83,27 +81,17 @@
     created: function () {
       this.getUserInfo();
       this.getModuleInfo();
-
-      // router.afterEach((to, from) => {
-      //   this.$cookies.set('from', from.fullPath);
-      // });
     },
 
     methods: {
-      editClick: function () {
-      },
-
       learnClick: function () {
-        router.push('/');
-        router.replace({path: './learn'});
+
       },
       writeClick: function () {
-        router.push('/');
-        router.replace('write');
+
       },
       testClick: function () {
-        router.push('/');
-        router.replace('test');
+
       },
 
       getUserInfo: function () {
@@ -112,73 +100,16 @@
       },
 
       getModuleInfo: function () {
-        let config = {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + this.$cookies.get('user_session')
-          }
-        };
-        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules/' +
-          this.$route.params.id;
 
-        axios.get(pass, config)
-          .then(response => {
-            this.moduleName = response.data.name;
-            // console.log('user ', response.data.userId);
-            if (this.$cookies.get('userId') == response.data.userId)
-              this.added = true;
-            this.drawTerms(response.data);
-          })
-          .catch(error => {
-            console.log(error);
-            alert("Error occurred during loading modules. Please try again");
-          });
 
-      },
-
-      drawTerms: function (data) {
-        console.log('data ', data);
-        let mm = new Array(data.terms.length);
-        this.wordsNumber = data.terms.length;
-
-        for (let i = 0; i < data.terms.length; i++) {
-          let m = {
-            word: data.terms[i].name,
-            definition: data.terms[i].definition,
-            id: data.terms[i].termId,
-            pos: i + 1
-          };
-          mm[i] = m;
-        }
-        this.terms = mm;
       }
     }
   }
 </script>
 
 <style scoped>
-  .btn-container {
-    margin: 10px auto;
-    text-align: center;
-  }
 
-  .btn-container button:hover{
-    background-color: #12496d !important;
-  }
-
-  .edit-btn {
-    background-color: #12496d !important;
-    border-radius: 20px;
-    font-size: 16px;
-    color: white;
-    width: 150px;
-    height: 35px;
-    border-color: white;
-    margin: 0;
-    padding-top: 6px;
-  }
+  /*********************************/
 
   .btn:hover {
     color: white !important;
@@ -222,6 +153,27 @@
     color: #12496d;
   }
 
+  .words-form {
+    width: 70%;
+    margin: auto;
+    margin-bottom: 25px;
+  }
+
+  .words-form .word-num {
+    color: #12496d;
+    padding-right: 0;
+    text-align: center;
+  }
+
+  .words-form .word {
+    text-align: left;
+  }
+
+  .words-form .word-def {
+    text-align: right;
+    padding-right: 50px;
+  }
+
   .settings-form .actions-part {
     background: #eeeeee;
     border-top-right-radius: 40px;
@@ -230,6 +182,18 @@
     padding-bottom: 40px;
     text-align: center;
     flex: 0 0 70%;
+  }
+
+  .module-words-inside {
+    background: #eeeeee;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .module-words-inside h4 {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    color: #12496d;
   }
 
   .actions-part .action-btn {
@@ -251,11 +215,6 @@
   .actions-part button:disabled {
     background-color: #f59699 !important;
     cursor: not-allowed;
-  }
-
-  .words-wrapper {
-    margin-top: 15px;
-    margin-bottom: 25px;
   }
 
   /***********************************************/

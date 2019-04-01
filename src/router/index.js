@@ -5,6 +5,7 @@ import SignIn from '@/components/SignIn'
 import Settings from '@/components/Settings'
 import Recent from '@/components/Recent'
 import ModulePage from '@/components/ModulePage'
+import ModuleBuy from '@/components/ModuleBuy'
 import AllModules from '@/components/AllModules'
 import BuyCredits from '@/components/BuyCredits'
 import Learning from '@/components/Learning'
@@ -12,11 +13,9 @@ import Writing from '@/components/Writing'
 
 Vue.use(Router);
 
-const ifAuthenticated = (to, from, next) =>
-{
+const ifAuthenticated = (to, from, next) => {
   let access_token = Vue.cookies.isKey("user_session");
-  if(access_token)
-  {
+  if (access_token) {
     next()
     return
   }
@@ -53,9 +52,15 @@ export default new Router({
       beforeEnter: ifAuthenticated
     },
     {
-      path: '/module/:id',
+      path: '/myModule/:id',
       name: 'modulePage',
       component: ModulePage,
+      beforeEnter: ifAuthenticated
+    },
+    {
+      path: '/moduleView/:id',
+      name: 'moduleView',
+      component: ModuleBuy,
       beforeEnter: ifAuthenticated
     },
     {

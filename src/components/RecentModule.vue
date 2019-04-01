@@ -36,17 +36,10 @@
     components: {
       RecentModule
     },
-    // data: function () {
-    //   return {
-    //     title: this.title,
-    //     wordsInModule: this.wordsInModule,
-    //     words: this.words,
-    //     id: this.id
-    //   }
-    // },
+
     methods: {
       startClick: function () {
-        router.push('module/' + this.id);
+        router.push('myModule/' + this.id);
       }
     }
   }
