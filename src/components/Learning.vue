@@ -29,41 +29,13 @@
                 img-width="200"
               >
 
-                <b-carousel-slide img-blank img-alt="Sibling">
-                  <div class="card-title">Your brother's wife</div>
-                  <div class="row action-service">
-                    <div class="col-sm-9 words-num">{{wordNow}}/{{wordsAll}}</div>
-                    <div class="col-sm-3 btn-container">
-                      <button type="submit" class="btn next-btn" v-on:click="translateClick">
-                        SEE TRANSLATION
-                      </button>
-                    </div>
-                  </div>
-                </b-carousel-slide>
-
-                <b-carousel-slide img-blank img-alt="Father">
-                  <div class="card-title">Your brother's wife</div>
-                  <div class="row action-service">
-                    <div class="col-sm-9 words-num">{{wordNow}}/{{wordsAll}}</div>
-                    <div class="col-sm-3 btn-container">
-                      <button type="submit" class="btn next-btn" v-on:click="translateClick">
-                        SEE TRANSLATION
-                      </button>
-                    </div>
-                  </div>
-                </b-carousel-slide>
-
-                <b-carousel-slide img-blank img-alt="Brother">
-                  <div class="card-title">Your brother's friend</div>
-                  <div class="row action-service">
-                    <div class="col-sm-9 words-num">{{wordNow}}/{{wordsAll}}</div>
-                    <div class="col-sm-3 btn-container">
-                      <button type="submit" class="btn next-btn" v-on:click="translateClick">
-                        SEE TRANSLATION
-                      </button>
-                    </div>
-                  </div>
-                </b-carousel-slide>
+                <LearnTemplate
+                  v-for="wordL in words"
+                  v-bind:key="wordL.id"
+                  v-bind:wordL="wordL"
+                  v-bind:word="wordL.word"
+                  v-bind:definition="wordL.definition"
+                ></LearnTemplate>
 
               </b-carousel>
             </div>
@@ -92,15 +64,12 @@
     },
     data() {
       return {
-        wordsNumber: "",
         wordsAll: "",
-        wordNow: "",
-
         moduleName: "",
-        wordsLeft: "",
-        wordsCorrect: "",
-        wordsIncorrect: "",
-        wordDef: ""
+        words: [],
+
+        slide: ""
+
       }
     },
 
@@ -108,7 +77,16 @@
       document.body.className = 'inside';
     },
 
+    created: function () {
+      this.getWords();
+    },
+
     methods: {
+      getWords: function () {
+        // words={
+        //   id, word, definition
+        // }
+      },
 
       backClick: function () {
         let p = this.$route.params.id;
@@ -136,34 +114,7 @@
     flex: 0 0 70%;
   }
 
-  .actions-part .card-title {
-    color: #0b486d;
-    font-size: 1.7rem;
-    font-weight: 500;
-  }
-
-  .actions-part .btn-container {
-    margin-left: -85px;
-  }
-
-
-  .actions-part .words-num {
-    color: #2095a6;
-    font-size: 15px;
-    margin-left: 40px;
-  }
-
-  .actions-part .action-service {
-    margin-top: 40px;
-  }
-
   /*********************************/
-
-  .btn:hover {
-    color: white !important;
-    text-decoration: none;
-    cursor: pointer;
-  }
 
   .settings-form {
     padding: 30px 40px;
@@ -195,24 +146,6 @@
   /*font-size: 100%;*/
   /*color: #12496d;*/
   /*}*/
-
-  .actions-part .next-btn {
-    background-color: #f59699 !important;
-    border-radius: 20px;
-    font-size: 14px;
-    color: white;
-    width: 180px;
-    height: 25px;
-    border-color: white;
-    margin: 0;
-    padding-top: 3px;
-  }
-
-  .actions-part button:hover {
-    color: white !important;
-    background: #f56e72 !important;
-    text-decoration: none;
-  }
 
   /********************************/
 
@@ -252,6 +185,7 @@
     letter-spacing: 5px;
     position: absolute;
     width: 100%;
+    bottom: 0;
   }
 
   .hidden {
