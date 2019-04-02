@@ -1,47 +1,45 @@
 <template>
-    <div class="card-header header">
-      <div class="row">
-        <div class="col-sm-1 logo">
-          <router-link to="/allModules">
-            <img src="../css/images/logo.png">
-          </router-link>
+  <div class="card-header header">
+    <div class="row">
+      <div class="col-sm-1 logo">
+        <router-link to="/allModules">
+          <img src="../css/images/logo.png">
+        </router-link>
+      </div>
+      <div class="col-sm-3 header-search input-group">
+        <input type="text" class="form-control" placeholder="Search">
+        <div class="input-group-append search-btn">
+          <img src="../css/images/search.png">
         </div>
-        <div class="col-sm-3 header-search input-group">
-          <input type="text" class="form-control" placeholder="Search">
-          <div class="input-group-append search-btn">
-            <a href="#">
-              <img src="../css/images/search.png">
-            </a>
+      </div>
+      <div class="col-sm-5 header-text">
+        MEMOSEEDS
+      </div>
+      <div class="col-sm-3 header-user">
+        <div class="row">
+          <div class="col-sm-6">
+            <router-link to="/newModule">
+              <img src="../css/images/add-button.png">
+            </router-link>
           </div>
-        </div>
-        <div class="col-sm-5 header-text">
-          MEMOSEEDS
-        </div>
-        <div class="col-sm-3 header-user">
-          <div class="row">
-            <div class="col-sm-6">
-              <router-link to="/newModule">
-                <img src="../css/images/add-button.png">
-              </router-link>
-            </div>
-            <div class="user-acc col-sm-6">
-              <b-dropdown class="user-name" offset="-16">
-                <template slot="button-content">{{userName}}</template>
-                <b-dropdown-item class="user-dropdown" href="#">
-                  <router-link to="/settings">Settings</router-link>
-                </b-dropdown-item>
-                <b-dropdown-item class="user-dropdown" href="#">
-                  <router-link to="/recent">My modules</router-link>
-                </b-dropdown-item>
-                <b-dropdown-item class="user-dropdown" href="#">
-                  <label  v-on:click="logOut">Log out</label>
-                </b-dropdown-item>
-              </b-dropdown>
-            </div>
+          <div class="user-acc col-sm-6">
+            <b-dropdown class="user-name" offset="-16">
+              <template slot="button-content">{{userName}}</template>
+              <b-dropdown-item class="user-dropdown" href="#">
+                <router-link to="/settings">Settings</router-link>
+              </b-dropdown-item>
+              <b-dropdown-item class="user-dropdown" href="#">
+                <router-link to="/recent">My modules</router-link>
+              </b-dropdown-item>
+              <b-dropdown-item class="user-dropdown" href="#">
+                <label v-on:click="logOut">Log out</label>
+              </b-dropdown-item>
+            </b-dropdown>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 
@@ -129,7 +127,7 @@
 
   .header-search .search-btn {
     background-color: #ffffff;
-    line-height: 30px;
+    padding-top: 1.35%;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
   }

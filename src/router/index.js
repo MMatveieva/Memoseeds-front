@@ -10,6 +10,7 @@ import AllModules from '@/components/AllModules'
 import BuyCredits from '@/components/BuyCredits'
 import Learning from '@/components/Learning'
 import Writing from '@/components/Writing'
+import Testing from '@/components/Testing'
 
 Vue.use(Router);
 
@@ -85,6 +86,12 @@ export default new Router({
       path: '/write/:id',
       name: 'write',
       component: Writing,
+      beforeEnter: ifAuthenticated
+    },
+    {
+      path: '/test/:id',
+      name: 'test',
+      component: Testing,
       beforeEnter: ifAuthenticated
     }
   ]

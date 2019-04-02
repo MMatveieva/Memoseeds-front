@@ -2,7 +2,6 @@
   <div>
 
     <!--HEADER-->
-
     <div class="card-header header">
       <div class="row">
         <div class="col-sm-1 logo">
@@ -13,9 +12,9 @@
         <div class="col-sm-3 header-search input-group">
           <input type="text" class="form-control" placeholder="Search">
           <div class="input-group-append search-btn">
-            <a href="#">
+            <!--<a href="#">-->
               <img src="../css/images/search.png">
-            </a>
+            <!--</a>-->
           </div>
         </div>
         <div class="col-sm-5 header-text">
@@ -500,7 +499,7 @@
 
   .header-search .search-btn {
     background-color: #ffffff;
-    line-height: 30px;
+    padding-top: 2.3%;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
   }
