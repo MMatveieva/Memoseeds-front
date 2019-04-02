@@ -30,7 +30,7 @@
             <div class="action-text">
               {{wordDef}}
             </div>
-            <div class="action-input" v-bind:class="hidden=end">
+            <div class="action-input" v-bind:class="{hidden: end}">
               <input type="text" class="ans-input" placeholder="Write your answer here" v-model="inputText">
             </div>
             <div class="row action-service">
@@ -93,9 +93,9 @@
         if(!this.end)
           this.check();
         else{
-          this.wordDef = "";
+          var id =this.$route.params.id;
           router.push("/");
-          router.push('myModule/' + this.$cookies.params.id);
+          router.push('myModule/' + id);
         }
 
       },
@@ -109,15 +109,14 @@
         if(this.wordNow!=this.wordsAll){
           this.wordNow+=1;
           this.wordDef = this.module[this.wordNow-1].definition;
+          this.wordsLeft = this.wordsAll - this.wordNow; 
         }
         else{
           this.end = true;
-          this.wordDef = ""
+          this.wordDef = "Success! Your score is "+this.wordsCorrect/this.wordsAll+"%!" ;
         }
-        this.wordsLeft = this.wordsAll - this.wordNow;
         this.inputText = "";
       },
-
       getModuleData(){
         let config = {
           headers: {
@@ -128,7 +127,6 @@
           }
           };
           let pass = 'https://memeseeds.herokuapp.com/user/'+this.$cookies.get("userId")+'/modules/'+this.$route.params.id;
-
           axios.get(pass, config)
             .then(response => {
                if (response.data.error == null) {
