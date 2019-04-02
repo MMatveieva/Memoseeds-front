@@ -1,91 +1,34 @@
 <template>
   <div>
     <Header></Header>
+    <div class="filter-form">
+      <div class="row">
+        <div class="col-sm-3 info-part">
+          <h2 class="filter-title">Filter</h2>
+        </div>
+
+        <div class="col-sm-9 actions-part">
+          <div class="row">
+
+
+            <div class="col-sm-4 btn-container">
+              <button type="submit" class="btn action-btn" v-on:click="filterClick">
+                SEARCH
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="shop-wrapper">
-
-      <div class="module-container">
-        <div class="settings-form">
-          <div class="row">
-            <div class="col-sm-3 info-part">
-              <h2 class="modules-title">Transport</h2>
-              <div class="modules-info">
-                <p>Number of words:</p>
-                <label id="modules1">{{wordsNumber}}</label>
-              </div>
-            </div>
-
-            <div class="col-sm-9 actions-part">
-              <div class="row">
-                <div class="col-sm-8 action-text">
-                  Car, tram, vehicle, airplane railway station, petrol
-                </div>
-                <div class="col-sm-4 btn-container">
-                  <button type="submit" class="btn action-btn" v-on:click="startClick">
-                    <router-link to="/module">START</router-link>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="module-container">
-        <div class="settings-form">
-          <div class="row">
-            <div class="col-sm-3 info-part">
-              <h2 class="modules-title">Wildlife</h2>
-              <div class="modules-info">
-                <p>Number of words:</p>
-                <label id="modules2">{{wordsNumber}}</label>
-              </div>
-            </div>
-
-            <div class="col-sm-9 actions-part">
-              <div class="row">
-                <div class="col-sm-8 action-text">
-                  Species, habitat, ecosystem, recreation, forest
-                </div>
-                <div class="col-sm-4 btn-container">
-                  <button type="submit" class="btn action-btn" v-on:click="startClick">
-                    <router-link to="/module">START</router-link>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-      <div class="module-container">
-        <div class="settings-form">
-          <div class="row">
-            <div class="col-sm-3 info-part">
-              <h2 class="modules-title">Family</h2>
-              <div class="modules-info">
-                <p>Number of words:</p>
-                <label id="modules3">{{wordsNumber}}</label>
-              </div>
-            </div>
-
-            <div class="col-sm-9 actions-part">
-              <div class="row">
-                <div class="col-sm-8 action-text">
-                  Marriage, household, vehicle, airplane railway station
-                </div>
-                <div class="col-sm-4 btn-container">
-                  <button type="submit" class="btn action-btn" v-on:click="startClick">
-                    <router-link to="/module">START</router-link>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
+      <ShopModule
+        v-for="subject in subjects"
+        v-bind:key="subject.subjectId"
+        v-bind:subject="subject"
+        v-bind:subjectName="subject.subjectName"
+        v-bind:modules="subject.modules">
+      </ShopModule>
     </div>
 
     <div class="card-footer footer">
@@ -98,18 +41,24 @@
   import axios from 'axios'
   import router from '../router'
   import Header from './Header'
+  import ShopModule from './ShopModule'
 
   export default {
-    name: "ModulePage",
+    name: "AllModules",
     components: {
-      Header
+      Header,
+      ShopModule
     },
     data() {
       return {
-        wordsNumber: 0,
-        creditsNumber: 0
+        subjects: []
       }
     },
+
+    beforeCreate: function () {
+      document.body.className = 'inside';
+    },
+
     created: function () {
       this.getAllModules();
     },
@@ -136,7 +85,7 @@
 
       },
 
-      startClick: function () {
+      filterClick: function () {
 
       }
     }
@@ -144,69 +93,32 @@
 </script>
 
 <style scoped>
-  /***********************************************/
-
-  .actions-part .action-text {
-    margin: auto;
+  .filter-form {
+    padding: 12px 40px;
   }
 
-  .actions-part .btn-container {
-    margin: auto;
-  }
-
-  /*********************************/
-
-  .btn:hover {
-    color: white !important;
-    background: #12587c !important;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .settings-form {
-    padding: 10px 40px;
-  }
-
-  .settings-form .row {
+  .filter-form .row {
     width: 100%;
     margin: 0;
   }
 
-  .info-part {
-    background: #acd8c7;
-    color: #ffffff;
-    border-top-left-radius: 40px;
-    border-bottom-left-radius: 40px;
-    text-align: center;
-    box-sizing: content-box;
+  .filter-title {
+    margin-top: 6%;
+    font-size: 1.6rem;
   }
 
-  .info-part p {
-    margin-bottom: 0;
-  }
-
-  .modules-title {
-    margin-top: 7%;
-    font-size: 1.7rem;
-  }
-
-  .modules-info {
-    font-size: 100%;
-    color: #12496d;
-  }
-
-  .modules-info label {
-    margin-bottom: 0.1rem;
-  }
-
-  .settings-form .actions-part {
+  .filter-form .actions-part {
     background: #eeeeee;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
-    padding-top: 30px;
+    padding-top: 32px;
     padding-bottom: 0;
     text-align: center;
     flex: 0 0 70%;
+  }
+
+  .actions-part .btn-container {
+    margin: auto;
   }
 
   .actions-part .action-btn {
@@ -220,8 +132,9 @@
     margin: 0;
   }
 
-  .action-btn a {
-    color: white;
+  .actions-part button:hover {
+    background-color: #186e7a !important;
+    cursor: pointer;
   }
 
   /***********************************************/

@@ -82,7 +82,7 @@ export default new Router({
       beforeEnter: ifAuthenticated
     },
     {
-      path: '/write',
+      path: '/write/:id',
       name: 'write',
       component: Writing,
       beforeEnter: ifAuthenticated
