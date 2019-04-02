@@ -47,7 +47,7 @@
 <script>
   import axios from 'axios'
   import router from '../router'
-
+  import swal from 'sweetalert';
   export default {
     name: "SignIn",
     data() {
@@ -94,7 +94,6 @@
         this.noPass = true;
         this.noLogin = true;
         this.loginError = "";
-
         let isUserName = true;
         if (this.name.includes('@'))
           isUserName = false;
