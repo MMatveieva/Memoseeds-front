@@ -92,16 +92,19 @@
       },
 
       learnClick: function () {
+        let p = this.$route.params.id;
         router.push('/');
-        router.replace({path: './learn'});
+        router.replace('learn/' + p);
       },
       writeClick: function () {
+        let p = this.$route.params.id;
         router.push('/');
-        router.replace('write');
+        router.replace('write/' + p);
       },
       testClick: function () {
+        let p = this.$route.params.id;
         router.push('/');
-        router.replace('test');
+        router.replace('test/' + p);
       },
 
       getUserInfo: function () {
@@ -161,7 +164,7 @@
     text-align: center;
   }
 
-  .btn-container button:hover{
+  .btn-container button:hover {
     background-color: #12496d !important;
   }
 

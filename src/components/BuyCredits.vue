@@ -8,7 +8,7 @@
         <div class="col-sm-4 info-part">
           <h2 class="credits-title">Credits</h2>
           <div class="credits-number">
-            <label id="userCredits">{{userCredits}} 100</label>
+            <label id="userCredits">{{userCredits}}</label>
           </div>
         </div>
         <div class="col-sm-8 advice-part">

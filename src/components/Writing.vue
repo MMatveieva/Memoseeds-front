@@ -22,16 +22,16 @@
             </div>
             <div class="modules-info">
               <p>Incorrect:</p>
-              <label id="modules4">{{wordsIncorrect}}0</label>
+              <label id="modules4">{{wordsIncorrect}}</label>
             </div>
           </div>
 
           <div class="col-sm-9 actions-part">
             <div class="action-text">
-              Your brother's wife{{wordDef}}
+              {{wordDef}}
             </div>
-            <div class="action-input">
-              <input type="text" class="ans-input" placeholder="Write your answer here">
+            <div class="action-input" v-bind:class="{hidden: end}">
+              <input type="text" class="ans-input" placeholder="Write your answer here" v-model="inputText">
             </div>
             <div class="row action-service">
               <div class="col-sm-9 words-num">{{wordNow}}/{{wordsAll}}</div>
@@ -57,6 +57,8 @@
 <script>
   import router from '../router';
   import Header from './Header'
+  import axios from 'axios'
+
 
   export default {
     name: "ModulePage",
@@ -65,27 +67,88 @@
     },
     data() {
       return {
-        wordsNumber: "",
-        wordsAll: "",
-        wordNow: "",
+        wordsAll: 0,
+        wordNow: 1,
 
         moduleName: "",
-        wordsLeft: "",
-        wordsCorrect: "",
-        wordsIncorrect: "",
-        wordDef: ""
+        wordsLeft: 0,
+        wordsCorrect: 0,
+        wordsIncorrect: 0,
+        wordDef: "",
 
+        inputText: "",
+        module:[],
+        end:false
       }
     },
     beforeCreate: function () {
       document.body.className = 'inside';
     },
+    created: function(){
+      this.getModuleData();
+    },
 
     methods: {
       nextClick: function () {
+        if(!this.end)
+          this.check();
+        else{
+          var id =this.$route.params.id;
+          router.push("/");
+          router.push('myModule/' + id);
+        }
 
+      },
+
+      check(){
+        if(this.inputText==this.module[this.wordNow-1].name)
+          this.wordsCorrect+=1;
+        else
+          this.wordsIncorrect+=1;
+
+        if(this.wordNow!=this.wordsAll){
+          this.wordNow+=1;
+          this.wordDef = this.module[this.wordNow-1].definition;
+          this.wordsLeft = this.wordsAll - this.wordNow; 
+        }
+        else{
+          this.end = true;
+          this.wordDef = "Success! Your score is "+this.wordsCorrect/this.wordsAll+"%!" ;
+        }
+        this.inputText = "";
+      },
+      getModuleData(){
+        let config = {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + this.$cookies.get('user_session')
+          }
+          };
+          let pass = 'https://memeseeds.herokuapp.com/user/'+this.$cookies.get("userId")+'/modules/'+this.$route.params.id;
+          axios.get(pass, config)
+            .then(response => {
+               if (response.data.error == null) {
+                 this.module = response.data.terms;
+                 this.moduleName = response.data.name;
+                 this.init()
+               } else {
+              console.log(response);
+            }
+          })
+          .catch(error => {
+            console.log(error)
+          });
+      },
+      init(){
+        this.wordNow = 1;
+        this.wordsAll = this.module.length;
+        this.wordsLeft = this.wordsAll - this.wordNow;
+        console.log(this.module[this.wordNow-1]);
+
+        this.wordDef = this.module[this.wordNow-1].definition;
       }
-
     }
   }
 </script>
