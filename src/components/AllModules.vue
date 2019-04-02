@@ -177,7 +177,7 @@
           "IsFree": this.status
         }, this.config)
           .then(response => {
-            console.log(response.data);
+            //console.log(response.data);
             this.drawFilter(response.data);
           })
           .catch(error => {
@@ -187,14 +187,36 @@
       },
 
       drawFilter: function (data) {
+        let filtered = new Array();
+
         for (let i = 0; i < data.length; i++) {
           let subject = data[i];
-          //console.log(subject);
-          for (let j = 0; j < subject.categories.length; i++) {
+          //console.log(subject," ",subject.categories.length);
+          for (let j = 0; j < subject.categories.length; j++) {
             let cat = subject.categories[j];
-            console.log(cat);
+            //console.log(cat);
+            for (let k = 0; k < cat.modules.length; k++) {
+              let mod = cat.modules[k];
+              console.log(mod);
+              let terms = "";
+              for (let l = 0; (l < mod.terms.length && l < 4); l++) {
+                if (l == 3 || l == mod.terms.length - 1)
+                  terms += mod.terms[l].name + ".";
+                else
+                  terms += mod.terms[l].name + ", ";
+              }
+
+              let m = {
+                title: mod.name,
+                wordsInModule: mod.terms.length,
+                words: terms,
+                moduleId: mod.moduleId
+              };
+              filtered.push(m);
+            }
           }
         }
+        this.filterModules = filtered;
       },
 
       drawSubjects: function (data) {
