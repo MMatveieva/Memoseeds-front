@@ -92,16 +92,19 @@
       },
 
       learnClick: function () {
+        let p = this.$route.params.id;
         router.push('/');
-        router.replace('learn/' + this.$route.params.id);
+        router.replace('learn/' + p);
       },
       writeClick: function () {
+        let p = this.$route.params.id;
         router.push('/');
-        router.replace('write/' + this.$route.params.id);
+        router.replace('write/' + p);
       },
       testClick: function () {
+        let p = this.$route.params.id;
         router.push('/');
-        router.replace('test/' + this.$route.params.id);
+        router.replace('test/' + p);
       },
 
       getUserInfo: function () {

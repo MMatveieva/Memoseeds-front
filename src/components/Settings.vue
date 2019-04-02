@@ -235,7 +235,7 @@
 </script>
 
 <style scoped>
-    .settings-btn {
+  .settings-btn {
     background-color: #f59699 !important;
     border-radius: 20px;
     font-size: 13px;
@@ -247,6 +247,10 @@
 
   .settings-btn a {
     color: white !important;
+  }
+
+  .settings-btn a:hover {
+    text-decoration: none;
   }
 
   .btn:hover {

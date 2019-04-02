@@ -10,10 +10,11 @@
         <div class="col-sm-9 actions-part">
           <div class="row">
             <div class="col-sm-2 subject-filter-wrapper">
-              <b-form-select v-model="selected" :options="subjectsTitles" v-on:select="noSubject=true"></b-form-select>
+              <b-form-select v-model="selected_subjects" :options="subjectsTitles"
+                             v-on:select="noSubject=true"></b-form-select>
             </div>
             <div class="col-sm-2 category-filter-wrapper">
-              <b-form-select v-model="selected" :options="categoryTitles"
+              <b-form-select v-model="selected_categories" :options="categoryTitles"
                              v-bind:disabled="noSubject"></b-form-select>
 
             </div>
@@ -72,7 +73,10 @@
         subjectsTitles: [],
         categoryTitles: [],
 
-        noSubject: true
+        noSubject: true,
+        status: true,
+        selected_subjects: "",
+        selected_categories: ""
       }
     },
 
@@ -116,10 +120,31 @@
       drawSubjects: function (data) {
         let sb = new Array(data.length);
 
-        for(let i=0;i<data.length;i++){
-          let s={
+        for (let i = 0; i < data.length; i++) {
+          let mm = new Array(data[i].modules.length);
 
+          for (let k = 0; k < data.length; k++) {
+            let terms = "";
+            for (let j = 0; (j < data[i].module.terms.length && j < 4); j++) {
+              if (j == 3 || j == data[i].module.terms.length - 1)
+                terms += data[i].module.terms[j].name + ".";
+              else
+                terms += data[i].module.terms[j].name + ", ";
+            }
+
+            let m = {
+              title: data[i].module.name,
+              wordsInModule: data[i].module.terms.length,
+              words: terms,
+              moduleId: data[i].module.moduleId
+            };
+            mm[i] = m;
           }
+
+          let s = {
+            subjectName: data[i].name
+          };
+          sb[i] = s;
         }
       }
     }
@@ -185,7 +210,7 @@
     margin: auto;
   }
 
-  .category-filter-wrapper select:disabled{
+  .category-filter-wrapper select:disabled {
     cursor: not-allowed;
   }
 
