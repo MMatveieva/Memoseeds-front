@@ -10,11 +10,11 @@
         <div class="col-sm-9 actions-part">
           <div class="row">
             <div class="col-sm-4 subject-filter-wrapper">
-              <b-form-select v-model="selected_subjects" :options="subjectsTitles"
+              <b-form-select v-model="selected_subject" :options="subjectsTitles"
                              v-on:input="selectSubject"></b-form-select>
             </div>
             <div class="col-sm-4 category-filter-wrapper">
-              <b-form-select v-model="selected_categories" :options="categoryTitles"
+              <b-form-select v-model="selected_category" :options="categoryTitles"
                              v-bind:disabled="noSubject"></b-form-select>
 
             </div>
@@ -23,7 +23,7 @@
                 id="price-checkbox"
                 v-model="status"
                 name="checkbox-1"
-                value="free"
+                value="true"
                 unchecked-value="paid"
               >
                 Free
@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <div class="shop-wrapper">
+    <div class="shop-wrapper" v-bind:class="{hidden: !isShop}">
       <ShopModule
         v-for="subject in subjects"
         v-bind:key="subject.subjectId"
@@ -47,6 +47,24 @@
         v-bind:subjectName="subject.subjectName"
         v-bind:modules="subject.modules">
       </ShopModule>
+    </div>
+
+    <div class="filter-wrapper" v-bind:class="{hidden: isFilter}">
+      <SubjectModule
+        v-for="module in filterModules"
+        v-bind:key="module.moduleId"
+        v-bind:module="module"
+        v-bind:title="module.title"
+        v-bind:wordsInModule="module.wordsInModule"
+        v-bind:words="module.words"
+        v-bind:id="module.moduleId">
+      </SubjectModule>
+
+      <div class="go-to-shop">
+        <button type="button" class="go-btn" v-on:click="backClick">
+          GO BACK
+        </button>
+      </div>
     </div>
 
     <div class="card-footer footer">
@@ -60,26 +78,32 @@
   import router from '../router'
   import Header from './Header'
   import ShopModule from './ShopModule'
+  import SubjectModule from './SubjectModule'
 
   export default {
     name: "AllModules",
     components: {
       Header,
-      ShopModule
+      ShopModule,
+      SubjectModule
     },
     data() {
       return {
         config: '',
 
         subjects: [],
+        filterModules: [],
         subjectsTitles: [],
         categoryTitles: [],
 
         noSubject: true,
-        status: true,
-        selected_subjects: 'default',
-        selected_categories: 'default',
-        filterResponse: []
+        status: false,
+        selected_subject: 'default',
+        selected_category: 'default',
+        filterResponse: [],
+
+        isShop: true,
+        isFilter: true
       }
     },
 
@@ -103,7 +127,6 @@
       getAllModules: function () {
         axios.get('https://memeseeds.herokuapp.com/shop/subjects/categories/modules', this.config)
           .then(response => {
-            //console.log(response.data);
             this.drawSubjects(response.data);
           })
           .catch(error => {
@@ -137,31 +160,73 @@
 
       selectSubject: function () {
         this.categoryTitles = [];
-        if (this.selected_subjects != 'default') {
+        if (this.selected_subject != 'default') {
           this.categoryTitles.push({value: 'default', text: 'Category'});
-          this.categoryTitles.push(this.filterResponse[this.selected_subjects]);
+          this.categoryTitles.push(this.filterResponse[this.selected_subject]);
           this.noSubject = false;
         }
       },
 
       filterClick: function () {
+        this.isShop = false;
+        this.isFilter = false;
 
+        axios.post('https://memeseeds.herokuapp.com/shop/filter', {
+          "Subject": this.selected_subject,
+          "Category": this.selected_category,
+          "IsFree": this.status
+        }, this.config)
+          .then(response => {
+            //console.log(response.data);
+            this.drawFilter(response.data);
+          })
+          .catch(error => {
+            console.log(error);
+            alert("Error occurred during filter. Please try again");
+          });
+      },
+
+      drawFilter: function (data) {
+        let filtered = new Array();
+
+        for (let i = 0; i < data.length; i++) {
+          let subject = data[i];
+          //console.log(subject," ",subject.categories.length);
+          for (let j = 0; j < subject.categories.length; j++) {
+            let cat = subject.categories[j];
+            //console.log(cat);
+            for (let k = 0; k < cat.modules.length; k++) {
+              let mod = cat.modules[k];
+              console.log(mod);
+              let terms = "";
+              for (let l = 0; (l < mod.terms.length && l < 4); l++) {
+                if (l == 3 || l == mod.terms.length - 1)
+                  terms += mod.terms[l].name + ".";
+                else
+                  terms += mod.terms[l].name + ", ";
+              }
+
+              let m = {
+                title: mod.name,
+                wordsInModule: mod.terms.length,
+                words: terms,
+                moduleId: mod.moduleId
+              };
+              filtered.push(m);
+            }
+          }
+        }
+        this.filterModules = filtered;
       },
 
       drawSubjects: function (data) {
         let subject_keys = Object.keys(data);
-        //console.log(data);
         let sb = new Array(subject_keys.length);
-        //console.log(subject_keys.length);
 
         for (let i = 0; i < subject_keys.length; i++) {
-          //let mm = new Array(data[i].modules.length);
           let subject = data[subject_keys[i]];
-          //console.log('sub', subject);
           let mm = new Array(subject.length);
           for (let k = 0; k < subject.length; k++) {
-            //console.log('m', subject[k]);
-
             let terms = '';
             for (let j = 0; (j < subject[k].terms.length && j < 4); j++) {
               if (j == 3 || j == subject[k].terms.length - 1)
@@ -169,46 +234,27 @@
               else
                 terms += subject[k].terms[j].name + ", ";
             }
-            //console.log('term', terms);
             let m = {
               title: subject[k].name,
               wordsInModule: subject[k].terms.length,
               words: terms,
               moduleId: subject[k].moduleId
             };
-            //console.log(m);
             mm[k] = m;
           }
-
-
-          //   for (let k = 0; k < data.length; k++) {
-          //     let terms = "";
-          //     for (let j = 0; (j < data[i].module.terms.length && j < 4); j++) {
-          //       if (j == 3 || j == data[i].module.terms.length - 1)
-          //         terms += data[i].module.terms[j].name + ".";
-          //       else
-          //         terms += data[i].module.terms[j].name + ", ";
-          //     }
-          //
-          //     let m = {
-          //       title: data[i].module.name,
-          //       wordsInModule: data[i].module.terms.length,
-          //       words: terms,
-          //       moduleId: data[i].module.moduleId
-          //     };
-          //     mm[i] = m;
-          //   }
-          //
           let s = {
             id: i,
             subjectName: subject_keys[i],
             modules: mm
           };
-          //console.log('s',s);
           sb[i] = s;
-          console.log(sb[i]);
         }
         this.subjects = sb;
+      },
+
+      backClick: function () {
+        this.isShop = true;
+        this.isFilter = true;
       }
     }
   }
@@ -289,11 +335,35 @@
     padding-right: 4px;
   }
 
-  .shop-wrapper{
+  .shop-wrapper {
     margin-bottom: 20px;
   }
 
   /***********************************************/
+  .go-to-shop {
+    margin-top: 10px;
+    padding: 10px 40px;
+    text-align: right;
+  }
+
+  .go-to-shop a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .go-to-shop .go-btn {
+    background-color: #0b486d;
+    color: white;
+    width: 210px;
+    border-radius: 20px;
+    font-size: 14px;
+    height: 35px;
+    border-color: white;
+    padding-top: 4px;
+    margin-bottom: 25px;
+  }
+
+  /*******************************/
 
   .footer {
     text-align: center;
