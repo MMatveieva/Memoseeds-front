@@ -162,8 +162,13 @@
         this.categoryTitles = [];
         if (this.selected_subject != 'default') {
           this.categoryTitles.push({value: 'default', text: 'Category'});
-          this.categoryTitles.push(this.filterResponse[this.selected_subject]);
+          let sub = this.filterResponse[this.selected_subject];
+          for (let i = 0; i < sub.length; i++) {
+            this.categoryTitles.push(sub[i]);
+          }
           this.noSubject = false;
+        } else {
+          this.noSubject = true;
         }
       },
 
