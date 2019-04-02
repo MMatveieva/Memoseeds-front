@@ -3,17 +3,17 @@
     <Header></Header>
     <div class="filter-form">
       <div class="row">
-        <div class="col-sm-2 info-part">
+        <div class="col-sm-3 info-part">
           <h2 class="filter-title">Filter</h2>
         </div>
 
-        <div class="col-sm-10 actions-part">
+        <div class="col-sm-9 actions-part">
           <div class="row">
-            <div class="col-sm-5 subject-filter-wrapper">
+            <div class="col-sm-4 subject-filter-wrapper">
               <b-form-select v-model="selected_subjects" :options="subjectsTitles"
                              v-on:input="selectSubject"></b-form-select>
             </div>
-            <div class="col-sm-5 category-filter-wrapper">
+            <div class="col-sm-4 category-filter-wrapper">
               <b-form-select v-model="selected_categories" :options="categoryTitles"
                              v-bind:disabled="noSubject"></b-form-select>
 
@@ -29,7 +29,7 @@
                 Free
               </b-form-checkbox>
             </div>
-            <div class="col-sm-1 btn-container">
+            <div class="col-sm-3 btn-container">
               <button type="submit" class="btn action-btn" v-on:click="filterClick">
                 SEARCH
               </button>
@@ -103,8 +103,8 @@
       getAllModules: function () {
         axios.get('https://memeseeds.herokuapp.com/shop/subjects/categories/modules', this.config)
           .then(response => {
-            console.log(response.data);
-            this.drawModules(response.data);
+            //console.log(response.data);
+            this.drawSubjects(response.data);
           })
           .catch(error => {
             console.log(error);
@@ -146,38 +146,69 @@
 
       filterClick: function () {
 
-      }
-      ,
+      },
 
-      drawModules: function (data) {
-        let sb = new Array(data.length);
+      drawSubjects: function (data) {
+        let subject_keys = Object.keys(data);
+        //console.log(data);
+        let sb = new Array(subject_keys.length);
+        //console.log(subject_keys.length);
 
-        for (let i = 0; i < data.length; i++) {
-          let mm = new Array(data[i].modules.length);
+        for (let i = 0; i < subject_keys.length; i++) {
+          //let mm = new Array(data[i].modules.length);
+          let subject = data[subject_keys[i]];
+          //console.log('sub', subject);
+          let mm = new Array(subject.length);
+          for (let k = 0; k < subject.length; k++) {
+            //console.log('m', subject[k]);
 
-          for (let k = 0; k < data.length; k++) {
-            let terms = "";
-            for (let j = 0; (j < data[i].module.terms.length && j < 4); j++) {
-              if (j == 3 || j == data[i].module.terms.length - 1)
-                terms += data[i].module.terms[j].name + ".";
+            let terms = '';
+            for (let j = 0; (j < subject[k].terms.length && j < 4); j++) {
+              if (j == 3 || j == subject[k].terms.length - 1)
+                terms += subject[k].terms[j].name + ".";
               else
-                terms += data[i].module.terms[j].name + ", ";
+                terms += subject[k].terms[j].name + ", ";
             }
-
+            //console.log('term', terms);
             let m = {
-              title: data[i].module.name,
-              wordsInModule: data[i].module.terms.length,
+              title: subject[k].name,
+              wordsInModule: subject[k].terms.length,
               words: terms,
-              moduleId: data[i].module.moduleId
+              moduleId: subject[k].moduleId
             };
-            mm[i] = m;
+            //console.log(m);
+            mm[k] = m;
           }
 
+
+          //   for (let k = 0; k < data.length; k++) {
+          //     let terms = "";
+          //     for (let j = 0; (j < data[i].module.terms.length && j < 4); j++) {
+          //       if (j == 3 || j == data[i].module.terms.length - 1)
+          //         terms += data[i].module.terms[j].name + ".";
+          //       else
+          //         terms += data[i].module.terms[j].name + ", ";
+          //     }
+          //
+          //     let m = {
+          //       title: data[i].module.name,
+          //       wordsInModule: data[i].module.terms.length,
+          //       words: terms,
+          //       moduleId: data[i].module.moduleId
+          //     };
+          //     mm[i] = m;
+          //   }
+          //
           let s = {
-            subjectName: data[i].name
+            id: i,
+            subjectName: subject_keys[i],
+            modules: mm
           };
+          //console.log('s',s);
           sb[i] = s;
+          console.log(sb[i]);
         }
+        this.subjects = sb;
       }
     }
   }
@@ -194,7 +225,7 @@
   }
 
   .filter-form {
-    padding: 12px 20px;
+    padding: 12px 15px;
     margin-bottom: 15px;
   }
 
@@ -204,7 +235,7 @@
   }
 
   .filter-title {
-    margin-top: 7%;
+    margin-top: 8%;
     font-size: 1.7rem;
   }
 
@@ -212,7 +243,7 @@
     background: #eeeeee;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
-    padding-top: 10px;
+    padding-top: 7px;
     padding-bottom: 0;
     text-align: center;
     flex: 0 0 70%;
@@ -227,10 +258,10 @@
     border-radius: 20px;
     font-size: 15px;
     color: white;
-    width: 120px;
+    width: 90px;
     height: 30px;
     border-color: white;
-    margin: 0;
+    margin-left: 30px;
   }
 
   .actions-part button:hover {
@@ -239,7 +270,7 @@
   }
 
   .price-filter-wrapper, .subject-filter-wrapper, .category-filter-wrapper {
-    margin: auto !important;
+    margin: auto;
   }
 
   .category-filter-wrapper select:disabled {
@@ -247,7 +278,19 @@
   }
 
   .subject-filter-wrapper, .category-filter-wrapper {
-    padding: 0 !important;
+    padding: 0;
+  }
+
+  .subject-filter-wrapper {
+    padding-right: 4px;
+  }
+
+  .category-filter-wrapper {
+    padding-right: 4px;
+  }
+
+  .shop-wrapper{
+    margin-bottom: 20px;
   }
 
   /***********************************************/
@@ -257,7 +300,7 @@
     background-color: #bebfc0;
     color: white;
     letter-spacing: 5px;
-    position: absolute;
+    position: relative;
     width: 100%;
     bottom: 0;
   }
