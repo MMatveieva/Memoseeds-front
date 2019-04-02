@@ -93,15 +93,15 @@
 
       learnClick: function () {
         router.push('/');
-        router.replace({path: './learn'});
+        router.replace('learn/' + this.$route.params.id);
       },
       writeClick: function () {
         router.push('/');
-        router.replace('write');
+        router.replace('write/' + this.$route.params.id);
       },
       testClick: function () {
         router.push('/');
-        router.replace('test');
+        router.replace('test/' + this.$route.params.id);
       },
 
       getUserInfo: function () {
@@ -161,7 +161,7 @@
     text-align: center;
   }
 
-  .btn-container button:hover{
+  .btn-container button:hover {
     background-color: #12496d !important;
   }
 

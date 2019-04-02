@@ -9,9 +9,26 @@
 
         <div class="col-sm-9 actions-part">
           <div class="row">
+            <div class="col-sm-2 subject-filter-wrapper">
+              <b-form-select v-model="selected" :options="subjectsTitles" v-on:select="noSubject=true"></b-form-select>
+            </div>
+            <div class="col-sm-2 category-filter-wrapper">
+              <b-form-select v-model="selected" :options="categoryTitles"
+                             v-bind:disabled="noSubject"></b-form-select>
 
-
-            <div class="col-sm-4 btn-container">
+            </div>
+            <div class="col-sm-2 price-filter-wrapper">
+              <b-form-checkbox
+                id="price-checkbox"
+                v-model="status"
+                name="checkbox-1"
+                value="free"
+                unchecked-value="paid"
+              >
+                Free
+              </b-form-checkbox>
+            </div>
+            <div class="col-sm-3 btn-container">
               <button type="submit" class="btn action-btn" v-on:click="filterClick">
                 SEARCH
               </button>
@@ -51,7 +68,11 @@
     },
     data() {
       return {
-        subjects: []
+        subjects: [],
+        subjectsTitles: [],
+        categoryTitles: [],
+
+        noSubject: true
       }
     },
 
@@ -76,7 +97,7 @@
         axios.get('https://memeseeds.herokuapp.com/shop/subjects/categories/modules', config)
           .then(response => {
             console.log(response.data);
-
+            this.drawSubjects(response.data);
           })
           .catch(error => {
             console.log(error);
@@ -85,16 +106,39 @@
 
       },
 
+      getFilter: function () {
+      },
+
       filterClick: function () {
 
+      },
+
+      drawSubjects: function (data) {
+        let sb = new Array(data.length);
+
+        for(let i=0;i<data.length;i++){
+          let s={
+
+          }
+        }
       }
     }
   }
 </script>
 
 <style scoped>
+  .info-part {
+    background: #acd8c7;
+    color: #ffffff;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+    text-align: center;
+    box-sizing: content-box;
+  }
+
   .filter-form {
     padding: 12px 40px;
+    margin-bottom: 15px;
   }
 
   .filter-form .row {
@@ -103,15 +147,15 @@
   }
 
   .filter-title {
-    margin-top: 6%;
-    font-size: 1.6rem;
+    margin-top: 7%;
+    font-size: 1.7rem;
   }
 
   .filter-form .actions-part {
     background: #eeeeee;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
-    padding-top: 32px;
+    padding-top: 10px;
     padding-bottom: 0;
     text-align: center;
     flex: 0 0 70%;
@@ -135,6 +179,14 @@
   .actions-part button:hover {
     background-color: #186e7a !important;
     cursor: pointer;
+  }
+
+  .price-filter-wrapper {
+    margin: auto;
+  }
+
+  .category-filter-wrapper select:disabled{
+    cursor: not-allowed;
   }
 
   /***********************************************/
