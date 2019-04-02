@@ -10,18 +10,9 @@
               <p>Number of words:</p>
               <label id="modules1">{{wordsAll}}</label>
             </div>
-            <h2 class="modules-title">Writing</h2>
+            <h2 class="modules-title">Learning</h2>
             <div class="modules-info">
-              <p>Left:</p>
-              <label id="modules2">{{wordsLeft}}</label>
-            </div>
-            <div class="modules-info">
-              <p>Correct:</p>
-              <label id="modules3">{{wordsCorrect}}</label>
-            </div>
-            <div class="modules-info">
-              <p>Incorrect:</p>
-              <label id="modules4">{{wordsIncorrect}}0</label>
+              <button type="button" class="back-btn" v-on:click="backClick">GO BACK</button>
             </div>
           </div>
 
@@ -31,8 +22,8 @@
               <b-carousel
                 id="module-carousel"
                 controls
+                :interval=0
                 background="white"
-                :interval="40000"
                 v-model="slide"
                 img-height="90"
                 img-width="200"
@@ -91,11 +82,13 @@
 <script>
   import router from '../router';
   import Header from './Header'
+  import LearnTemplate from './LearnTemplate'
 
   export default {
     name: "ModulePage",
     components: {
-      Header
+      Header,
+      LearnTemplate
     },
     data() {
       return {
@@ -116,8 +109,11 @@
     },
 
     methods: {
-      translateClick: function () {
 
+      backClick: function () {
+        let p = this.$route.params.id;
+        router.push('/');
+        router.push('myModule/' + p);
       }
     }
   }
@@ -195,10 +191,10 @@
     margin-top: 7%;
   }
 
-  .modules-info {
-    font-size: 100%;
-    color: #12496d;
-  }
+  /*.modules-info {*/
+  /*font-size: 100%;*/
+  /*color: #12496d;*/
+  /*}*/
 
   .actions-part .next-btn {
     background-color: #f59699 !important;
@@ -229,6 +225,25 @@
   }
 
   /***********************************************/
+
+  .modules-info a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .modules-info .back-btn {
+    background-color: #0b486d;
+    color: white;
+    width: 150px;
+    border-radius: 20px;
+    font-size: 14px;
+    height: 35px;
+    border-color: white;
+    padding-top: 4px;
+    margin-top: 20px;
+  }
+
+  /****************************************/
 
   .footer {
     text-align: center;

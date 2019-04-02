@@ -76,7 +76,7 @@ export default new Router({
       beforeEnter: ifAuthenticated
     },
     {
-      path: '/learn',
+      path: '/learn/:id',
       name: 'learn',
       component: Learning,
       beforeEnter: ifAuthenticated
