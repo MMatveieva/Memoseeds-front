@@ -35,9 +35,7 @@
                 v-bind:word="row.word"
                 v-bind:definition="row.definition"
               ></TestTemplate>
-
             </div>
-
 
             <div class="action-input" v-bind:class="{hidden: end}">
             </div>
