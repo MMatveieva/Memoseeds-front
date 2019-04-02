@@ -3,22 +3,22 @@
     <Header></Header>
     <div class="filter-form">
       <div class="row">
-        <div class="col-sm-3 info-part">
+        <div class="col-sm-2 info-part">
           <h2 class="filter-title">Filter</h2>
         </div>
 
-        <div class="col-sm-9 actions-part">
+        <div class="col-sm-10 actions-part">
           <div class="row">
-            <div class="col-sm-2 subject-filter-wrapper">
+            <div class="col-sm-5 subject-filter-wrapper">
               <b-form-select v-model="selected_subjects" :options="subjectsTitles"
-                             v-on:select="noSubject=true"></b-form-select>
+                             v-on:input="selectSubject"></b-form-select>
             </div>
-            <div class="col-sm-2 category-filter-wrapper">
+            <div class="col-sm-5 category-filter-wrapper">
               <b-form-select v-model="selected_categories" :options="categoryTitles"
                              v-bind:disabled="noSubject"></b-form-select>
 
             </div>
-            <div class="col-sm-2 price-filter-wrapper">
+            <div class="col-sm-1 price-filter-wrapper">
               <b-form-checkbox
                 id="price-checkbox"
                 v-model="status"
@@ -29,7 +29,7 @@
                 Free
               </b-form-checkbox>
             </div>
-            <div class="col-sm-3 btn-container">
+            <div class="col-sm-1 btn-container">
               <button type="submit" class="btn action-btn" v-on:click="filterClick">
                 SEARCH
               </button>
@@ -69,14 +69,17 @@
     },
     data() {
       return {
+        config: '',
+
         subjects: [],
         subjectsTitles: [],
         categoryTitles: [],
 
         noSubject: true,
         status: true,
-        selected_subjects: "",
-        selected_categories: ""
+        selected_subjects: 'default',
+        selected_categories: 'default',
+        filterResponse: []
       }
     },
 
@@ -85,23 +88,23 @@
     },
 
     created: function () {
+      this.config = {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer' + this.$cookies.get('user_session')
+        }
+      };
+      this.getFilter();
       this.getAllModules();
     },
     methods: {
       getAllModules: function () {
-        let config = {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + this.$cookies.get('user_session')
-          }
-        };
-
-        axios.get('https://memeseeds.herokuapp.com/shop/subjects/categories/modules', config)
+        axios.get('https://memeseeds.herokuapp.com/shop/subjects/categories/modules', this.config)
           .then(response => {
             console.log(response.data);
-            this.drawSubjects(response.data);
+            this.drawModules(response.data);
           })
           .catch(error => {
             console.log(error);
@@ -111,13 +114,42 @@
       },
 
       getFilter: function () {
+        axios.get('https://memeseeds.herokuapp.com/shop/subjects/categories', this.config)
+          .then(response => {
+            this.filterResponse = response.data;
+            let sb = Object.keys(this.filterResponse);
+            let k = {value: 'default', text: 'Subject'};
+            let sub = [k];
+            for (let i = 0; i < sb.length; i++) {
+              let s1 = {
+                value: sb[i],
+                text: sb[i]
+              };
+              sub.push(s1);
+            }
+            this.subjectsTitles = sub;
+          })
+          .catch(error => {
+            console.log(error);
+            alert("Error occurred during loading modules. Please try again");
+          });
+      },
+
+      selectSubject: function () {
+        this.categoryTitles = [];
+        if (this.selected_subjects != 'default') {
+          this.categoryTitles.push({value: 'default', text: 'Category'});
+          this.categoryTitles.push(this.filterResponse[this.selected_subjects]);
+          this.noSubject = false;
+        }
       },
 
       filterClick: function () {
 
-      },
+      }
+      ,
 
-      drawSubjects: function (data) {
+      drawModules: function (data) {
         let sb = new Array(data.length);
 
         for (let i = 0; i < data.length; i++) {
@@ -162,7 +194,7 @@
   }
 
   .filter-form {
-    padding: 12px 40px;
+    padding: 12px 20px;
     margin-bottom: 15px;
   }
 
@@ -206,12 +238,16 @@
     cursor: pointer;
   }
 
-  .price-filter-wrapper {
-    margin: auto;
+  .price-filter-wrapper, .subject-filter-wrapper, .category-filter-wrapper {
+    margin: auto !important;
   }
 
   .category-filter-wrapper select:disabled {
     cursor: not-allowed;
+  }
+
+  .subject-filter-wrapper, .category-filter-wrapper {
+    padding: 0 !important;
   }
 
   /***********************************************/
@@ -224,6 +260,10 @@
     position: absolute;
     width: 100%;
     bottom: 0;
+  }
+
+  .disabled {
+    cursor: not-allowed;
   }
 
   .hidden {
