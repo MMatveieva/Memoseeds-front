@@ -55,6 +55,7 @@
   import router from '../router';
   import Header from './Header'
   import LearnTemplate from './LearnTemplate'
+  import axios from 'axios'
 
   export default {
     name: "ModulePage",
@@ -83,6 +84,35 @@
 
     methods: {
       getWords: function () {
+        let config = {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + this.$cookies.get('user_session')
+          }
+        };
+        let pass = 'https://memeseeds.herokuapp.com/user/'+this.$cookies.get("userId")+'/modules/'+this.$route.params.id;
+        axios.get(pass, config)
+          .then(response => {
+            if (response.data.error == null) {
+              this.moduleName = response.data.name;
+              var data = response.data.terms;
+              data.forEach(function (item, i) {
+                this.words.append({
+                  id : i,
+                  word : item.name,
+                  definition : item.definition
+                });
+              });
+              this.wordsAll = data.length;
+            } else {
+              console.log(response);
+            }
+          })
+          .catch(error => {
+            console.log(error)
+          });
         // words={
         //   id, word, definition
         // }
