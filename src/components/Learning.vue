@@ -24,7 +24,7 @@
                 controls
                 :interval=0
                 background="white"
-                img-height="90"
+                img-height="65"
                 img-width="200"
               >
 
