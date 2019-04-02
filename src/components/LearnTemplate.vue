@@ -1,9 +1,9 @@
 <template>
-  <b-carousel-slide img-blank v-bind:id="word">
+  <b-carousel-slide img-blank v-bind:id="id">
     <div class="card-title" v-bind:class="{hidden: !isDefinition}">{{definition}}</div>
     <div class="card-title" v-bind:class="{hidden: !isWord}">{{word}}</div>
-    <div class="row action-service">
-      <div class="col-sm-3 btn-container">
+    <div class="action-service">
+      <div class="btn-container">
         <button type="button" class="btn next-btn" v-on:click="translateClick">
           SEE TRANSLATION
         </button>
@@ -30,8 +30,13 @@
 
     methods: {
       translateClick: function () {
-        this.isDefinition = false;
-        this.isWord = true;
+        if(this.isDefinition) {
+          this.isDefinition = false;
+          this.isWord = true;
+        } else{
+          this.isDefinition = true;
+          this.isWord = false;
+        }
       }
     }
   }
@@ -44,12 +49,9 @@
     font-weight: 500;
   }
 
-  .btn-container {
-    margin-left: -85px;
-  }
-
   .action-service {
     margin-top: 40px;
+    text-align: center;
   }
 
   .next-btn {

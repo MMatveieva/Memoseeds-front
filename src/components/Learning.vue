@@ -5,7 +5,7 @@
       <div class="settings-form">
         <div class="row" style="width: 100%; margin: 0">
           <div class="col-sm-3 info-part">
-            <h2 class="modules-title">{{moduleName}}F</h2>
+            <h2 class="modules-title">{{moduleName}}</h2>
             <div class="modules-info">
               <p>Number of words:</p>
               <label id="modules1">{{wordsAll}}</label>
@@ -24,7 +24,6 @@
                 controls
                 :interval=0
                 background="white"
-                v-model="slide"
                 img-height="90"
                 img-width="200"
               >
@@ -67,10 +66,7 @@
       return {
         wordsAll: "",
         moduleName: "",
-        words: [],
-
-        slide: ""
-
+        words: []
       }
     },
 
@@ -92,20 +88,23 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://memeseeds.herokuapp.com/user/'+this.$cookies.get("userId")+'/modules/'+this.$route.params.id;
+        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get("userId") + '/modules/' + this.$route.params.id;
         axios.get(pass, config)
           .then(response => {
             if (response.data.error == null) {
               this.moduleName = response.data.name;
-              var data = response.data.terms;
-              data.forEach(function (item, i) {
-                this.words.append({
-                  id : i,
-                  word : item.name,
-                  definition : item.definition
-                });
-              });
+              let data = response.data.terms;
+              let w = new Array(data.length);
+              for (let i = 0; i < data.length; i++) {
+                w[i] = {
+                  id: data[i].termId,
+                  word: data[i].name,
+                  definition: data[i].definition
+                };
+              }
               this.wordsAll = data.length;
+              this.words = w;
+              console.log(this.words);
             } else {
               console.log(response);
             }
@@ -113,9 +112,6 @@
           .catch(error => {
             console.log(error)
           });
-        // words={
-        //   id, word, definition
-        // }
       },
 
       backClick: function () {
@@ -172,10 +168,10 @@
     margin-top: 7%;
   }
 
-  /*.modules-info {*/
-  /*font-size: 100%;*/
-  /*color: #12496d;*/
-  /*}*/
+  .modules-info {
+  font-size: 100%;
+  color: #12496d;
+  }
 
   /********************************/
 
