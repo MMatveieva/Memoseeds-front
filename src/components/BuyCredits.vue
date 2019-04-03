@@ -24,8 +24,8 @@
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
-            <div class="col-sm-6 buy-number">10 credits</div>
-            <div class="col-sm-6 buy-sum">{{price[0]}}0.99 {{currencySymbol}}$</div>
+            <div class="col-sm-6 buy-number">{{credits[0]}} credits</div>
+            <div class="col-sm-6 buy-sum">{{price[0]}} {{currencySymbol}}</div>
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
@@ -39,8 +39,8 @@
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
-            <div class="col-sm-6 buy-number">20 credits</div>
-            <div class="col-sm-6 buy-sum">{{price[1]}}1.99 {{currencySymbol}}$</div>
+            <div class="col-sm-6 buy-number">{{credits[1]}} credits</div>
+            <div class="col-sm-6 buy-sum">{{price[1]}} {{currencySymbol}}</div>
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
@@ -54,8 +54,8 @@
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
-            <div class="col-sm-6 buy-number">30 credits</div>
-            <div class="col-sm-6 buy-sum">{{price[2]}}3.99 {{currencySymbol}}$</div>
+            <div class="col-sm-6 buy-number">{{credits[2]}} credits</div>
+            <div class="col-sm-6 buy-sum">{{price[2]}} {{currencySymbol}}</div>
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
@@ -69,8 +69,8 @@
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
-            <div class="col-sm-6 buy-number">40 credits</div>
-            <div class="col-sm-6 buy-sum">{{price[3]}}0.99 {{currencySymbol}}$</div>
+            <div class="col-sm-6 buy-number">{{credits[3]}} credits</div>
+            <div class="col-sm-6 buy-sum">{{price[3]}} {{currencySymbol}}</div>
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
@@ -102,6 +102,7 @@
         userName: "",
         userCredits: "",
         price: [],
+        credits: [],
         currency: "",
         currencySymbol: "",
 
@@ -127,10 +128,17 @@
         .then(response => {
           console.log(response.data);
           this.key = response.data.publishableKey;
-          for (let i = 0; i < 4; i++) {
-            this.price[i] = response.data.purchases[i].price.amount;
+          let p = new Array(response.data.purchases.length);
+          for (let i = 0; i < response.data.purchases.length; i++) {
+            p[i] = response.data.purchases[i].price.amount;
+            this.credits.push(response.data.purchases[i].credits);
           }
           this.currency = response.data.purchases[0].price.currency;
+
+          this.currencySymbol = this.currency;
+
+          this.price = p;
+          //console.log(this.price);
         })
         .catch(error => {
           console.log(error);
