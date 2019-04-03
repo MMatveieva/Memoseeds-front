@@ -77,8 +77,19 @@
           <button id="3" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
         </div>
       </div>
-
     </div>
+
+    <checkout
+      ref="checkoutRef"
+      :image="image"
+      :name="name"
+      :description="description"
+      :currency="currency"
+      :amount="buyPrice"
+      @done="done"
+      @opened="opened"
+      @closed="closed"
+    ></checkout>
 
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
@@ -90,12 +101,12 @@
   import axios from 'axios'
   import router from '../router'
   import Header from './Header'
-  import VueStripeCheckout from 'vue-stripe-checkout';
+  import checkout from 'vue-stripe-checkout';
 
   export default {
     name: "BuyCredits",
     components: {
-      Header
+      Header, checkout
     },
     data() {
       return {
@@ -106,7 +117,14 @@
         currency: "",
         currencySymbol: "",
 
-        isClicked: false
+        isClicked: false,
+        buyPrice: "",
+
+        tokenFromPromise: {},
+        tokenFromEvent: {},
+        image: 'https://i.imgur.com/HhqxVCW.jpg',
+        name: 'Shut up and take my money!',
+        description: 'Cats are the best dog!',
       }
     },
 
@@ -126,7 +144,6 @@
 
       axios.post('https://memeseeds.herokuapp.com/purchase/options', {"country": cur}, config)
         .then(response => {
-          console.log(response.data);
           this.$cookies.set('stripeKey', response.data.publishableKey);
           let p = new Array(response.data.purchases.length);
           for (let i = 0; i < response.data.purchases.length; i++) {
@@ -134,11 +151,8 @@
             this.credits.push(response.data.purchases[i].credits);
           }
           this.currency = response.data.purchases[0].price.currency;
-
           this.currencySymbol = this.currency;
-
           this.price = p;
-          //console.log(this.price);
         })
         .catch(error => {
           console.log(error);
@@ -153,27 +167,27 @@
     methods: {
       buyClick: function (event) {
         let targetId = event.currentTarget.id;
-        // this.isClicked = true;
-
-        this.$checkout.open({
-          image: 'https://i.imgur.com/1PHlmFF.jpg',
-          locale: 'en',
-          currency: this.currency,
-          name: 'Blips and Chitz!',
-          amount: this.price[targetId],
-          panelLabel: 'Pay for {{credits[targetId}} credits',
-          token: (token) => {
-            let stop = 0;
-            // handle the token
-          }
-        })
-
+        this.buyPrice = this.price[targetId];
 
       },
 
       getUserInfo: function () {
         this.userCredits = this.$cookies.get('userCredits');
         this.userName = this.$cookies.get('userName');
+      },
+
+      done(token) {
+        this.tokenFromEvent = token;
+      },
+      opened() {
+        this.status = 'Opened';
+      },
+      closed() {
+        this.status = 'Closed';
+      },
+      submit(token) {
+        console.log('token', token);
+        console.log('Submit this token to your server to perform a stripe charge, or subscription.');
       }
 
     }

@@ -5,6 +5,7 @@
       <div class="col-sm-5 info-part">
         <div class="user-photo">
         </div>
+        <button type="submit" class="btn load-btn" v-on:click="loadPhoto">LOAD PHOTO</button>
         <div class="modules-info">
           <p>Number of modules:</p>
           <label id="modules">{{modulesNumber}}</label>
@@ -227,6 +228,10 @@
             console.log(error);
             alert("Error occurred during loading modules. Please try again");
           });
+      },
+
+      loadPhoto: function () {
+
       }
     }
   }
@@ -274,6 +279,24 @@
     padding-right: 20px;
     text-align: center;
     align-content: center;
+  }
+
+  .load-btn {
+    background-color: #f59699 !important;
+    border-radius: 20px;
+    font-size: 13px;
+    color: white;
+    width: 155px;
+    height: 30px;
+    margin-top: -7px;
+    margin-bottom: 15px;
+
+  }
+
+  .info-part button:hover {
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #f56e72 !important;
   }
 
   .user-photo {
