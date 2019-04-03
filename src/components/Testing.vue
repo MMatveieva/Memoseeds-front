@@ -18,13 +18,17 @@
           </div>
 
           <div class="col-sm-9 actions-part">
-            <div style="overflow-y: scroll">
-              <form v-on:keyup="keyUp">
+            <div class="action-text">
+              {{wordDef}}
+            </div>
+            <div style="overflow-y: scroll" v-bind:class="{hidden:end}">
+              <form v-on:keyup="keyUp" >
                 <TestTemplate
                   v-for="row in rows"
                   v-bind:key="row.rowId"
                   v-bind:answer="row.answer"
                   v-bind:word="row.word"
+                  v-bind:row-id="row.rowId"
                   v-bind:definition="row.definition"
                 ></TestTemplate>
               </form>
@@ -74,11 +78,13 @@
 
         inputText: "",
         module: [],
-
+        terms:[],
 
         // written by Masha
         rows: [],
-        answers: new Array(this.wordsAll)
+        answers: new Array(this.wordsAll),
+        end : false,
+        wordDef : ""
       }
     },
     beforeCreate: function () {
@@ -91,7 +97,12 @@
 
     methods: {
       keyUp: function () {
-        this.answers.push(this.$cookies.get('answer'));
+        // this.answers.push(this.$cookies.get('answer'));
+        // console.log(this.$cookies.get('answer'));
+        // console.log(this.$cookies.get("id"));
+
+        this.answers[this.$cookies.get('id')] = this.$cookies.get('answer');
+
       },
       backClick: function () {
         let p = this.$route.params.id;
@@ -100,11 +111,27 @@
       },
 
       nextClick: function () {
-        console.log('arr', this.answers);
 
-        let id = this.$route.params.id;
-        router.push("/");
-        router.push('myModule/' + id);
+        if(!this.end) {
+          var countSucs = 0;
+          var terms = this.terms;
+          var rows = this.rows
+          this.answers.forEach(function (item, i) {
+            if (terms[item].definition == rows[i].definition)
+              countSucs++;
+          });
+          this.end = true;
+          var res = (countSucs / this.wordsAll) * 100;
+          this.wordDef = "Your score is " + res.toPrecision(3) + "%!";
+
+        }
+        else{
+          let id = this.$route.params.id;
+          router.push("/");
+          router.push('myModule/' + id);
+        }
+
+
 
 
       },
@@ -139,14 +166,18 @@
 
       init: function () {
         var answers = [];
+        var c = [];
         var definitions = [];
         this.module.forEach(function (item) {
           answers.push(item.name);
+          c.push(item);
         });
+        this.terms = c;
         // console.log(this.module);
         this.module.forEach(function (item) {
           definitions.push(item.definition);
         });
+
         definitions = this.shuffle(definitions);
         var res = [];
         answers.forEach(function (item, i) {

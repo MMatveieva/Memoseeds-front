@@ -7,7 +7,7 @@
       </form>
     </div>
     <div class="col-sm-6">
-      {{rowId}}. {{definition}}
+      {{rowId}}) {{definition}}
     </div>
 
   </div>
@@ -26,12 +26,14 @@
     data() {
       return {
         answer: ""
+
       }
     },
 
     methods: {
       inputClick: function () {
         this.$cookies.set('answer', this.answer, 2);
+        this.$cookies.set('id', this.$props.rowId,2);
       }
     }
   }
