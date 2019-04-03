@@ -16,7 +16,7 @@
 
   export default {
     name: "TestTemplate",
-    props: ['rowId','answer','word', 'definition', 'answer'],
+    props: ['rowId','answer','word', 'definition'],
     components: {
       TestTemplate
     }
