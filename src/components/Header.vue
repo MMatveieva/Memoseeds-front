@@ -8,7 +8,7 @@
       </div>
       <div class="col-sm-3 header-search input-group">
         <input type="text" class="form-control" placeholder="Search">
-        <div class="input-group-append search-btn">
+        <div class="input-group-append search-btn" v-on:click="searchClick">
           <img src="../css/images/search.png">
         </div>
       </div>
@@ -57,7 +57,9 @@
       return {
         modulesNumber: "",
         creditsNumber: "",
-        userName: ""
+        userName: "",
+
+        modules: []
       }
     },
 
@@ -79,6 +81,10 @@
         this.$cookies.remove("userId");
         this.$cookies.remove('country');
         router.push('signIn');
+      },
+
+      searchClick: function () {
+
       }
     }
   }
