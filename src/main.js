@@ -7,8 +7,11 @@ import BootstrapVue from "bootstrap-vue"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
 import VueCookies from "vue-cookies"
-import VueModalTor from 'vue-modaltor'
-Vue.use(VueModalTor)
+import VueSweetalert2 from 'vue-sweetalert2';
+
+
+
+Vue.use(VueSweetalert2)
 
 Vue.use(VueCookies);
 Vue.use(BootstrapVue);
