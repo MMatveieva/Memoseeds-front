@@ -18,13 +18,20 @@
 
   export default {
     name: "TestTemplate",
-    props: ['rowId', 'answer', 'word', 'definition', 'answers'],
+    props: ['rowId', 'word', 'definition'],
     components: {
       TestTemplate
     },
+
+    data() {
+      return {
+        answer: ""
+      }
+    },
+
     methods: {
       inputClick: function () {
-        this.answers.push(this.answer);
+        this.$cookies.set('answer', this.answer, 2);
       }
     }
   }

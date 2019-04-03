@@ -86,7 +86,6 @@
             let my = response.data[keys[0]];
             let all = response.data[keys[1]];
             this.drawModules(my, all);
-            console.log(my);
           })
           .catch(error => {
             console.log(error);
@@ -96,7 +95,6 @@
 
       drawModules: function (data1, data2) {
         let mm = new Array(data1.length);
-        console.log(data1[0].terms.length);
         for (let i = 0; i < data1.length; i++) {
           let terms = "";
           for (let j = 0; (j < data1[i].terms.length && j < 4); j++) {
@@ -119,7 +117,6 @@
         /////////////////////////////
 
         mm = new Array(data2.length);
-        console.log(data2[0].terms.length);
         for (let i = 0; i < data2.length; i++) {
           let terms = "";
           for (let j = 0; (j < data2[i].terms.length && j < 4); j++) {

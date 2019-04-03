@@ -13,28 +13,23 @@
             </div>
             <h2 class="modules-title">Testing</h2>
             <div class="modules-info">
-              <p>Left:</p>
-              <label id="modules2">{{wordsLeft}}</label>
-            </div>
-            <div class="modules-info">
-              <p>Correct:</p>
-              <label id="modules3">{{wordsCorrect}}</label>
-            </div>
-            <div class="modules-info">
-              <p>Incorrect:</p>
-              <label id="modules4">{{wordsIncorrect}}</label>
+              <button type="button" class="back-btn" v-on:click="backClick">GO BACK</button>
             </div>
           </div>
 
           <div class="col-sm-9 actions-part">
             <div style="overflow-y: scroll">
-              <TestTemplate
-                v-for="row in rows"
-                v-bind:key="row.rowId"
-                v-bind:answer="row.answer"
-                v-bind:word="row.word"
-                v-bind:definition="row.definition"
-              ></TestTemplate>
+              <form v-on:keyup="keyUp">
+                <TestTemplate
+                  v-for="row in rows"
+                  v-bind:key="row.rowId"
+                  v-bind:answer="row.answer"
+                  v-bind:word="row.word"
+                  v-bind:definition="row.definition"
+                ></TestTemplate>
+              </form>
+
+
             </div>
 
 
@@ -72,7 +67,7 @@
     data() {
       return {
         moduleName: "",
-        wordsAll: "",
+        wordsAll: 0,
         wordsLeft: "",
         wordsCorrect: "",
         wordsIncorrect: "",
@@ -82,7 +77,8 @@
 
 
         // written by Masha
-        rows: []
+        rows: [],
+        answers: new Array(this.wordsAll)
       }
     },
     beforeCreate: function () {
@@ -90,10 +86,21 @@
     },
     created: function () {
       this.getModuleData();
+      this.$cookies.remove('answer')
     },
 
     methods: {
+      keyUp: function () {
+        this.answers.push(this.$cookies.get('answer'));
+      },
+      backClick: function () {
+        let p = this.$route.params.id;
+        router.push('/');
+        router.push('myModule/' + p);
+      },
+
       nextClick: function () {
+        console.log('arr', this.answers);
 
         let id = this.$route.params.id;
         router.push("/");
@@ -116,17 +123,18 @@
           .then(response => {
             if (response.data.error == null) {
               this.module = response.data.terms;
+              this.wordsAll = response.data.terms.length;
               this.moduleName = response.data.name;
               this.init();
-              console.log(this.module);
+
             } else {
-              console.log(response);
+              // console.log(response);
             }
           })
           .catch(error => {
             console.log(error)
           });
-        console.log(this.module);
+        // console.log(this.module);
       },
 
       init: function () {
@@ -135,7 +143,7 @@
         this.module.forEach(function (item) {
           answers.push(item.name);
         });
-        console.log(this.module);
+        // console.log(this.module);
         this.module.forEach(function (item) {
           definitions.push(item.definition);
         });
@@ -246,6 +254,25 @@
     color: white !important;
     background: #f56e72 !important;
     text-decoration: none;
+  }
+
+  /***********************************************/
+
+  .modules-info a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .modules-info .back-btn {
+    background-color: #0b486d;
+    color: white;
+    width: 150px;
+    border-radius: 20px;
+    font-size: 14px;
+    height: 35px;
+    border-color: white;
+    padding-top: 4px;
+    margin-top: 20px;
   }
 
   /***********************************************/
