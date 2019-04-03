@@ -34,14 +34,15 @@
   export default {
     name: "SubjectModule",
     props: ['id', 'title', 'wordsInModule', 'words'],
-    moduleId:'',
-    price:'',
+    moduleId: '',
+    price: '',
     components: {
       SubjectModule
     },
 
     methods: {
       startClick: function () {
+
         let config = {
           headers: {
             'Access-Control-Allow-Origin': '*',
@@ -50,53 +51,47 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        axios.post('https://memeseeds.herokuapp.com/shop/user/' + this.$cookies.get('userId') + '/module/' +
+        axios.post('https://memeseeds.herokuapp.com/shop/user/' + this.$cookies.get('userId') + '/get/module/' +
           this.id, {
           "userid": this.$cookies.get("userId"),
-          "moduleid": this.id
+          "moduleid": ''
         }, config)
           .then(response => {
-
-            this.$swal({
-              title: 'You have this module',
-              text: 'Start?',
-              showCancelButton: true
-            }).then((value) => {
-              if(value.value == true) {
-                router.push('/');
-                router.push('moduleView/' + this.id);
-              }
-            })
+            console.log(response);
+            console.log(response.data.result);
+            if(response.data.result == "User has this module.") {
+              this.$swal({
+                title: 'You have this mod',
+                text: 'Start?',
+                showCancelButton: true
+              }).then((value) => {
+                if (value.value == true) {
+                  router.push('/');
+                  router.push('myModule/' + this.id);
+                }
+              })
+            }else{
+              router.push('/');
+              router.push('moduleView/' + this.id);
+            }
+            // if(response.data.result == "Not enough credits.") {
+            //   this.$swal({
+            //     title: 'You don`t have enough credits',
+            //     text: 'Buy?',
+            //     showCancelButton: true
+            //   }).then((value) => {
+            //     if (value.value == true) {
+            //       router.push('/');
+            //       router.push('buyCredits');
+            //     }
+            //   })
+            //
+            // }
+            //router.push('/');
+            //router.push('moduleView/' + this.id);
           })
           .catch(error => {
-            if(this.price <= this.$cookies.get("userCredits"))
-            {
-              this.$swal({
-                title: 'You do not have this module',
-                text: 'Buy?',
-                showCancelButton: true
-              }).then((value) => {
-                if(value.value == true) {
-                  router.push('/');
-                  router.push('moduleView/' + this.id);
-                }
-              })
-
-            }else {
-
-              this.$swal({
-                title: 'You do not have enough credits',
-                text: 'Buy credits?',
-                showCancelButton: true
-              }).then((value) => {
-                console.log(value);
-                if(value.value == true) {
-                  router.push('/');
-                  router.push('buyCredits');
-                }
-              })
-
-            }
+            console.log(error);
 
           });
 
@@ -105,7 +100,7 @@
     }
   }
 
-  function user_has_module() {
+  /*function user_has_module() {
     this.$swal({
       title: 'You have this module',
       text: 'Start?',
@@ -137,10 +132,11 @@
       router.push('buyCredits');
     })
   }
-    function getModuleInfo() {
+
+  function getModuleInfo() {
 
   }
-
+*/
 </script>
 
 <style scoped>
