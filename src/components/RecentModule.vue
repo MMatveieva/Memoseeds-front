@@ -39,6 +39,7 @@
 
     methods: {
       startClick: function () {
+        router.push('/');
         router.push('myModule/' + this.id);
       }
     }

@@ -19,6 +19,7 @@
     "vue": "^2.5.2",
     "vue-cookies": "^1.5.13",
     "vue-router": "^3.0.1",
+    "vue-stripe-checkout": "^1.2.6",
     "webpack-config-file": "^1.0.5"
   },
   "devDependencies": {

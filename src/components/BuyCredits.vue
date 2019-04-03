@@ -24,12 +24,12 @@
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
-            <div class="col-sm-6 buy-number">10 credits</div>
-            <div class="col-sm-6 buy-sum">{{price[0]}}0.99 {{currencySymbol}}$</div>
+            <div class="col-sm-6 buy-number">{{credits[0]}} credits</div>
+            <div class="col-sm-6 buy-sum">{{price[0]}} {{currencySymbol}}</div>
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
-          <button id="buy10" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
+          <button id="0" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
         </div>
       </div>
 
@@ -39,12 +39,12 @@
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
-            <div class="col-sm-6 buy-number">20 credits</div>
-            <div class="col-sm-6 buy-sum">{{price[1]}}1.99 {{currencySymbol}}$</div>
+            <div class="col-sm-6 buy-number">{{credits[1]}} credits</div>
+            <div class="col-sm-6 buy-sum">{{price[1]}} {{currencySymbol}}</div>
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
-          <button id="buy20" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
+          <button id="1" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
         </div>
       </div>
 
@@ -54,12 +54,12 @@
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
-            <div class="col-sm-6 buy-number">30 credits</div>
-            <div class="col-sm-6 buy-sum">{{price[2]}}3.99 {{currencySymbol}}$</div>
+            <div class="col-sm-6 buy-number">{{credits[2]}} credits</div>
+            <div class="col-sm-6 buy-sum">{{price[2]}} {{currencySymbol}}</div>
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
-          <button id="buy30" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
+          <button id="2" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
         </div>
       </div>
 
@@ -69,17 +69,16 @@
         </div>
         <div class="col-sm-9 buy-info">
           <div class="row">
-            <div class="col-sm-6 buy-number">40 credits</div>
-            <div class="col-sm-6 buy-sum">{{price[3]}}0.99 {{currencySymbol}}$</div>
+            <div class="col-sm-6 buy-number">{{credits[3]}} credits</div>
+            <div class="col-sm-6 buy-sum">{{price[3]}} {{currencySymbol}}</div>
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
-          <button id="buy40" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
+          <button id="3" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
         </div>
       </div>
 
     </div>
-
 
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
@@ -91,6 +90,7 @@
   import axios from 'axios'
   import router from '../router'
   import Header from './Header'
+  import VueStripeCheckout from 'vue-stripe-checkout';
 
   export default {
     name: "BuyCredits",
@@ -102,16 +102,18 @@
         userName: "",
         userCredits: "",
         price: [],
+        credits: [],
         currency: "",
-        currencySymbol: ""
+        currencySymbol: "",
+
+        isClicked: false
       }
     },
 
     beforeCreate: function () {
       document.body.className = 'inside';
 
-      //let cur = this.$cookies.get('country');
-      let cur = "France";
+      let cur = this.$cookies.get('country');
 
       let config = {
         headers: {
@@ -125,10 +127,18 @@
       axios.post('https://memeseeds.herokuapp.com/purchase/options', {"country": cur}, config)
         .then(response => {
           console.log(response.data);
-          for (let i = 0; i < 4; i++) {
-            this.price[i] = response.data.purchases[i].price.amount;
+          this.$cookies.set('stripeKey', response.data.publishableKey);
+          let p = new Array(response.data.purchases.length);
+          for (let i = 0; i < response.data.purchases.length; i++) {
+            p[i] = response.data.purchases[i].price.amount;
+            this.credits.push(response.data.purchases[i].credits);
           }
           this.currency = response.data.purchases[0].price.currency;
+
+          this.currencySymbol = this.currency;
+
+          this.price = p;
+          //console.log(this.price);
         })
         .catch(error => {
           console.log(error);
@@ -141,26 +151,22 @@
     },
 
     methods: {
-      logOut: function () {
-      },
-
       buyClick: function (event) {
         let targetId = event.currentTarget.id;
-        let resAmount = 0;
-        switch (targetId) {
-          case 'buy10':
-            resAmount = 10;
-            break;
-          case 'buy20':
-            resAmount = 20;
-            break;
-          case 'buy30':
-            resAmount = 30;
-            break;
-          case 'buy40':
-            resAmount = 40;
-            break;
-        }
+        // this.isClicked = true;
+
+        this.$checkout.open({
+          image: 'https://i.imgur.com/1PHlmFF.jpg',
+          locale: 'en',
+          currency: this.currency,
+          name: 'Blips and Chitz!',
+          amount: this.price[targetId],
+          panelLabel: 'Pay for {{credits[targetId}} credits',
+          token: (token) => {
+            let stop = 0;
+            // handle the token
+          }
+        })
 
 
       },

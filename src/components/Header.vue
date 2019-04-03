@@ -7,10 +7,12 @@
         </router-link>
       </div>
       <div class="col-sm-3 header-search input-group">
-        <input type="text" class="form-control" placeholder="Search">
-        <div class="input-group-append search-btn" v-on:click="searchClick">
-          <img src="../css/images/search.png">
-        </div>
+        <form v-on:keyup.enter="searchClick">
+          <input type="text" class="form-control" placeholder="Search" v-model="search">
+          <!--<div class="input-group-append search-btn" v-on:click="searchClick">-->
+          <!--<img src="../css/images/search.png">-->
+          <!--</div>-->
+        </form>
       </div>
       <div class="col-sm-5 header-text">
         MEMOSEEDS
@@ -59,7 +61,7 @@
         creditsNumber: "",
         userName: "",
 
-        modules: []
+        search: ""
       }
     },
 
@@ -84,7 +86,10 @@
       },
 
       searchClick: function () {
-
+        if (this.search != '') {
+          router.push('/');
+          router.push('searchResults/' + this.search);
+        }
       }
     }
   }

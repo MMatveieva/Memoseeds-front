@@ -1,11 +1,13 @@
 <template>
   <div class="row" style="width: 100%">
     <div class="col-sm-6">
-      <input type="number" class="ans-input" v-model="answer">
-      {{word}}
+      <form v-on:keyup="inputClick">
+        <input type="text" class="ans-input" v-model="answer">
+        {{word}}
+      </form>
     </div>
     <div class="col-sm-6">
-      {{rowId}}. {{definition}}
+      {{rowId}}) {{definition}}
     </div>
 
   </div>
@@ -16,9 +18,23 @@
 
   export default {
     name: "TestTemplate",
-    props: ['rowId','answer','word', 'definition'],
+    props: ['rowId', 'word', 'definition'],
     components: {
       TestTemplate
+    },
+
+    data() {
+      return {
+        answer: ""
+
+      }
+    },
+
+    methods: {
+      inputClick: function () {
+        this.$cookies.set('answer', this.answer, 2);
+        this.$cookies.set('id', this.$props.rowId,2);
+      }
     }
   }
 </script>

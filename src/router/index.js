@@ -12,7 +12,7 @@ import Learning from '@/components/Learning'
 import Writing from '@/components/Writing'
 import Testing from '@/components/Testing'
 import SearchResults from '@/components/SearchResults'
-
+import NewModule from '@/components/NewModule'
 
 Vue.use(Router);
 
@@ -97,9 +97,15 @@ export default new Router({
       beforeEnter: ifAuthenticated
     },
     {
-      path: '/searchResults',
+      path: '/searchResults/:str',
       name: 'searchResults',
       component: SearchResults,
+      beforeEnter: ifAuthenticated
+    },
+    {
+      path: '/newModule',
+      name: 'newModule',
+      component: NewModule,
       beforeEnter: ifAuthenticated
     }
   ]

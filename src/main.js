@@ -7,9 +7,11 @@ import BootstrapVue from "bootstrap-vue"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
 import VueCookies from "vue-cookies"
+import VueStripeCheckout from 'vue-stripe-checkout';
 import VueSweetalert2 from 'vue-sweetalert2';
 
 
+Vue.use(VueStripeCheckout, 'pk_test_ob6s7KZxZU1mouJbbsuFBjEe');
 
 Vue.use(VueSweetalert2)
 
