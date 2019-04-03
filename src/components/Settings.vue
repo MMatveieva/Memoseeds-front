@@ -5,7 +5,9 @@
       <div class="col-sm-5 info-part">
         <div class="user-photo">
         </div>
-        <button type="submit" class="btn load-btn" v-on:click="loadPhoto">LOAD PHOTO</button>
+        <div class="load-photo">
+          <b-form-file v-model="file" class="mt-3" plain></b-form-file>
+        </div>
         <div class="modules-info">
           <p>Number of modules:</p>
           <label id="modules">{{modulesNumber}}</label>
@@ -80,7 +82,9 @@
         nameError: "",
         passError: "",
         OldPassError: "",
-        mailError: ""
+        mailError: "",
+
+        file: ""
       }
     },
     beforeCreate: function () {
@@ -221,7 +225,6 @@
         let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
         axios.get(pass, config)
           .then(response => {
-            console.log(response.data);
             this.modulesNumber = response.data.length;
           })
           .catch(error => {
@@ -281,16 +284,15 @@
     align-content: center;
   }
 
-  .load-btn {
-    background-color: #f59699 !important;
-    border-radius: 20px;
+  .load-photo {
+    margin-top: -7px;
+    margin-bottom: 10px;
+  }
+
+  .load-photo input {
     font-size: 13px;
     color: white;
-    width: 155px;
     height: 30px;
-    margin-top: -7px;
-    margin-bottom: 15px;
-
   }
 
   .info-part button:hover {

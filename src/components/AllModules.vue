@@ -203,7 +203,6 @@
             //console.log(cat);
             for (let k = 0; k < cat.modules.length; k++) {
               let mod = cat.modules[k];
-              console.log(mod);
               let terms = "";
               for (let l = 0; (l < mod.terms.length && l < 4); l++) {
                 if (l == 3 || l == mod.terms.length - 1)
