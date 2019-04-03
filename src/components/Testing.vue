@@ -37,8 +37,7 @@
               ></TestTemplate>
             </div>
 
-            <div class="action-input" v-bind:class="{hidden: end}">
-            </div>
+
             <div class="action-service btn-container">
               <button type="submit" class="btn check-btn" v-on:click="nextClick">
                 CHECK THE MATCH
@@ -80,7 +79,6 @@
 
         inputText: "",
         module: [],
-        end: false,
 
 
         // written by Masha
@@ -96,33 +94,15 @@
 
     methods: {
       nextClick: function () {
-        if (!this.end)
-          this.check();
-        else {
-          let id = this.$route.params.id;
-          router.push("/");
-          router.push('myModule/' + id);
-        }
+
+        let id = this.$route.params.id;
+        router.push("/");
+        router.push('myModule/' + id);
+
 
       },
 
-      check() {
-        if (this.inputText == this.module[this.wordNow - 1].name)
-          this.wordsCorrect += 1;
-        else
-          this.wordsIncorrect += 1;
-
-        if (this.wordNow != this.wordsAll) {
-          this.wordNow += 1;
-          this.wordDef = this.module[this.wordNow - 1].definition;
-          this.wordsLeft = this.wordsAll - this.wordNow;
-        } else {
-          this.end = true;
-          this.wordDef = "Success! Your score is " + this.wordsCorrect / this.wordsAll + "%!";
-        }
-        this.inputText = "";
-      },
-      getModuleData() {
+      getModuleData: function () {
         let config = {
           headers: {
             'Access-Control-Allow-Origin': '*',
@@ -137,7 +117,8 @@
             if (response.data.error == null) {
               this.module = response.data.terms;
               this.moduleName = response.data.name;
-              this.init()
+              this.init();
+              console.log(this.module);
             } else {
               console.log(response);
             }
@@ -145,14 +126,41 @@
           .catch(error => {
             console.log(error)
           });
+        console.log(this.module);
       },
-      init() {
-        this.wordNow = 1;
-        this.wordsAll = this.module.length;
-        this.wordsLeft = this.wordsAll - this.wordNow;
-        console.log(this.module[this.wordNow - 1]);
 
-        this.wordDef = this.module[this.wordNow - 1].definition;
+      init: function () {
+        var answers = [];
+        var definitions = [];
+        this.module.forEach(function (item) {
+          answers.push(item.name);
+        });
+        console.log(this.module);
+        this.module.forEach(function (item) {
+          definitions.push(item.definition);
+        });
+        definitions = this.shuffle(definitions);
+        var res = [];
+        answers.forEach(function (item, i) {
+          res.push({
+            rowId: i,
+            answer: "",
+            word: item,
+            definition: definitions[i]
+          });
+        });
+        this.rows = res;
+      },
+
+      shuffle: function (a) {
+        var j, x, i;
+        for (i = a.length - 1; i > 0; i--) {
+          j = Math.floor(Math.random() * (i + 1));
+          x = a[i];
+          a[i] = a[j];
+          a[j] = x;
+        }
+        return a;
       }
     }
   }
