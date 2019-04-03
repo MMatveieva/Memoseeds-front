@@ -120,7 +120,6 @@
                 this.nameError = response.data.error;
                 this.noNameOk = false;
               } else {
-                console.log(response.data);
                 this.$cookies.set('userName', this.name_edit);
               }
             })
@@ -152,7 +151,6 @@
                 this.mailError = response.data.error;
                 this.noMailOk = false;
               } else {
-                console.log(response.data);
                 this.$cookies.set('userMail', this.email);
               }
             })

@@ -103,15 +103,16 @@
         userCredits: "",
         price: [],
         currency: "",
-        currencySymbol: ""
+        currencySymbol: "",
+
+        key: ""
       }
     },
 
     beforeCreate: function () {
       document.body.className = 'inside';
 
-      //let cur = this.$cookies.get('country');
-      let cur = "France";
+      let cur = this.$cookies.get('country');
 
       let config = {
         headers: {
@@ -125,6 +126,7 @@
       axios.post('https://memeseeds.herokuapp.com/purchase/options', {"country": cur}, config)
         .then(response => {
           console.log(response.data);
+          this.key = response.data.publishableKey;
           for (let i = 0; i < 4; i++) {
             this.price[i] = response.data.purchases[i].price.amount;
           }
