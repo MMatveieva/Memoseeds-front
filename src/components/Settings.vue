@@ -3,7 +3,8 @@
     <Header></Header>
     <div class="settings-form row">
       <div class="col-sm-5 info-part">
-        <div class="user-photo" v-bind:class="{background: userIMG}">
+        <div class="user-photo" >
+          <!--<img v-bind:src="userIMG">-->
         </div>
         <div class="load-photo">
           <b-form-file v-model="file" class="mt-3" plain></b-form-file>
@@ -207,11 +208,15 @@
           this.noPassMatch = false;
           this.passError = "Please fill both fields.";
         }
+        this.loadPhoto();
+
       },
 
       getUserInfo: function () {
         this.creditsNumber = this.$cookies.get('userCredits');
         this.userName = this.$cookies.get('userName');
+        this.userIMG = localStorage.getItem('img');
+
       },
 
       getUserModules: function () {
@@ -235,6 +240,10 @@
       },
 
       loadPhoto: function () {
+        console.log(this.file);
+
+        localStorage.setItem('img', this.file);
+        this.userIMG = localStorage.getItem('img');
 
       }
     }
