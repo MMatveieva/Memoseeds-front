@@ -97,7 +97,7 @@ export default new Router({
       beforeEnter: ifAuthenticated
     },
     {
-      path: '/searchResults',
+      path: '/searchResults/:str',
       name: 'searchResults',
       component: SearchResults,
       beforeEnter: ifAuthenticated
