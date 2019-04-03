@@ -3,7 +3,7 @@
     <Header></Header>
     <div class="settings-form row">
       <div class="col-sm-5 info-part">
-        <div class="user-photo">
+        <div class="user-photo" v-bind:class="{background: url(userIMG)}">
         </div>
         <div class="load-photo">
           <b-form-file v-model="file" class="mt-3" plain></b-form-file>
@@ -84,7 +84,8 @@
         OldPassError: "",
         mailError: "",
 
-        file: ""
+        file: "",
+        userIMG: null
       }
     },
     beforeCreate: function () {
@@ -305,7 +306,6 @@
     margin: 30px auto;
     width: 110px;
     height: 110px;
-    background-color: white;
     border-radius: 50%;
   }
 
