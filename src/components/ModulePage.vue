@@ -81,10 +81,6 @@
 
     created: function () {
       this.getModuleInfo();
-
-      // router.afterEach((to, from) => {
-      //   this.$cookies.set('from', from.fullPath);
-      // });
     },
 
     methods: {
