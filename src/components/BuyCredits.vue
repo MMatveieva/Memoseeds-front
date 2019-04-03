@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
-          <button id="buy10" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
+          <button id="0" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
         </div>
       </div>
 
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
-          <button id="buy20" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
+          <button id="1" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
         </div>
       </div>
 
@@ -59,7 +59,7 @@
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
-          <button id="buy30" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
+          <button id="2" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
         </div>
       </div>
 
@@ -74,12 +74,11 @@
           </div>
         </div>
         <div class="col-sm-2 btn-wrapper">
-          <button id="buy40" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
+          <button id="3" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
         </div>
       </div>
 
     </div>
-
 
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
@@ -91,6 +90,7 @@
   import axios from 'axios'
   import router from '../router'
   import Header from './Header'
+  import VueStripeCheckout from 'vue-stripe-checkout';
 
   export default {
     name: "BuyCredits",
@@ -106,7 +106,7 @@
         currency: "",
         currencySymbol: "",
 
-        key: ""
+        isClicked: false
       }
     },
 
@@ -127,7 +127,7 @@
       axios.post('https://memeseeds.herokuapp.com/purchase/options', {"country": cur}, config)
         .then(response => {
           console.log(response.data);
-          this.key = response.data.publishableKey;
+          this.$cookies.set('stripeKey', response.data.publishableKey);
           let p = new Array(response.data.purchases.length);
           for (let i = 0; i < response.data.purchases.length; i++) {
             p[i] = response.data.purchases[i].price.amount;
@@ -151,26 +151,22 @@
     },
 
     methods: {
-      logOut: function () {
-      },
-
       buyClick: function (event) {
         let targetId = event.currentTarget.id;
-        let resAmount = 0;
-        switch (targetId) {
-          case 'buy10':
-            resAmount = 10;
-            break;
-          case 'buy20':
-            resAmount = 20;
-            break;
-          case 'buy30':
-            resAmount = 30;
-            break;
-          case 'buy40':
-            resAmount = 40;
-            break;
-        }
+        // this.isClicked = true;
+
+        this.$checkout.open({
+          image: 'https://i.imgur.com/1PHlmFF.jpg',
+          locale: 'en',
+          currency: this.currency,
+          name: 'Blips and Chitz!',
+          amount: this.price[targetId],
+          panelLabel: 'Pay for {{credits[targetId}} credits',
+          token: (token) => {
+            let stop = 0;
+            // handle the token
+          }
+        })
 
 
       },

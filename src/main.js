@@ -7,8 +7,9 @@ import BootstrapVue from "bootstrap-vue"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
 import VueCookies from "vue-cookies"
+import VueStripeCheckout from 'vue-stripe-checkout';
 
-
+Vue.use(VueStripeCheckout, 'pk_test_ob6s7KZxZU1mouJbbsuFBjEe');
 Vue.use(VueCookies);
 Vue.use(BootstrapVue);
 Vue.config.productionTip = false;
@@ -17,6 +18,6 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {App},
   template: '<App/>'
 });
