@@ -3,7 +3,7 @@
     <Header></Header>
     <div class="settings-form row">
       <div class="col-sm-5 info-part">
-        <div class="user-photo" v-bind:class="{background: url(userIMG)}">
+        <div class="user-photo" v-bind:class="{background: userIMG}">
         </div>
         <div class="load-photo">
           <b-form-file v-model="file" class="mt-3" plain></b-form-file>
