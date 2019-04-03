@@ -36,12 +36,8 @@
                 v-bind:definition="row.definition"
               ></TestTemplate>
             </div>
-            <<<<<<< HEAD
-            =======
 
-            <div class="action-input" v-bind:class="{hidden: end}">
-            </div>
-            >>>>>>> 48642bc6aab77bf78ed1af43e99d08083cbaea1c
+
             <div class="action-service btn-container">
               <button type="submit" class="btn check-btn" v-on:click="nextClick">
                 CHECK THE MATCH
@@ -75,18 +71,18 @@
     },
     data() {
       return {
-
+        moduleName: "",
         wordsAll: "",
         wordsLeft: "",
         wordsCorrect: "",
         wordsIncorrect: "",
 
-        moduleName: "",
         inputText: "",
         module: [],
+
+
         // written by Masha
-        rows: [],
-        ids:[]
+        rows: []
       }
     },
     beforeCreate: function () {
@@ -146,7 +142,6 @@
         definitions = this.shuffle(definitions);
         var res = [];
         answers.forEach(function (item, i) {
-          this.ids.push(i+1);
           res.push({
             rowId: i,
             answer: "",
