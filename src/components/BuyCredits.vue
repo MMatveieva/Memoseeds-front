@@ -77,39 +77,22 @@
           <button id="3" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
         </div>
       </div>
+
+      <form action="/process-payment" method="POST">
+        <select v-model="buyPrice">
+          <option value="1">Product A</option>
+          <option value="2">Product B</option>
+          <option value="3">Product C</option>
+        </select>
+
+        <stripe-checkout
+          stripe-key="pk_test_ob6s7KZxZU1mouJbbsuFBjEe"
+          :products="credits"
+          :product-id="buyPrice">
+        </stripe-checkout>
+      </form>
+
     </div>
-
-    <!--<template>-->
-    <!--<div>-->
-    <!--<vue-stripe-checkout-->
-    <!--ref="checkoutRef"-->
-    <!--:image="image"-->
-    <!--:name="name"-->
-    <!--:description="description"-->
-    <!--:currency="currency"-->
-    <!--:amount="buyPrice"-->
-    <!--@done="done"-->
-    <!--@opened="opened"-->
-    <!--@closed="closed"-->
-    <!--&gt;</vue-stripe-checkout>-->
-    <!--<button @click="checkout">Checkout</button>-->
-    <!--</div>-->
-    <!--</template>-->
-
-    <form action="/process-payment" method="POST">
-      <select v-model="productId">
-        <option value="1">Product A</option>
-        <option value="2">Product B</option>
-        <option value="3">Product C</option>
-      </select>
-
-      <stripe-checkout
-        stripe-key="pk_test_ob6s7KZxZU1mouJbbsuFBjEe"
-        :products="products"
-        :product-id="productId">
-      </stripe-checkout>
-    </form>
-
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
     </div>
@@ -125,7 +108,7 @@
   export default {
     name: "BuyCredits",
     components: {
-      'stripe-checkout': StripeCheckout,
+      StripeCheckout,
       Header
     },
     data() {
