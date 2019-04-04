@@ -44,7 +44,8 @@
             </small>
           </div>
           <button id="signUp-btn" type="button" class="btn signUp-btn" v-on:click="btnClick">SIGN UP</button>
-          <v-facebook-login app-id="363509570928956"></v-facebook-login>
+          <div style="font-size: small">— OR —</div>
+          <v-facebook-login app-id="363509570928956" class="facebook-btn"></v-facebook-login>
           <template>
             <v-facebook-login-scope>
               <button slot-scope="scope">
@@ -296,6 +297,16 @@
     width: 150px;
     height: 30px;
     margin-top: -10px;
+  }
+  .facebook-btn {
+    background-color: #3c57a4 !important;
+    border-radius: 20px;
+    font-size: 13px;
+    color: white;
+    width: auto;
+    height: 40px;
+    margin-top: 10px;
+    margin-left: 12%;
   }
 
   .signUp-prop button:hover {
