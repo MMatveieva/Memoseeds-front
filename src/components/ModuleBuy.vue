@@ -87,7 +87,8 @@
 
     methods: {
       editClick: function (){
-        if (this.$cookies.get("userCredits") <= this.price){
+
+        if (this.$cookies.get("userCredits") < this.price){
           this.$swal({
             title: 'You do not have enough credits',
             text: 'Buy credits?',

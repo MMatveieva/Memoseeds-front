@@ -74,21 +74,6 @@
               router.push('/');
               router.push('moduleView/' + this.id);
             }
-            // if(response.data.result == "Not enough credits.") {
-            //   this.$swal({
-            //     title: 'You don`t have enough credits',
-            //     text: 'Buy?',
-            //     showCancelButton: true
-            //   }).then((value) => {
-            //     if (value.value == true) {
-            //       router.push('/');
-            //       router.push('buyCredits');
-            //     }
-            //   })
-            //
-            // }
-            //router.push('/');
-            //router.push('moduleView/' + this.id);
           })
           .catch(error => {
             console.log(error);
@@ -99,44 +84,6 @@
       }
     }
   }
-
-  /*function user_has_module() {
-    this.$swal({
-      title: 'You have this module',
-      text: 'Start?',
-      showCancelButton: true
-    }).then((value) => {
-      router.push('/');
-      router.push('moduleView/' + this.id);
-    })
-  }
-
-  function user_buy_module() {
-    this.$swal({
-      title: 'You do not have this module',
-      text: 'Buy?',
-      showCancelButton: true
-    }).then((value) => {
-      router.push('/');
-      router.push('moduleView/' + this.id);
-    })
-  }
-
-  function user_buy_credits() {
-    this.$swal({
-      title: 'You do not have enough credits',
-      text: 'Buy credits?',
-      showCancelButton: true
-    }).then((value) => {
-      router.push('/');
-      router.push('buyCredits');
-    })
-  }
-
-  function getModuleInfo() {
-
-  }
-*/
 </script>
 
 <style scoped>
