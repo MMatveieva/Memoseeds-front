@@ -54,7 +54,7 @@
         axios.post('https://memeseeds.herokuapp.com/shop/user/' + this.$cookies.get('userId') + '/get/module/' +
           this.id, {
           "userid": this.$cookies.get("userId"),
-          "moduleid": ''
+          "moduleid": this.id
         }, config)
           .then(response => {
             console.log(response);

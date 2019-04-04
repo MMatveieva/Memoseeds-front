@@ -37,7 +37,7 @@
       </div>
 
       <div class="btn-container">
-        <button type="button" class="btn add-btn" v-on:click="editClick">
+        <button id="buttonBuy" type="button" class="btn add-btn" v-on:click="editClick">
           {{addOption}}
         </button>
       </div>
@@ -69,7 +69,7 @@
         userName: "",
         moduleName: "",
         addOption: "",
-
+        price:'',
         terms: [],
 
         added: false
@@ -86,7 +86,20 @@
     },
 
     methods: {
-      editClick: function () {
+      editClick: function (){
+        if (this.$cookies.get("userCredits") <= this.price){
+          this.$swal({
+            title: 'You do not have enough credits',
+            text: 'Buy credits?',
+            showCancelButton: true
+          }).then((value) => {
+            console.log(value);
+            if(value.value == true) {
+              router.push('/');
+              router.push('buyCredits');
+            }
+          })
+        }
       },
 
 
@@ -99,11 +112,68 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules/' +
+        let pass = 'https://memeseeds.herokuapp.com/' + 'shop' + '/modules/' +
           this.$route.params.id;
+// ________________________________________________________________________________________________________
+        /* axios.post('https://memeseeds.herokuapp.com/shop/user/' + this.$cookies.get('userId') + '/get/module/' +
+        response.data.moduleId, {
+        "userid": this.$cookies.get("userId"),
+        "moduleid": response.data.moduleId
+        }, config)
+        .then(response => {
+        if ( response.data.result = "User has this module")
+        {
+        this.$swal({
+        title: 'You have this module',
+        showCancelButton: false
+        }).then((value) => {
+        if(value.value == true) {
+        router.push('/');
+        router.push('moduleView/' + this.moduleId);
+        }else{
+
+        }
+        })
+        }
+
+
+        })*/
+        /*.catch(error => {
+        if(this.price <= this.$cookies.get("userCredits"))
+        {
+        this.$swal({
+        title: 'You do not have this module',
+        text: 'Buy?',
+        showCancelButton: true
+        }).then((value) => {
+        if(value.value == true) {
+        router.push('/');
+        router.push('moduleView/' + this.id);
+        }
+        })
+
+        }else {
+
+        this.$swal({
+        title: 'You do not have enough credits',
+        text: 'Buy credits?',
+        showCancelButton: true
+        }).then((value) => {
+        console.log(value);
+        if(value.value == true) {
+        router.push('/');
+        router.push('buyCredits');
+        }
+        })
+
+        }
+
+        })*/
+// ________________________________________________________________________________________________________
 
         axios.get(pass, config)
           .then(response => {
+            console.log(response);
             this.moduleName = response.data.name;
             this.drawTerms(response.data);
           })
@@ -116,19 +186,29 @@
 
       drawTerms: function (data) {
         console.log('data ', data);
-        let mm = new Array(data.terms.length);
-        this.wordsNumber = data.terms.length;
+        let mm = new Array(data.module.terms.length);
+        this.wordsNumber = data.module.terms.length;
 
-        for (let i = 0; (i < data.terms.length && i < 5); i++) {
+        for (let i = 0; (i < data.module.terms.length && i < 5); i++) {
           let m = {
-            word: data.terms[i].name,
-            definition: data.terms[i].definition,
-            id: data.terms[i].termId,
+            word: data.module.terms[i].name,
+            definition: data.module.terms[i].definition,
+            id: data.module.terms[i].termId,
             pos: i + 1
           };
           mm[i] = m;
         }
         this.terms = mm;
+        this.price = data.module.price;
+        if(data.module.price == '0')
+        {
+          this.addOption = 'Add';
+        } else {
+          this.addOption = data.module.price + ' $';
+        }
+        if (this.$cookies.get("userCredits") <= data.module.price){
+
+        }
       }
     }
   }
@@ -251,3 +331,5 @@
   }
 
 </style>
+
+

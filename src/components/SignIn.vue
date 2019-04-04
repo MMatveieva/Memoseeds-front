@@ -47,7 +47,8 @@
 <script>
   import axios from 'axios'
   import router from '../router'
-  import swal from 'sweetalert';
+  // import swal from 'vue-sweetalert2';
+
   export default {
     name: "SignIn",
     data() {
