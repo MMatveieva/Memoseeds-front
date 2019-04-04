@@ -44,6 +44,14 @@
             </small>
           </div>
           <button id="signUp-btn" type="button" class="btn signUp-btn" v-on:click="btnClick">SIGN UP</button>
+          <v-facebook-login app-id="363509570928956"></v-facebook-login>
+          <template>
+            <v-facebook-login-scope>
+              <button slot-scope="scope">
+                <!-- Compose HTML/CSS here, otherwise nothing will be rendered! -->
+              </button>
+            </v-facebook-login-scope>
+          </template>
         </form>
       </div>
     </div>
@@ -53,8 +61,13 @@
 <script>
   import axios from 'axios';
   import router from '../router';
+  import VFacebookLogin from 'vue-facebook-login-component'
+
 
   export default {
+    components:{
+      VFacebookLogin
+    },
     name: 'SignUp',
     data() {
       return {
