@@ -22,7 +22,7 @@
       </router-link>
     </div>
 
-    <div class="card-footer footer">
+    <div class="card-footer footer" v-bind:class="{abs: toBottom}">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
     </div>
   </div>
@@ -43,7 +43,10 @@
     data() {
       return {
         userName: "",
-        modules: []
+        modules: [],
+
+        // for footer
+        toBottom: false
       }
     },
 
@@ -106,6 +109,10 @@
           mm[i] = m;
         }
         this.modules = mm;
+
+        if (this.modules.length < 4) {
+          this.toBottom = true;
+        }
       }
     }
   }
@@ -149,6 +156,10 @@
     position: relative;
     width: 100%;
     bottom: 0;
+  }
+
+  .abs {
+    position: absolute !important;
   }
 
 </style>

@@ -145,11 +145,13 @@
             let k = {value: 'default', text: 'Subject'};
             let sub = [k];
             for (let i = 0; i < sb.length; i++) {
-              let s1 = {
-                value: sb[i],
-                text: sb[i]
-              };
-              sub.push(s1);
+              if (sb[i] != 'default') {
+                let s1 = {
+                  value: sb[i],
+                  text: sb[i]
+                };
+                sub.push(s1);
+              }
             }
             this.subjectsTitles = sub;
           })
@@ -165,7 +167,8 @@
           this.categoryTitles.push({value: 'default', text: 'Category'});
           let sub = this.filterResponse[this.selected_subject];
           for (let i = 0; i < sub.length; i++) {
-            this.categoryTitles.push(sub[i]);
+            if (sub[i] != 'default')
+              this.categoryTitles.push(sub[i]);
           }
           this.noSubject = false;
         } else {

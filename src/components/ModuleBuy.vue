@@ -114,62 +114,6 @@
         };
         let pass = 'https://memeseeds.herokuapp.com/' + 'shop' + '/modules/' +
           this.$route.params.id;
-// ________________________________________________________________________________________________________
-        /* axios.post('https://memeseeds.herokuapp.com/shop/user/' + this.$cookies.get('userId') + '/get/module/' +
-        response.data.moduleId, {
-        "userid": this.$cookies.get("userId"),
-        "moduleid": response.data.moduleId
-        }, config)
-        .then(response => {
-        if ( response.data.result = "User has this module")
-        {
-        this.$swal({
-        title: 'You have this module',
-        showCancelButton: false
-        }).then((value) => {
-        if(value.value == true) {
-        router.push('/');
-        router.push('moduleView/' + this.moduleId);
-        }else{
-
-        }
-        })
-        }
-
-
-        })*/
-        /*.catch(error => {
-        if(this.price <= this.$cookies.get("userCredits"))
-        {
-        this.$swal({
-        title: 'You do not have this module',
-        text: 'Buy?',
-        showCancelButton: true
-        }).then((value) => {
-        if(value.value == true) {
-        router.push('/');
-        router.push('moduleView/' + this.id);
-        }
-        })
-
-        }else {
-
-        this.$swal({
-        title: 'You do not have enough credits',
-        text: 'Buy credits?',
-        showCancelButton: true
-        }).then((value) => {
-        console.log(value);
-        if(value.value == true) {
-        router.push('/');
-        router.push('buyCredits');
-        }
-        })
-
-        }
-
-        })*/
-// ________________________________________________________________________________________________________
 
         axios.get(pass, config)
           .then(response => {
@@ -331,5 +275,3 @@
   }
 
 </style>
-
-
