@@ -250,9 +250,12 @@
             };
             mm[k] = m;
           }
+          let subjectName = subject_keys[i];
+          if (subjectName == 'default')
+            subjectName = 'Other';
           let s = {
             id: i,
-            subjectName: subject_keys[i],
+            subjectName: subjectName,
             modules: mm
           };
           sb[i] = s;
@@ -381,6 +384,7 @@
     position: relative;
     width: 100%;
     bottom: 0;
+    margin-top: 30px;
   }
 
   .disabled {

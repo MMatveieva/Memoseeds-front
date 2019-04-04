@@ -144,7 +144,7 @@
           mm[i] = m;
         }
         this.terms = mm;
-        if (this.terms.length < 5)
+        if (this.terms.length < 4)
           this.toBottom = true;
 
         this.price = data.module.price;
@@ -262,6 +262,7 @@
     margin-top: 15px;
     margin-bottom: 25px;
   }
+
 
   /***********************************************/
 
