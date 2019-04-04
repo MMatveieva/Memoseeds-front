@@ -314,6 +314,10 @@
     height: 37px;
   }
 
+  .facebook-btn button:hover{
+    background-color: #2b406e !important;
+  }
+
   .facebook-btn {
     background-color: transparent !important;
     font-size: 13px;
