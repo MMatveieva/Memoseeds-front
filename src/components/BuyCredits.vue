@@ -79,17 +79,36 @@
       </div>
     </div>
 
-    <checkout
-      ref="checkoutRef"
-      :image="image"
-      :name="name"
-      :description="description"
-      :currency="currency"
-      :amount="buyPrice"
-      @done="done"
-      @opened="opened"
-      @closed="closed"
-    ></checkout>
+    <!--<template>-->
+    <!--<div>-->
+    <!--<vue-stripe-checkout-->
+    <!--ref="checkoutRef"-->
+    <!--:image="image"-->
+    <!--:name="name"-->
+    <!--:description="description"-->
+    <!--:currency="currency"-->
+    <!--:amount="buyPrice"-->
+    <!--@done="done"-->
+    <!--@opened="opened"-->
+    <!--@closed="closed"-->
+    <!--&gt;</vue-stripe-checkout>-->
+    <!--<button @click="checkout">Checkout</button>-->
+    <!--</div>-->
+    <!--</template>-->
+
+    <form action="/process-payment" method="POST">
+      <select v-model="productId">
+        <option value="1">Product A</option>
+        <option value="2">Product B</option>
+        <option value="3">Product C</option>
+      </select>
+
+      <stripe-checkout
+        stripe-key="pk_test_ob6s7KZxZU1mouJbbsuFBjEe"
+        :products="products"
+        :product-id="productId">
+      </stripe-checkout>
+    </form>
 
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
@@ -98,15 +117,16 @@
 </template>
 
 <script>
+  import StripeCheckout from 'vue-stripe'
   import axios from 'axios'
   import router from '../router'
   import Header from './Header'
-  import checkout from 'vue-stripe-checkout';
 
   export default {
     name: "BuyCredits",
     components: {
-      Header, checkout
+      'stripe-checkout': StripeCheckout,
+      Header
     },
     data() {
       return {
@@ -174,6 +194,9 @@
       getUserInfo: function () {
         this.userCredits = this.$cookies.get('userCredits');
         this.userName = this.$cookies.get('userName');
+      },
+      async checkout() {
+
       },
 
       done(token) {

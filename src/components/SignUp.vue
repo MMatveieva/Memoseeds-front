@@ -68,10 +68,10 @@
 
 
   export default {
+    name: 'SignUp',
     components: {
       VFacebookLogin
     },
-    name: 'SignUp',
     data() {
       return {
         name_signUp: "",
@@ -309,12 +309,12 @@
 
   /**********FACEBOOK*******************/
 
-  .facebook-btn button{
+  .facebook-btn button {
     border-radius: 40px;
     height: 37px;
   }
 
-  .facebook-btn button:hover{
+  .facebook-btn button:hover {
     background-color: #2b406e !important;
   }
 

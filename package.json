@@ -16,10 +16,12 @@
     "bootstrap-vue": "^2.0.0-rc.15",
     "express": "^4.16.4",
     "require": "^2.4.20",
+    "stripe-checkout": "^1.0.9",
     "vue": "^2.5.2",
     "vue-cookies": "^1.5.13",
     "vue-facebook-login-component": "^1.3.5",
     "vue-router": "^3.0.1",
+    "vue-stripe": "^0.1.52",
     "vue-stripe-checkout": "^1.2.6",
     "webpack-config-file": "^1.0.5"
   },

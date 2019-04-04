@@ -57,10 +57,6 @@
     created: function () {
       this.getUserInfo();
       this.getUserModules();
-
-      if (this.modules.length < 4) {
-        this.toBottom = true;
-      }
     },
 
     methods: {
@@ -113,6 +109,10 @@
           mm[i] = m;
         }
         this.modules = mm;
+
+        if (this.modules.length < 4) {
+          this.toBottom = true;
+        }
       }
     }
   }
