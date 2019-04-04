@@ -44,7 +44,7 @@
             </small>
           </div>
           <button id="signUp-btn" type="button" class="btn signUp-btn" v-on:click="btnClick">SIGN UP</button>
-          <div style="font-size: small">— OR —</div>
+          <div style="font-size: small">OR</div>
           <div class="facebook-btn">
             <v-facebook-login app-id="363509570928956"></v-facebook-login>
           </div>
@@ -300,6 +300,7 @@
     width: 150px;
     height: 30px;
     margin-top: -10px;
+    margin-bottom: 10px;
   }
   .facebook-btn {
     background-color: white !important;
