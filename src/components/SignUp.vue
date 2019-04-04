@@ -45,7 +45,10 @@
           </div>
           <button id="signUp-btn" type="button" class="btn signUp-btn" v-on:click="btnClick">SIGN UP</button>
           <div style="font-size: small">— OR —</div>
-          <v-facebook-login app-id="363509570928956" class="facebook-btn"></v-facebook-login>
+          <div class="facebook-btn">
+            <v-facebook-login app-id="363509570928956"></v-facebook-login>
+          </div>
+
           <template>
             <v-facebook-login-scope>
               <button slot-scope="scope">
