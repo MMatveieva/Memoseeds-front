@@ -44,6 +44,18 @@
             </small>
           </div>
           <button id="signUp-btn" type="button" class="btn signUp-btn" v-on:click="btnClick">SIGN UP</button>
+          <div style="font-size: small">— OR —</div>
+          <div class="facebook-btn">
+            <v-facebook-login app-id="363509570928956"></v-facebook-login>
+          </div>
+
+          <template>
+            <v-facebook-login-scope>
+              <button slot-scope="scope">
+                <!-- Compose HTML/CSS here, otherwise nothing will be rendered! -->
+              </button>
+            </v-facebook-login-scope>
+          </template>
         </form>
       </div>
     </div>
@@ -53,8 +65,13 @@
 <script>
   import axios from 'axios';
   import router from '../router';
+  import VFacebookLogin from 'vue-facebook-login-component'
+
 
   export default {
+    components:{
+      VFacebookLogin
+    },
     name: 'SignUp',
     data() {
       return {
@@ -283,6 +300,16 @@
     width: 150px;
     height: 30px;
     margin-top: -10px;
+  }
+  .facebook-btn {
+    background-color: white !important;
+    border-radius: 20px;
+    font-size: 13px;
+    color: white;
+    width: auto;
+    height: 40px;
+    margin-top: 10px;
+    margin-left: 12%;
   }
 
   .signUp-prop button:hover {

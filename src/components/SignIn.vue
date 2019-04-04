@@ -122,6 +122,8 @@
               this.$cookies.set("userMail", response.data.info.email, 60 * 60 * 2);
               this.$cookies.set("userId", response.data.info.userId, 60 * 60 * 2);
               this.getCountry();
+
+              localStorage.setItem("img", this.binToImg(response.data.info.img));
               router.push('recent');
             }
           })
@@ -134,6 +136,11 @@
           .then(response => {
             this.$cookies.set('country', response.data.country, 60 * 60 * 2);
           });
+      },
+      binToImg : function (data) {
+        var img = document.createElement('img');
+        img.src = 'data:image/jpeg;base64,' + btoa(data);
+        return img;
       }
     }
   }

@@ -3,7 +3,11 @@
     <Header></Header>
     <div class="settings-form row">
       <div class="col-sm-5 info-part">
-        <div class="user-photo">
+        <div class="user-photo" >
+          <!--<img v-bind:src="userIMG">-->
+        </div>
+        <div class="load-photo">
+          <b-form-file v-model="file" class="mt-3" plain></b-form-file>
         </div>
         <div class="modules-info">
           <p>Number of modules:</p>
@@ -79,7 +83,10 @@
         nameError: "",
         passError: "",
         OldPassError: "",
-        mailError: ""
+        mailError: "",
+
+        file: "",
+        userIMG: null
       }
     },
     beforeCreate: function () {
@@ -201,11 +208,15 @@
           this.noPassMatch = false;
           this.passError = "Please fill both fields.";
         }
+        this.loadPhoto();
+
       },
 
       getUserInfo: function () {
         this.creditsNumber = this.$cookies.get('userCredits');
         this.userName = this.$cookies.get('userName');
+        this.userIMG = localStorage.getItem('img');
+
       },
 
       getUserModules: function () {
@@ -220,13 +231,20 @@
         let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
         axios.get(pass, config)
           .then(response => {
-            console.log(response.data);
             this.modulesNumber = response.data.length;
           })
           .catch(error => {
             console.log(error);
             alert("Error occurred during loading modules. Please try again");
           });
+      },
+
+      loadPhoto: function () {
+        console.log(this.file);
+
+        localStorage.setItem('img', this.file);
+        this.userIMG = localStorage.getItem('img');
+
       }
     }
   }
@@ -276,11 +294,27 @@
     align-content: center;
   }
 
+  .load-photo {
+    margin-top: -7px;
+    margin-bottom: 10px;
+  }
+
+  .load-photo input {
+    font-size: 13px;
+    color: white;
+    height: 30px;
+  }
+
+  .info-part button:hover {
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #f56e72 !important;
+  }
+
   .user-photo {
     margin: 30px auto;
     width: 110px;
     height: 110px;
-    background-color: white;
     border-radius: 50%;
   }
 
