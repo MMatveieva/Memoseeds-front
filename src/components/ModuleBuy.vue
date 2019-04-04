@@ -37,7 +37,7 @@
       </div>
 
       <div class="btn-container">
-        <button type="button" class="btn add-btn" v-on:click="editClick">
+        <button type="button" class="btn add-btn" v-on:click="addClick">
           {{addOption}}
         </button>
       </div>
@@ -73,7 +73,6 @@
         terms: [],
 
         added: false
-
       }
     },
 
@@ -86,7 +85,7 @@
     },
 
     methods: {
-      editClick: function () {
+      addClick: function () {
       },
 
 

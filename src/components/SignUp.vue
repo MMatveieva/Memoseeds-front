@@ -44,11 +44,10 @@
             </small>
           </div>
           <button id="signUp-btn" type="button" class="btn signUp-btn" v-on:click="btnClick">SIGN UP</button>
-          <div style="font-size: small">OR</div>
+          <div>OR</div>
           <div class="facebook-btn">
             <v-facebook-login app-id="363509570928956"></v-facebook-login>
           </div>
-
           <template>
             <v-facebook-login-scope>
               <button slot-scope="scope">
@@ -69,7 +68,7 @@
 
 
   export default {
-    components:{
+    components: {
       VFacebookLogin
     },
     name: 'SignUp',
@@ -302,20 +301,26 @@
     margin-top: -10px;
     margin-bottom: 10px;
   }
-  .facebook-btn {
-    background-color: white !important;
-    border-radius: 20px;
-    font-size: 13px;
-    color: white;
-    width: auto;
-    height: 40px;
-    margin-top: 10px;
-    margin-left: 12%;
-  }
 
   .signUp-prop button:hover {
     background-color: #f56e72 !important;
     cursor: pointer;
+  }
+
+  /**********FACEBOOK*******************/
+
+  .facebook-btn button{
+    border-radius: 40px;
+    height: 37px;
+  }
+
+  .facebook-btn {
+    background-color: transparent !important;
+    font-size: 13px;
+    color: white;
+    margin-left: 37px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .hidden {

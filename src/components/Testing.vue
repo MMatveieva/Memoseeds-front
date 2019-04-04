@@ -63,7 +63,7 @@
 
 
   export default {
-    name: "ModulePage",
+    name: "Testing",
     components: {
       Header,
       TestTemplate
