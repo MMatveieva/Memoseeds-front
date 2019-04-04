@@ -302,7 +302,7 @@
     margin-top: -10px;
   }
   .facebook-btn {
-    background-color: #3c57a4 !important;
+    background-color: white !important;
     border-radius: 20px;
     font-size: 13px;
     color: white;
