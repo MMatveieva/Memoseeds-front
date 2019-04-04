@@ -37,14 +37,14 @@
       </div>
 
       <div class="btn-container">
-        <button type="button" class="btn add-btn" v-on:click="addClick">
+        <button id="buttonBuy" type="button" class="btn add-btn" v-on:click="editClick" v-bind:class="{wide:toBuy}">
           {{addOption}}
         </button>
       </div>
 
     </div>
 
-    <div class="card-footer footer">
+    <div class="card-footer footer" v-bind:class="{abs: toBottom}">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
     </div>
   </div>
@@ -69,10 +69,12 @@
         userName: "",
         moduleName: "",
         addOption: "",
-
+        price: '',
         terms: [],
 
-        added: false
+        added: false,
+        toBottom: false,
+        toBuy: false
       }
     },
 
@@ -85,7 +87,21 @@
     },
 
     methods: {
-      addClick: function () {
+      editClick: function () {
+
+        if (this.$cookies.get("userCredits") < this.price) {
+          this.$swal({
+            title: 'You do not have enough credits',
+            text: 'Buy credits?',
+            showCancelButton: true
+          }).then((value) => {
+            console.log(value);
+            if (value.value == true) {
+              router.push('/');
+              router.push('buyCredits');
+            }
+          })
+        }
       },
 
 
@@ -98,36 +114,49 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules/' +
+        let pass = 'https://memeseeds.herokuapp.com/' + 'shop' + '/modules/' +
           this.$route.params.id;
 
         axios.get(pass, config)
           .then(response => {
-            this.moduleName = response.data.name;
+            this.moduleName = response.data.module.name;
             this.drawTerms(response.data);
           })
           .catch(error => {
             console.log(error);
-            alert("Error occurred during loading modules. Please try again");
+            alert("Error occurred during loading terms. Please try again");
           });
 
       },
 
       drawTerms: function (data) {
         console.log('data ', data);
-        let mm = new Array(data.terms.length);
-        this.wordsNumber = data.terms.length;
+        let mm = new Array(data.module.terms.length);
+        this.wordsNumber = data.module.terms.length;
 
-        for (let i = 0; (i < data.terms.length && i < 5); i++) {
+        for (let i = 0; (i < data.module.terms.length && i < 5); i++) {
           let m = {
-            word: data.terms[i].name,
-            definition: data.terms[i].definition,
-            id: data.terms[i].termId,
+            word: data.module.terms[i].name,
+            definition: data.module.terms[i].definition,
+            id: data.module.terms[i].termId,
             pos: i + 1
           };
           mm[i] = m;
         }
         this.terms = mm;
+        if (this.terms.length < 5)
+          this.toBottom = true;
+
+        this.price = data.module.price;
+        if (data.module.price == '0') {
+          this.addOption = 'ADD';
+        } else {
+          this.toBuy = true;
+          this.addOption = 'BUY FOR ' + data.module.price + ' CREDITS';
+        }
+        if (this.$cookies.get("userCredits") <= data.module.price) {
+        }
+
       }
     }
   }
@@ -136,6 +165,7 @@
 <style scoped>
   .btn-container {
     margin: 10px auto;
+    margin-bottom: 30px;
     text-align: center;
   }
 
@@ -240,13 +270,17 @@
     background-color: #bebfc0;
     color: white;
     letter-spacing: 5px;
-    position: absolute;
+    position: relative;
     width: 100%;
     bottom: 0;
   }
 
-  .hidden {
-    display: none;
+  .abs {
+    position: absolute !important;
+  }
+
+  .wide {
+    width: 210px;
   }
 
 </style>

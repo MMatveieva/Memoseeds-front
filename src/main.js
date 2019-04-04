@@ -8,7 +8,9 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
 import VueCookies from "vue-cookies"
 import StripeCheckout from 'vue-stripe'
+import VueSweetalert2 from 'vue-sweetalert2'
 
+Vue.use(VueSweetalert2);
 Vue.use(VueCookies);
 Vue.use(BootstrapVue);
 Vue.config.productionTip = false;

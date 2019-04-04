@@ -76,7 +76,9 @@
         let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
         axios.get(pass, config)
           .then(response => {
-            this.drawModules(response.data);
+            if (response.data.modules.length != 0)
+              this.drawModules(response.data);
+            else this.toBottom = true;
           })
           .catch(error => {
             console.log(error);

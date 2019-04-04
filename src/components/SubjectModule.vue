@@ -29,18 +29,58 @@
 <script>
   import SubjectModule from './SubjectModule'
   import router from '../router'
+  import axios from 'axios'
 
   export default {
     name: "SubjectModule",
     props: ['id', 'title', 'wordsInModule', 'words'],
+    moduleId: '',
+    price: '',
     components: {
       SubjectModule
     },
 
     methods: {
       startClick: function () {
-        router.push('/');
-        router.push('moduleView/' + this.id);
+
+        let config = {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + this.$cookies.get('user_session')
+          }
+        };
+        axios.post('https://memeseeds.herokuapp.com/shop/user/' + this.$cookies.get('userId') + '/get/module/' +
+          this.id, {
+          "userid": this.$cookies.get("userId"),
+          "moduleid": this.id
+        }, config)
+          .then(response => {
+            console.log(response);
+            console.log(response.data.result);
+            if(response.data.result == "User has this module.") {
+              this.$swal({
+                title: 'You have this mod',
+                text: 'Start?',
+                showCancelButton: true
+              }).then((value) => {
+                if (value.value == true) {
+                  router.push('/');
+                  router.push('myModule/' + this.id);
+                }
+              })
+            }else{
+              router.push('/');
+              router.push('moduleView/' + this.id);
+            }
+          })
+          .catch(error => {
+            console.log(error);
+
+          });
+
+
       }
     }
   }
