@@ -77,7 +77,7 @@
         axios.get(pass, config)
           .then(response => {
             if (response.data.modules.length != 0)
-              this.drawModules(response.data);
+              this.drawModules(response.data.modules);
             else this.toBottom = true;
           })
           .catch(error => {

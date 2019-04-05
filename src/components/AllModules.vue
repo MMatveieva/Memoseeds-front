@@ -200,10 +200,8 @@
 
         for (let i = 0; i < data.length; i++) {
           let subject = data[i];
-          //console.log(subject," ",subject.categories.length);
           for (let j = 0; j < subject.categories.length; j++) {
             let cat = subject.categories[j];
-            //console.log(cat);
             for (let k = 0; k < cat.modules.length; k++) {
               let mod = cat.modules[k];
               let terms = "";
