@@ -200,10 +200,8 @@
 
         for (let i = 0; i < data.length; i++) {
           let subject = data[i];
-          //console.log(subject," ",subject.categories.length);
           for (let j = 0; j < subject.categories.length; j++) {
             let cat = subject.categories[j];
-            //console.log(cat);
             for (let k = 0; k < cat.modules.length; k++) {
               let mod = cat.modules[k];
               let terms = "";
@@ -250,9 +248,12 @@
             };
             mm[k] = m;
           }
+          let subjectName = subject_keys[i];
+          if (subjectName == 'default')
+            subjectName = 'Other';
           let s = {
             id: i,
-            subjectName: subject_keys[i],
+            subjectName: subjectName,
             modules: mm
           };
           sb[i] = s;
@@ -381,6 +382,7 @@
     position: relative;
     width: 100%;
     bottom: 0;
+    margin-top: 30px;
   }
 
   .disabled {
