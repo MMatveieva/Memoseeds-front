@@ -3,21 +3,18 @@
     <Header></Header>
 
     <div class="module-container">
-      <div class="settings-form">
-        <div class="row" style="width: 100%; margin: 0">
-          <div class="col-sm-3 info-part">
-            <h2 class="modules-title">{{moduleName}}</h2>
-            <div class="modules-info">
-              <p>Number of words:</p>
-              <label id="modules">{{wordsNumber}}</label>
-            </div>
+      <div class="settings-form row">
+        <div class="col-sm-3 info-part">
+          <h2 class="modules-title">{{moduleName}}</h2>
+          <div class="modules-info">
+            <p>Number of words:</p>
+            <label id="modules">{{wordsNumber}}</label>
           </div>
-          <div class="col-sm-9 actions-part">
-            <button type="submit" class="btn action-btn" v-on:click="learnClick" v-bind:disabled=!added>Learn</button>
-            <button type="submit" class="btn action-btn" v-on:click="writeClick" v-bind:disabled=!added>Write</button>
-            <button type="submit" class="btn action-btn" v-on:click="testClick" v-bind:disabled=!added>Test</button>
-          </div>
-
+        </div>
+        <div class="col-sm-9 actions-part">
+          <button type="submit" class="btn action-btn" v-on:click="learnClick" v-bind:disabled=!added>Learn</button>
+          <button type="submit" class="btn action-btn" v-on:click="writeClick" v-bind:disabled=!added>Write</button>
+          <button type="submit" class="btn action-btn" v-on:click="testClick" v-bind:disabled=!added>Test</button>
         </div>
       </div>
 
@@ -37,8 +34,8 @@
       </div>
 
       <div class="btn-part row">
-        <div class="btn-container col-sm-6">
-          <button type="button" class="btn add-btn" v-on:click="editClick">
+        <div class="btn-container-edit col-sm-6">
+          <button type="button" class="btn edit-btn" v-on:click="editClick">
             EDIT
           </button>
         </div>
@@ -191,7 +188,11 @@
 </script>
 
 <style scoped>
-  .btn-container {
+  .module-container {
+    min-height: 438px;
+  }
+
+  .btn-container, .btn-container-edit {
     margin: 10px auto;
     text-align: center;
   }
@@ -200,8 +201,24 @@
     background-color: #12496d !important;
   }
 
+  .btn-container-edit button:hover {
+    background-color: #acd8c7 !important;
+  }
+
   .add-btn {
     background-color: #12496d !important;
+    border-radius: 20px;
+    font-size: 16px;
+    color: white;
+    width: 150px;
+    height: 35px;
+    border-color: white;
+    margin: 0;
+    padding-top: 6px;
+  }
+
+  .edit-btn {
+    background-color: #acd8c7 !important;
     border-radius: 20px;
     font-size: 16px;
     color: white;
@@ -220,8 +237,8 @@
 
   .settings-form {
     padding: 30px 40px;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    width: 100%;
+    margin: 10px 0 20px 0;
   }
 
   .info-part {
@@ -288,6 +305,10 @@
   .words-wrapper {
     margin-top: 15px;
     margin-bottom: 25px;
+  }
+
+  .btn-part {
+    width: 100%;
   }
 
   /***********************************************/

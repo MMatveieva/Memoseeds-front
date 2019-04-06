@@ -235,38 +235,39 @@
 
       drawSubjects: function (data) {
         let subject_keys = Object.keys(data);
-        let sb = new Array(subject_keys.length);
 
         for (let i = 0; i < subject_keys.length; i++) {
           let subject = data[subject_keys[i]];
-          let mm = new Array(subject.length);
-          for (let k = 0; k < subject.length; k++) {
-            let terms = '';
-            for (let j = 0; (j < subject[k].terms.length && j < 4); j++) {
-              if (j == 3 || j == subject[k].terms.length - 1)
-                terms += subject[k].terms[j].name + ".";
-              else
-                terms += subject[k].terms[j].name + ", ";
+          if (subject.length > 0) {
+            let mm = new Array(subject.length);
+            for (let k = 0; k < subject.length; k++) {
+              let terms = '';
+              for (let j = 0; (j < subject[k].terms.length && j < 4); j++) {
+                if (j == 3 || j == subject[k].terms.length - 1)
+                  terms += subject[k].terms[j].name + ".";
+                else
+                  terms += subject[k].terms[j].name + ", ";
+              }
+              let m = {
+                title: subject[k].name,
+                wordsInModule: subject[k].terms.length,
+                words: terms,
+                moduleId: subject[k].moduleId
+              };
+              mm[k] = m;
             }
-            let m = {
-              title: subject[k].name,
-              wordsInModule: subject[k].terms.length,
-              words: terms,
-              moduleId: subject[k].moduleId
+            let subjectName = subject_keys[i];
+            if (subjectName == 'default')
+              subjectName = 'Other';
+            let s = {
+              id: i,
+              subjectName: subjectName,
+              modules: mm
             };
-            mm[k] = m;
+            this.subjects.push(s);
           }
-          let subjectName = subject_keys[i];
-          if (subjectName == 'default')
-            subjectName = 'Other';
-          let s = {
-            id: i,
-            subjectName: subjectName,
-            modules: mm
-          };
-          sb[i] = s;
         }
-        this.subjects = sb;
+
       },
 
       backClick: function () {
@@ -354,6 +355,7 @@
 
   .shop-wrapper {
     margin-bottom: 20px;
+    min-height: 345px;
   }
 
   /***********************************************/

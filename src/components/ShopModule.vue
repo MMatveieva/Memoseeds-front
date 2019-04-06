@@ -10,7 +10,7 @@
         v-bind:title="module.title"
         v-bind:wordsInModule="module.wordsInModule"
         v-bind:words="module.words"
-        v-bind:id="module.moduleId">
+        v-bind:moduleId="module.moduleId">
       </SubjectModule>
     </div>
   </div>
