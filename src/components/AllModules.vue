@@ -12,11 +12,12 @@
           <div class="row">
             <div class="col-sm-4 subject-filter-wrapper">
               <b-form-select v-model="selected_subject" :options="subjectsTitles"
-                             v-on:input="selectSubject"></b-form-select>
+                             v-on:change="selectSubject"></b-form-select>
             </div>
             <div class="col-sm-4 category-filter-wrapper">
               <b-form-select v-model="selected_category" :options="categoryTitles"
-                             v-bind:disabled="noSubject"></b-form-select>
+                             v-bind:disabled="noSubject">
+              </b-form-select>
 
             </div>
             <div class="col-sm-1 price-filter-wrapper">
@@ -162,16 +163,23 @@
       },
 
       selectSubject: function () {
-        this.categoryTitles = [];
         if (this.selected_subject != 'default') {
-          this.categoryTitles.push({value: 'default', text: 'Category'});
+          this.noSubject = false;
+          let k = {value: 'default', text: 'Category'};
+          let cat = [k];
           let sub = this.filterResponse[this.selected_subject];
           for (let i = 0; i < sub.length; i++) {
-            if (sub[i] != 'default')
-              this.categoryTitles.push(sub[i]);
+            if (sub[i] != 'default') {
+              let s1 = {
+                value: sub[i],
+                text: sub[i]
+              };
+              cat.push(s1);
+            }
           }
-          this.noSubject = false;
+          this.categoryTitles = cat;
         } else {
+          this.categoryTitles = [];
           this.noSubject = true;
         }
       },

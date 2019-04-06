@@ -78,20 +78,6 @@
         </div>
       </div>
 
-      <form action="/process-payment" method="POST">
-        <select v-model="buyPrice">
-          <option value="1">Product A</option>
-          <option value="2">Product B</option>
-          <option value="3">Product C</option>
-        </select>
-
-        <stripe-checkout
-          stripe-key="pk_test_ob6s7KZxZU1mouJbbsuFBjEe"
-          :products="credits"
-          :product-id="buyPrice">
-        </stripe-checkout>
-      </form>
-
     </div>
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
@@ -100,7 +86,6 @@
 </template>
 
 <script>
-  import StripeCheckout from 'vue-stripe'
   import axios from 'axios'
   import router from '../router'
   import Header from './Header'
@@ -108,7 +93,6 @@
   export default {
     name: "BuyCredits",
     components: {
-      StripeCheckout,
       Header
     },
     data() {
@@ -117,11 +101,9 @@
         userCredits: "",
         price: [],
         credits: [],
+        purchaseId: [],
         currency: "",
         currencySymbol: "",
-
-        isClicked: false,
-        buyPrice: "",
 
         tokenFromPromise: {},
         tokenFromEvent: {},
@@ -135,7 +117,6 @@
       document.body.className = 'inside';
 
       let cur = this.$cookies.get('country');
-
       let config = {
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -144,13 +125,15 @@
           'Authorization': 'Bearer' + this.$cookies.get('user_session')
         }
       };
-
       axios.post('https://memeseeds.herokuapp.com/purchase/options', {"country": cur}, config)
         .then(response => {
-          this.$cookies.set('stripeKey', response.data.publishableKey);
           let p = new Array(response.data.purchases.length);
+          response.data.purchases.sort(function (a, b) {
+            return a.credits - b.credits;
+          });
           for (let i = 0; i < response.data.purchases.length; i++) {
             p[i] = response.data.purchases[i].price.amount;
+            this.purchaseId.push(response.data.purchases[i].id);
             this.credits.push(response.data.purchases[i].credits);
           }
           this.currency = response.data.purchases[0].price.currency;
@@ -170,32 +153,15 @@
     methods: {
       buyClick: function (event) {
         let targetId = event.currentTarget.id;
-        this.buyPrice = this.price[targetId];
-
+        let id = this.purchaseId[targetId];
+        router.push('/');
+        router.push('/order/' + id);
       },
 
       getUserInfo: function () {
         this.userCredits = this.$cookies.get('userCredits');
         this.userName = this.$cookies.get('userName');
-      },
-      async checkout() {
-
-      },
-
-      done(token) {
-        this.tokenFromEvent = token;
-      },
-      opened() {
-        this.status = 'Opened';
-      },
-      closed() {
-        this.status = 'Closed';
-      },
-      submit(token) {
-        console.log('token', token);
-        console.log('Submit this token to your server to perform a stripe charge, or subscription.');
       }
-
     }
   }
 </script>

@@ -9,7 +9,9 @@ import "bootstrap-vue/dist/bootstrap-vue.css"
 import VueCookies from "vue-cookies"
 import StripeCheckout from 'vue-stripe'
 import VueSweetalert2 from 'vue-sweetalert2'
+import VueTheMask from 'vue-the-mask'
 
+Vue.use(VueTheMask);
 Vue.use(VueSweetalert2);
 Vue.use(VueCookies);
 Vue.use(BootstrapVue);

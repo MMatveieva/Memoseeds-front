@@ -322,7 +322,7 @@
     background-color: transparent !important;
     font-size: 13px;
     color: white;
-    margin-left: 37px;
+    margin-left: 10%;
     margin-top: 10px;
     margin-bottom: 10px;
   }
