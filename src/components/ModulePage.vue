@@ -36,10 +36,17 @@
         </Terms>
       </div>
 
-      <div class="btn-container">
-        <button type="button" class="btn add-btn" v-on:click="editClick">
-          EDIT
-        </button>
+      <div class="btn-part row">
+        <div class="btn-container col-sm-6">
+          <button type="button" class="btn add-btn" v-on:click="editClick">
+            EDIT
+          </button>
+        </div>
+        <div class="btn-container col-sm-6">
+          <button type="button" class="btn add-btn" v-on:click="deleteClick">
+            DELETE
+          </button>
+        </div>
       </div>
 
     </div>
@@ -87,6 +94,36 @@
       editClick: function () {
       },
 
+      deleteClick: function () {
+        let config = {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + this.$cookies.get('user_session')
+          }
+        };
+        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/delete/modules/' +
+          this.$route.params.id;
+
+        axios.post(pass, config)
+          .then(response => {
+            this.$swal({
+              title: response.data.result,
+              showCancelButton: false
+            }).then((value) => {
+              if (value.value) {
+                router.push('/');
+                router.push('recent');
+              }
+            })
+          })
+          .catch(error => {
+            console.log(error);
+            alert("Error occurred during loading modules. Please try again");
+          });
+      },
+
       learnClick: function () {
         let p = this.$route.params.id;
         router.push('/');
@@ -123,7 +160,6 @@
         axios.get(pass, config)
           .then(response => {
             this.moduleName = response.data.name;
-            // console.log('user ', response.data.userId);
             if (this.$cookies.get('userId') == response.data.userId)
               this.added = true;
             this.drawTerms(response.data);

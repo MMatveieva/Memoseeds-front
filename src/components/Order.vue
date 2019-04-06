@@ -153,7 +153,6 @@
                     text: 'You have purchased ' + this.order.credits + ' credits!',
                     showCancelButton: false
                   }).then((value) => {
-                    console.log(value);
                     if (value.value) {
                       router.push('/');
                       router.push('allModules');
@@ -165,7 +164,6 @@
                     text: 'An error occurred during payment. Please, try again.',
                     showCancelButton: false
                   }).then((value) => {
-                    console.log(value);
                     if (value.value) {
                       router.push('/');
                       router.push('buyCredits');
