@@ -7,7 +7,7 @@
         </router-link>
       </div>
       <div class="col-sm-3 header-search input-group">
-        <form v-on:keyup.enter="searchClick">
+        <form v-on:keyup.enter="searchClick"v-on:keyup="searchClick">
           <input type="text" class="form-control" placeholder="Search" v-model="search">
           <!--<div class="input-group-append search-btn" v-on:click="searchClick">-->
           <!--<img src="../css/images/search.png">-->
