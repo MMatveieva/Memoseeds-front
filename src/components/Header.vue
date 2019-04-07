@@ -27,12 +27,12 @@
           <div class="user-acc col-sm-6">
             <b-dropdown class="user-name" offset="-16">
               <template slot="button-content">{{userName}}</template>
-              <router-link to="/settings">
-                <b-dropdown-item class="user-dropdown" href="#">Settings</b-dropdown-item>
-              </router-link>
-              <router-link to="/recent">
-                <b-dropdown-item class="user-dropdown" href="#">My modules</b-dropdown-item>
-              </router-link>
+              <b-dropdown-item class="user-dropdown" href="#">
+                <router-link to="/settings">Settings</router-link>
+              </b-dropdown-item>
+              <b-dropdown-item class="user-dropdown" href="#">
+                <router-link to="/recent">My modules</router-link>
+              </b-dropdown-item>
               <b-dropdown-item class="user-dropdown" href="#">
                 <label v-on:click="logOut">Log out</label>
               </b-dropdown-item>
