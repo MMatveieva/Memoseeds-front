@@ -21,8 +21,13 @@
     src: url("css/fonts/aqua.ttf");
   }
 
+  @font-face {
+    font-family: 'Metro';
+    src: url("css/fonts/15335.otf");
+  }
+
   body {
-    font-family: 'Aqua Grotesque', regular !important;
+    font-family: 'Aqua Grotesque', 'Metro', regular !important;
   }
 
   body.home {
