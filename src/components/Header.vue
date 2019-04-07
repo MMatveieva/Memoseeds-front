@@ -9,9 +9,6 @@
       <div class="col-sm-3 header-search input-group">
         <form v-on:keyup.enter="searchClick">
           <input type="text" class="form-control" placeholder="Search" v-model="search">
-          <!--<div class="input-group-append search-btn" v-on:click="searchClick">-->
-          <!--<img src="../css/images/search.png">-->
-          <!--</div>-->
         </form>
       </div>
       <div class="col-sm-5 header-text">

@@ -32,9 +32,9 @@
     </div>
 
     <div class="go-to-shop">
-      <button type="button" class="go-btn">
-        <router-link to="/allModules">GO TO ALL MODULES</router-link>
-      </button>
+      <router-link to="/allModules">
+        <button type="button" class="go-btn">GO TO ALL MODULES</button>
+      </router-link>
     </div>
 
     <div class="card-footer footer">
