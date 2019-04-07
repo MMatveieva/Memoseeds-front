@@ -107,7 +107,7 @@
           }
         };
         axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/login', {
-          "Username": this.name,
+          "Username": this.name.trim(),
           "isUsername": isUserName,
           "Password": this.password
         }, config)
