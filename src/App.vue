@@ -27,7 +27,7 @@
   }
 
   body {
-    font-family: 'Aqua Grotesque', 'Metro', regular !important;
+    font-family: 'Aqua Grotesque', regular !important;
   }
 
   body.home {

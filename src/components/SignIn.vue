@@ -139,7 +139,7 @@
             this.$cookies.set('country', response.data.country, 60 * 60 * 2);
           });
       },
-      binToImg : function (data) {
+      binToImg: function (data) {
         var img = document.createElement('img');
         img.src = 'data:image/jpeg;base64,' + btoa(data);
         return img;

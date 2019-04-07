@@ -82,6 +82,7 @@
         this.$cookies.remove("userMail");
         this.$cookies.remove("userId");
         this.$cookies.remove('country');
+        router.push('/');
         router.push('signIn');
       },
 

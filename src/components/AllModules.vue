@@ -127,7 +127,7 @@
     },
     methods: {
       getAllModules: function () {
-        axios.get('https://memeseeds.herokuapp.com/shop/subjects/categories/modules', this.config)
+        axios.get('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/shop/subjects/categories/modules', this.config)
           .then(response => {
             this.drawSubjects(response.data);
           })
