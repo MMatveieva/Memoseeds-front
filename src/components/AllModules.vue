@@ -52,6 +52,7 @@
     </div>
 
     <div class="filter-wrapper" v-bind:class="{hidden: isFilter}">
+      <div class="no-results" v-bind:class="{hidden: isFilterRes}">Nothing found.</div>
       <SubjectModule
         v-for="module in filterModules"
         v-bind:key="module.moduleId"
@@ -105,7 +106,8 @@
         filterResponse: [],
 
         isShop: true,
-        isFilter: true
+        isFilter: true,
+        isFilterRes: true
       }
     },
 
@@ -195,7 +197,10 @@
           "IsFree": this.status
         }, this.config)
           .then(response => {
-            this.drawFilter(response.data);
+            if (response.data.length != 0)
+              this.drawFilter(response.data);
+            else
+              this.isFilterRes = false;
           })
           .catch(error => {
             console.log(error);
@@ -286,6 +291,15 @@
     border-bottom-left-radius: 40px;
     text-align: center;
     box-sizing: content-box;
+  }
+
+  .no-results {
+    margin: auto;
+    padding-top: 60px;
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: 30px;
+    color: #12496d;
   }
 
   .filter-wrapper {
