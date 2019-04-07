@@ -47,6 +47,7 @@
 <script>
   import axios from 'axios'
   import router from '../router'
+  // import swal from 'vue-sweetalert2';
 
   export default {
     name: "SignIn",
@@ -94,7 +95,6 @@
         this.noPass = true;
         this.noLogin = true;
         this.loginError = "";
-
         let isUserName = true;
         if (this.name.includes('@'))
           isUserName = false;
