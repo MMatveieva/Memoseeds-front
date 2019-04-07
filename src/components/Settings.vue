@@ -394,7 +394,7 @@
     background-color: #bebfc0;
     color: white;
     letter-spacing: 5px;
-    position: relative;
+    position: absolute;
     width: 100%;
   }
 
