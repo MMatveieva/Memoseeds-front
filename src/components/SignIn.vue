@@ -134,13 +134,13 @@
           });
       },
       getCountry: function () {
-        axios.get('http://ip-api.com/json/?fields=3')
+        axios.get('https://ip-api.com/json/?fields=3')
           .then(response => {
             this.$cookies.set('country', response.data.country, 60 * 60 * 2);
           });
       },
       binToImg: function (data) {
-        var img = document.createElement('img');
+        let img = document.createElement('img');
         img.src = 'data:image/jpeg;base64,' + btoa(data);
         return img;
       }
