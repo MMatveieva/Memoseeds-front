@@ -846,7 +846,7 @@
 
 </script>
 
-<style>
+<style scoped>
 
   input:disabled {
     cursor: not-allowed;
