@@ -1,55 +1,58 @@
 <template>
   <div>
     <Header></Header>
-    <div class="settings-form row">
-      <div class="col-sm-5 info-part">
-        <div class="user-photo" >
-          <!--<img v-bind:src="userIMG">-->
-        </div>
-        <div class="load-photo">
-          <b-form-file v-model="file" class="mt-3" plain></b-form-file>
-        </div>
-        <div class="modules-info">
-          <p>Number of modules:</p>
-          <label id="modules">{{modulesNumber}}</label>
-        </div>
-        <div class="credits-info">
-          <p>Credits available:</p>
-          <label id="credits">{{creditsNumber}}</label>
-        </div>
-        <a href="#" class="btn settings-btn" style="margin-bottom: 13px">
-          <router-link to="/buyCredits">GET CREDITS</router-link>
-        </a>
-        <a href="#" class="btn settings-btn">
-          <router-link to="/newModule">CREATE MODULE</router-link>
-        </a>
-
-      </div>
-      <div class="col-sm-7 module-words-inside">
-        <h4>EDIT ACCOUNT</h4>
-        <form v-on:keyup.enter="btnClick">
-          <div class="form-group edit-group">
-            <input type="text" class="form-control" id="edit-name"
-                   placeholder="Name" v-model="name_edit" v-on:keyup="nameEdit">
-            <small id="nameError1" class="form-text text-muted" v-bind:class="{hidden: noNameOk}">{{nameError}}</small>
-            <input type="email" class="form-control" id="edit-email"
-                   placeholder="Email" v-model="email">
-            <small id="mailError1" class="form-text text-muted" v-bind:class="{hidden: noMailOk}">{{mailError}}</small>
-            <input type="password" class="form-control" id="edit-password"
-                   placeholder="Old password" v-model="password" v-on:keyup="passwordEdit">
-            <small id="passwordError" class="form-text text-muted" v-bind:class="{hidden: noPassOk}">{{OldPassError}}
-            </small>
-            <input type="password" class="form-control" id="edit-new-password"
-                   placeholder="New password" v-model="password_new" v-on:keyup="passwordEdit">
-            <small class="form-text text-muted" v-bind:class="{hidden: noPassMatch}">{{passError}}
-            </small>
+    <div class="settings-form">
+      <div class="row">
+        <div class="col-sm-5 info-part">
+          <div class="user-photo">
+            <!--<img v-bind:src="userIMG">-->
           </div>
-          <button type="submit" class="btn save-btn" v-on:click="btnClick">SAVE</button>
-        </form>
+          <div class="load-photo">
+            <b-form-file v-model="file" class="mt-3" plain></b-form-file>
+          </div>
+          <div class="modules-info">
+            <p>Number of modules:</p>
+            <label id="modules">{{modulesNumber}}</label>
+          </div>
+          <div class="credits-info">
+            <p>Credits available:</p>
+            <label id="credits">{{creditsNumber}}</label>
+          </div>
+          <a href="#" class="btn settings-btn" style="margin-bottom: 13px">
+            <router-link to="/buyCredits">GET CREDITS</router-link>
+          </a>
+          <a href="#" class="btn settings-btn">
+            <router-link to="/newModule">CREATE MODULE</router-link>
+          </a>
+
+        </div>
+        <div class="col-sm-7 module-words-inside">
+          <h4>EDIT ACCOUNT</h4>
+          <form v-on:keyup.enter="btnClick">
+            <div class="form-group edit-group">
+              <input type="text" class="form-control" id="edit-name"
+                     placeholder="Name" v-model="name_edit" v-on:keyup="nameEdit">
+              <small id="nameError1" class="form-text text-muted" v-bind:class="{hidden: noNameOk}">{{nameError}}
+              </small>
+              <input type="email" class="form-control" id="edit-email"
+                     placeholder="Email" v-model="email">
+              <small id="mailError1" class="form-text text-muted" v-bind:class="{hidden: noMailOk}">{{mailError}}
+              </small>
+              <input type="password" class="form-control" id="edit-password"
+                     placeholder="Old password" v-model="password" v-on:keyup="passwordEdit">
+              <small id="passwordError" class="form-text text-muted" v-bind:class="{hidden: noPassOk}">{{OldPassError}}
+              </small>
+              <input type="password" class="form-control" id="edit-new-password"
+                     placeholder="New password" v-model="password_new" v-on:keyup="passwordEdit">
+              <small class="form-text text-muted" v-bind:class="{hidden: noPassMatch}">{{passError}}
+              </small>
+            </div>
+            <button type="submit" class="btn save-btn" v-on:click="btnClick">SAVE</button>
+          </form>
+        </div>
+
       </div>
-
     </div>
-
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
     </div>
@@ -251,6 +254,11 @@
 </script>
 
 <style scoped>
+  .settings-form .row{
+    width: 100%;
+    margin: 0;
+  }
+
   .settings-btn {
     background-color: #f59699 !important;
     border-radius: 20px;

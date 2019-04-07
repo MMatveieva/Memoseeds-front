@@ -4,81 +4,92 @@
 
     <div class="buy-credits-container">
 
-      <div class="credits-info row">
-        <div class="col-sm-4 info-part">
-          <h2 class="credits-title">Credits</h2>
-          <div class="credits-number">
-            <label id="userCredits">{{userCredits}}</label>
+      <div class="credits-info">
+        <div class="row">
+          <div class="col-sm-4 info-part">
+            <h2 class="credits-title">Credits</h2>
+            <div class="credits-number">
+              <label id="userCredits">{{userCredits}}</label>
+            </div>
+          </div>
+          <div class="col-sm-8 advice-part">
+            Use your credit card to get more credits
           </div>
         </div>
-        <div class="col-sm-8 advice-part">
-          Use your credit card to get more credits
-        </div>
-      </div>
 
-      <div class="choose-title">Choose the option</div>
+        <div class="choose-title">Choose the option</div>
 
-      <div class="buy-option row">
-        <div class="col-sm-1 coin-img">
-          <img src="../css/images/coin.png">
-        </div>
-        <div class="col-sm-9 buy-info">
+        <div class="buy-option">
           <div class="row">
-            <div class="col-sm-6 buy-number">{{credits[0]}} credits</div>
-            <div class="col-sm-6 buy-sum">{{price[0]}} {{currencySymbol}}</div>
+            <div class="col-sm-1 coin-img">
+              <img src="../css/images/coin.png">
+            </div>
+            <div class="col-sm-9 buy-info">
+              <div class="row">
+                <div class="col-sm-6 buy-number">{{credits[0]}} credits</div>
+                <div class="col-sm-6 buy-sum">{{price[0]}} {{currencySymbol}}</div>
+              </div>
+            </div>
+            <div class="col-sm-2 btn-wrapper">
+              <button id="0" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
+            </div>
           </div>
         </div>
-        <div class="col-sm-2 btn-wrapper">
-          <button id="0" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
-        </div>
-      </div>
 
-      <div class="buy-option row">
-        <div class="col-sm-1 coin-img">
-          <img src="../css/images/coin2.png">
-        </div>
-        <div class="col-sm-9 buy-info">
+        <div class="buy-option">
           <div class="row">
-            <div class="col-sm-6 buy-number">{{credits[1]}} credits</div>
-            <div class="col-sm-6 buy-sum">{{price[1]}} {{currencySymbol}}</div>
+            <div class="col-sm-1 coin-img">
+              <img src="../css/images/coin2.png">
+            </div>
+            <div class="col-sm-9 buy-info">
+              <div class="row">
+                <div class="col-sm-6 buy-number">{{credits[1]}} credits</div>
+                <div class="col-sm-6 buy-sum">{{price[1]}} {{currencySymbol}}</div>
+              </div>
+            </div>
+            <div class="col-sm-2 btn-wrapper">
+              <button id="1" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
+            </div>
           </div>
         </div>
-        <div class="col-sm-2 btn-wrapper">
-          <button id="1" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
-        </div>
-      </div>
 
-      <div class="buy-option row">
-        <div class="col-sm-1 coin-img">
-          <img src="../css/images/coin3.png">
-        </div>
-        <div class="col-sm-9 buy-info">
+        <div class="buy-option">
           <div class="row">
-            <div class="col-sm-6 buy-number">{{credits[2]}} credits</div>
-            <div class="col-sm-6 buy-sum">{{price[2]}} {{currencySymbol}}</div>
+            <div class="col-sm-1 coin-img">
+              <img src="../css/images/coin3.png">
+            </div>
+            <div class="col-sm-9 buy-info">
+              <div class="row">
+                <div class="col-sm-6 buy-number">{{credits[2]}} credits</div>
+                <div class="col-sm-6 buy-sum">{{price[2]}} {{currencySymbol}}</div>
+              </div>
+            </div>
+            <div class="col-sm-2 btn-wrapper">
+              <button id="2" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
+            </div>
           </div>
         </div>
-        <div class="col-sm-2 btn-wrapper">
-          <button id="2" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
-        </div>
-      </div>
 
-      <div class="buy-option row">
-        <div class="col-sm-1 coin-img">
-          <img src="../css/images/coin4.png">
-        </div>
-        <div class="col-sm-9 buy-info">
+        <div class="buy-option">
           <div class="row">
-            <div class="col-sm-6 buy-number">{{credits[3]}} credits</div>
-            <div class="col-sm-6 buy-sum">{{price[3]}} {{currencySymbol}}</div>
+            <div class="col-sm-1 coin-img">
+              <img src="../css/images/coin4.png">
+            </div>
+            <div class="col-sm-9 buy-info">
+              <div class="row">
+                <div class="col-sm-6 buy-number">{{credits[3]}} credits</div>
+                <div class="col-sm-6 buy-sum">{{price[3]}} {{currencySymbol}}</div>
+              </div>
+            </div>
+            <div class="col-sm-2 btn-wrapper">
+              <button id="3" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
+            </div>
           </div>
-        </div>
-        <div class="col-sm-2 btn-wrapper">
-          <button id="3" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
         </div>
       </div>
 
     </div>
+
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
     </div>
@@ -167,10 +178,13 @@
 </script>
 
 <style scoped>
-  .credits-info {
+  .row {
     width: 100%;
-    padding: 30px 40px;
     margin: 0;
+  }
+
+  .credits-info {
+    padding: 30px 40px;
   }
 
   .info-part {
