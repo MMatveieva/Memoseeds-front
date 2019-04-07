@@ -15,14 +15,16 @@
                    class="form-control"
                    placeholder="XXXXXXXXXXXXXXXX"
                    v-model="card.number"
-                   required>
+                   required
+                   v-mask="'################'">
           </div>
           <div class="form-group">
-            <input type="text"
+            <input type="password"
                    class="form-control"
                    placeholder="CVC"
                    v-model="card.cvc"
-                   required>
+                   required
+                   v-mask="'###'">
           </div>
           <div class="form-group">
             <label>Card Expiration Date</label>
@@ -147,7 +149,8 @@
             const path = 'https://memeseeds.herokuapp.com/purchase/checkout';
             axios.post(path, payload, this.config)
               .then(response => {
-                if (response.data.paid) {
+                if (response.data.charge.paid) {
+                  this.$cookies.set('userCredits',response.data.updatedUserCredits);
                   this.$swal({
                     title: 'Payment successful',
                     text: 'You have purchased ' + this.order.credits + ' credits!',
