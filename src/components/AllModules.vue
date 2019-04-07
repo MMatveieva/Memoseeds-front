@@ -178,6 +178,7 @@
             }
           }
           this.categoryTitles = cat;
+          this.selected_category = 'default';
         } else {
           this.categoryTitles = [];
           this.noSubject = true;

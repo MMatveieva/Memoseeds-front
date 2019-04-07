@@ -410,7 +410,7 @@
         }
       };
 
-      axios.get('https://memeseeds.herokuapp.com/shop/subjects/categories', config)
+      axios.get('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/shop/subjects/categories', config)
         .then(response => {
           this.filterResponse = response.data;
           let sb = Object.keys(this.filterResponse);
@@ -580,7 +580,7 @@
         };
 
         console.log('send data');
-        axios.post('https://memeseeds.herokuapp.com/user/create/module', data, config)
+        axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/create/module', data, config)
           .then(response => {
             var moduleId = response.data.moduleId;
             console.log('getAnswerSuccessfully: ' + moduleId);
@@ -722,17 +722,6 @@
 </script>
 
 <style scoped>
-
-  body {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none;
-    background: #f2f2f3;
-  }
-
   #public_checkbox {
     cursor: pointer;
     position: absolute;
