@@ -106,7 +106,6 @@
         };
         let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/delete/modules/' +
           this.$route.params.id;
-
         axios.post(pass, config)
           .then(response => {
             this.$swal({
@@ -315,6 +314,7 @@
 
   .btn-part {
     width: 100%;
+    margin-bottom: 15px;
   }
 
   /***********************************************/

@@ -3,6 +3,8 @@
     <Header></Header>
 
     <div class="recent-wrapper">
+      <div class="no-modules" v-bind:class="{hidden: notEmpty}">You don`t have any modules yet.</div>
+
       <RecentModule
         v-for="module in this.modules"
         v-bind:key="module.moduleId"
@@ -43,7 +45,8 @@
     data() {
       return {
         userName: "",
-        modules: []
+        modules: [],
+        notEmpty: true
       }
     },
 
@@ -75,6 +78,7 @@
           .then(response => {
             if (response.data.modules.length != 0)
               this.drawModules(response.data.modules);
+            else this.notEmpty = false;
           })
           .catch(error => {
             console.log(error);
@@ -118,6 +122,14 @@
     min-height: 378px;
   }
 
+  .no-modules {
+    margin: auto;
+    padding-top: 100px;
+    text-align: center;
+    font-size: 30px;
+    color: #12496d;
+  }
+
   /*************************************/
 
   .go-to-shop {
@@ -151,6 +163,10 @@
     position: relative;
     width: 100%;
     bottom: 0;
+  }
+
+  .hidden{
+    display: none;
   }
 
 </style>
