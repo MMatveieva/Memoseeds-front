@@ -3,9 +3,9 @@
     <Header></Header>
     <div class="order-container row">
       <div class="col-sm-6 order-info">
-        <h2>Order information</h2>
+        <h2>Your receipt</h2>
         <div class="credits-info">You are buying <b>{{order.amount}}</b> credits</div>
-        <div class="money-info">Amount: <b>{{order.amount}} {{order.currency}}</b></div>
+        <div class="money-info">Total amount: <b>{{order.amount}} {{order.currency}}</b></div>
       </div>
       <div class="col-sm-6 purchase-info">
         <form>
@@ -150,7 +150,7 @@
             axios.post(path, payload, this.config)
               .then(response => {
                 if (response.data.charge.paid) {
-                  this.$cookies.set('userCredits',response.data.updatedUserCredits);
+                  this.$cookies.set('userCredits', response.data.updatedUserCredits);
                   this.$swal({
                     title: 'Payment successful',
                     text: 'You have purchased ' + this.order.credits + ' credits!',
@@ -189,10 +189,31 @@
   .order-container {
     width: 100%;
     margin: auto;
-    margin-top: 5%;
-    padding: 0 10px;
+    margin-top: 7%;
+    padding: 0 100px;
   }
 
+  .order-info {
+    color: #12496d;
+  }
+
+  .order-info h2 {
+    margin-bottom: 20px;
+    font-size: 35px;
+  }
+
+  .order-info .credits-info {
+    margin-bottom: 25px;
+    font-size: 19px;
+  }
+
+  .order-info .money-info {
+    font-size: 19px;
+  }
+
+  .form-group label {
+    color: #12496d;
+  }
 
   .purchase-info .btn-container {
     text-align: center;
