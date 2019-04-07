@@ -18,12 +18,12 @@
             <p>Credits available:</p>
             <label id="credits">{{creditsNumber}}</label>
           </div>
-          <a href="#" class="btn settings-btn" style="margin-bottom: 13px">
-            <router-link to="/buyCredits">GET CREDITS</router-link>
-          </a>
-          <a href="#" class="btn settings-btn">
-            <router-link to="/newModule">CREATE MODULE</router-link>
-          </a>
+          <button type="button" class="btn settings-btn" style="margin-bottom: 13px" v-on:click="getCreditsClick">
+            GET CREDITS
+          </button>
+          <button class="btn settings-btn" v-on:click="createModuleClick">
+            CREATE MODULE
+          </button>
 
         </div>
         <div class="col-sm-7 module-words-inside">
@@ -248,13 +248,21 @@
         localStorage.setItem('img', this.file);
         this.userIMG = localStorage.getItem('img');
 
+      },
+      getCreditsClick: function () {
+        router.push('/');
+        router.push('buyCredits');
+      },
+      createModuleClick: function () {
+        router.push('/');
+        router.push('newModule');
       }
     }
   }
 </script>
 
 <style scoped>
-  .settings-form .row{
+  .settings-form .row {
     width: 100%;
     margin: 0;
   }
@@ -267,14 +275,6 @@
     width: 155px;
     height: 30px;
     margin-top: 10px;
-  }
-
-  .settings-btn a {
-    color: white !important;
-  }
-
-  .settings-btn a:hover {
-    text-decoration: none;
   }
 
   .btn:hover {
