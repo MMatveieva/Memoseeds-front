@@ -300,6 +300,7 @@
     padding-right: 20px;
     text-align: center;
     align-content: center;
+    box-sizing: border-box
   }
 
   .load-photo {
@@ -346,6 +347,7 @@
     padding-bottom: 20px;
     padding-left: 20px;
     text-align: center;
+    box-sizing: border-box
   }
 
   .module-words-inside h4 {
@@ -392,7 +394,7 @@
     background-color: #bebfc0;
     color: white;
     letter-spacing: 5px;
-    position: absolute;
+    position: relative;
     width: 100%;
   }
 

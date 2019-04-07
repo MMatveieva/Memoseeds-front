@@ -195,6 +195,7 @@
     border-bottom-left-radius: 30px;
     text-align: center;
     align-content: center;
+    box-sizing: border-box
   }
 
   .credits-info .credits-title {
@@ -214,6 +215,7 @@
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
     padding-top: 30px;
+    box-sizing: border-box
   }
 
   .choose-title {
@@ -223,6 +225,7 @@
     color: #2095a6;
     font-size: 15px;
     margin-bottom: 10px;
+    margin-top: 15px;
   }
 
   .buy-option {
