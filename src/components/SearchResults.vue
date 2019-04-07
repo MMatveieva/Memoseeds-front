@@ -32,9 +32,9 @@
     </div>
 
     <div class="go-to-shop">
-      <button type="button" class="go-btn">
-        <router-link to="/allModules">GO TO ALL MODULES</router-link>
-      </button>
+      <router-link to="/allModules">
+        <button type="button" class="go-btn">GO TO ALL MODULES</button>
+      </router-link>
     </div>
 
     <div class="card-footer footer">
@@ -79,7 +79,7 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        axios.get('https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/search/modules/' +
+        axios.get('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/search/modules/' +
           this.$route.params.str, this.config)
           .then(response => {
             let keys = Object.keys(response.data);

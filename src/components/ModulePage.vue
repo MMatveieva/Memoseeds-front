@@ -3,21 +3,18 @@
     <Header></Header>
 
     <div class="module-container">
-      <div class="settings-form">
-        <div class="row" style="width: 100%; margin: 0">
-          <div class="col-sm-3 info-part">
-            <h2 class="modules-title">{{moduleName}}</h2>
-            <div class="modules-info">
-              <p>Number of words:</p>
-              <label id="modules">{{wordsNumber}}</label>
-            </div>
+      <div class="settings-form row">
+        <div class="col-sm-3 info-part">
+          <h2 class="modules-title">{{moduleName}}</h2>
+          <div class="modules-info">
+            <p>Number of words:</p>
+            <label id="modules">{{wordsNumber}}</label>
           </div>
-          <div class="col-sm-9 actions-part">
-            <button type="submit" class="btn action-btn" v-on:click="learnClick" v-bind:disabled=!added>Learn</button>
-            <button type="submit" class="btn action-btn" v-on:click="writeClick" v-bind:disabled=!added>Write</button>
-            <button type="submit" class="btn action-btn" v-on:click="testClick" v-bind:disabled=!added>Test</button>
-          </div>
-
+        </div>
+        <div class="col-sm-9 actions-part">
+          <button type="submit" class="btn action-btn" v-on:click="learnClick" v-bind:disabled=!added>Learn</button>
+          <button type="submit" class="btn action-btn" v-on:click="writeClick" v-bind:disabled=!added>Write</button>
+          <button type="submit" class="btn action-btn" v-on:click="testClick" v-bind:disabled=!added>Test</button>
         </div>
       </div>
 
@@ -36,10 +33,17 @@
         </Terms>
       </div>
 
-      <div class="btn-container">
-        <button type="button" class="btn add-btn" v-on:click="editClick">
-          EDIT
-        </button>
+      <div class="btn-part row">
+        <div class="btn-container-edit col-sm-6">
+          <button type="button" class="btn edit-btn" v-on:click="editClick">
+            EDIT
+          </button>
+        </div>
+        <div class="btn-container col-sm-6">
+          <button type="button" class="btn add-btn" v-on:click="deleteClick">
+            DELETE
+          </button>
+        </div>
       </div>
 
     </div>
@@ -69,9 +73,10 @@
         moduleName: "",
 
         terms: [],
+        subjectName: '',
+        categoryName: '',
 
         added: false
-
       }
     },
 
@@ -85,6 +90,36 @@
 
     methods: {
       editClick: function () {
+      },
+
+      deleteClick: function () {
+        let config = {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + this.$cookies.get('user_session')
+          }
+        };
+        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/delete/modules/' +
+          this.$route.params.id;
+
+        axios.post(pass, config)
+          .then(response => {
+            this.$swal({
+              title: response.data.result,
+              showCancelButton: false
+            }).then((value) => {
+              if (value.value) {
+                router.push('/');
+                router.push('recent');
+              }
+            })
+          })
+          .catch(error => {
+            console.log(error);
+            alert("Error occurred during loading modules. Please try again");
+          });
       },
 
       learnClick: function () {
@@ -117,14 +152,12 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules/' +
+        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules/' +
           this.$route.params.id;
 
         axios.get(pass, config)
           .then(response => {
-            this.moduleName = response.data.name;
-            // console.log('user ', response.data.userId);
-            if (this.$cookies.get('userId') == response.data.userId)
+            if (response.data.module.isLocal)
               this.added = true;
             this.drawTerms(response.data);
           })
@@ -136,14 +169,17 @@
       },
 
       drawTerms: function (data) {
-        let mm = new Array(data.terms.length);
-        this.wordsNumber = data.terms.length;
+        this.categoryName = data.category;
+        this.subjectName = data.subject;
+        this.moduleName = data.module.name;
+        let mm = new Array(data.module.terms.length);
+        this.wordsNumber = data.module.terms.length;
 
-        for (let i = 0; i < data.terms.length; i++) {
+        for (let i = 0; i < data.module.terms.length; i++) {
           let m = {
-            word: data.terms[i].name,
-            definition: data.terms[i].definition,
-            id: data.terms[i].termId,
+            word: data.module.terms[i].name,
+            definition: data.module.terms[i].definition,
+            id: data.module.terms[i].termId,
             pos: i + 1
           };
           mm[i] = m;
@@ -155,7 +191,11 @@
 </script>
 
 <style scoped>
-  .btn-container {
+  .module-container {
+    min-height: 438px;
+  }
+
+  .btn-container, .btn-container-edit {
     margin: 10px auto;
     text-align: center;
   }
@@ -164,8 +204,24 @@
     background-color: #12496d !important;
   }
 
+  .btn-container-edit button:hover {
+    background-color: #acd8c7 !important;
+  }
+
   .add-btn {
     background-color: #12496d !important;
+    border-radius: 20px;
+    font-size: 16px;
+    color: white;
+    width: 150px;
+    height: 35px;
+    border-color: white;
+    margin: 0;
+    padding-top: 6px;
+  }
+
+  .edit-btn {
+    background-color: #acd8c7 !important;
     border-radius: 20px;
     font-size: 16px;
     color: white;
@@ -184,8 +240,8 @@
 
   .settings-form {
     padding: 30px 40px;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    width: 100%;
+    margin: 10px 0 20px 0;
   }
 
   .info-part {
@@ -252,6 +308,10 @@
   .words-wrapper {
     margin-top: 15px;
     margin-bottom: 25px;
+  }
+
+  .btn-part {
+    width: 100%;
   }
 
   /***********************************************/

@@ -22,7 +22,7 @@
       </router-link>
     </div>
 
-    <div class="card-footer footer" v-bind:class="{abs: toBottom}">
+    <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
     </div>
   </div>
@@ -43,10 +43,7 @@
     data() {
       return {
         userName: "",
-        modules: [],
-
-        // for footer
-        toBottom: false
+        modules: []
       }
     },
 
@@ -73,12 +70,11 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
+        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
         axios.get(pass, config)
           .then(response => {
             if (response.data.modules.length != 0)
               this.drawModules(response.data.modules);
-            else this.toBottom = true;
           })
           .catch(error => {
             console.log(error);
@@ -111,10 +107,6 @@
           mm[i] = m;
         }
         this.modules = mm;
-
-        if (this.modules.length < 4) {
-          this.toBottom = true;
-        }
       }
     }
   }
@@ -123,6 +115,7 @@
 <style scoped>
   .recent-wrapper {
     margin-top: 20px;
+    min-height: 378px;
   }
 
   /*************************************/
@@ -158,10 +151,6 @@
     position: relative;
     width: 100%;
     bottom: 0;
-  }
-
-  .abs {
-    position: absolute !important;
   }
 
 </style>

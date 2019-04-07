@@ -44,7 +44,7 @@
 
     </div>
 
-    <div class="card-footer footer" v-bind:class="{abs: toBottom}">
+    <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
     </div>
   </div>
@@ -73,7 +73,6 @@
         terms: [],
 
         added: false,
-        toBottom: false,
         toBuy: false
       }
     },
@@ -88,22 +87,30 @@
 
     methods: {
       editClick: function () {
-
         if (this.$cookies.get("userCredits") < this.price) {
           this.$swal({
             title: 'You do not have enough credits',
             text: 'Buy credits?',
             showCancelButton: true
           }).then((value) => {
-            console.log(value);
-            if (value.value == true) {
+            if (value.value) {
+              router.push('/');
+              router.push('buyCredits');
+            }
+          })
+        } else {
+          this.$swal({
+            title: 'Purchase confirmation',
+            text: 'This module costs ' + this.price + ' credits.',
+            showCancelButton: true
+          }).then((value) => {
+            if (value.value) {
               router.push('/');
               router.push('buyCredits');
             }
           })
         }
       },
-
 
       getModuleInfo: function () {
         let config = {
@@ -114,9 +121,7 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://memeseeds.herokuapp.com/' + 'shop' + '/modules/' +
-          this.$route.params.id;
-
+        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/shop/modules/' + this.$route.params.id;
         axios.get(pass, config)
           .then(response => {
             this.moduleName = response.data.module.name;
@@ -126,11 +131,9 @@
             console.log(error);
             alert("Error occurred during loading terms. Please try again");
           });
-
       },
 
       drawTerms: function (data) {
-        console.log('data ', data);
         let mm = new Array(data.module.terms.length);
         this.wordsNumber = data.module.terms.length;
 
@@ -144,9 +147,6 @@
           mm[i] = m;
         }
         this.terms = mm;
-        if (this.terms.length < 4)
-          this.toBottom = true;
-
         this.price = data.module.price;
         if (data.module.price == '0') {
           this.addOption = 'ADD';
@@ -154,15 +154,16 @@
           this.toBuy = true;
           this.addOption = 'BUY FOR ' + data.module.price + ' CREDITS';
         }
-        if (this.$cookies.get("userCredits") <= data.module.price) {
-        }
-
       }
     }
   }
 </script>
 
 <style scoped>
+  .module-container{
+    min-height: 438px;
+  }
+
   .btn-container {
     margin: 10px auto;
     margin-bottom: 30px;
@@ -263,7 +264,6 @@
     margin-bottom: 25px;
   }
 
-
   /***********************************************/
 
   .footer {
@@ -276,9 +276,6 @@
     bottom: 0;
   }
 
-  .abs {
-    position: absolute !important;
-  }
 
   .wide {
     width: 210px;

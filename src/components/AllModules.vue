@@ -12,11 +12,12 @@
           <div class="row">
             <div class="col-sm-4 subject-filter-wrapper">
               <b-form-select v-model="selected_subject" :options="subjectsTitles"
-                             v-on:input="selectSubject"></b-form-select>
+                             v-on:change="selectSubject"></b-form-select>
             </div>
             <div class="col-sm-4 category-filter-wrapper">
               <b-form-select v-model="selected_category" :options="categoryTitles"
-                             v-bind:disabled="noSubject"></b-form-select>
+                             v-bind:disabled="noSubject">
+              </b-form-select>
 
             </div>
             <div class="col-sm-1 price-filter-wrapper">
@@ -126,7 +127,7 @@
     },
     methods: {
       getAllModules: function () {
-        axios.get('https://memeseeds.herokuapp.com/shop/subjects/categories/modules', this.config)
+        axios.get('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/shop/subjects/categories/modules', this.config)
           .then(response => {
             this.drawSubjects(response.data);
           })
@@ -138,7 +139,7 @@
       },
 
       getFilter: function () {
-        axios.get('https://memeseeds.herokuapp.com/shop/subjects/categories', this.config)
+        axios.get('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/shop/subjects/categories', this.config)
           .then(response => {
             this.filterResponse = response.data;
             let sb = Object.keys(this.filterResponse);
@@ -162,16 +163,24 @@
       },
 
       selectSubject: function () {
-        this.categoryTitles = [];
         if (this.selected_subject != 'default') {
-          this.categoryTitles.push({value: 'default', text: 'Category'});
+          this.noSubject = false;
+          let k = {value: 'default', text: 'Category'};
+          let cat = [k];
           let sub = this.filterResponse[this.selected_subject];
           for (let i = 0; i < sub.length; i++) {
-            if (sub[i] != 'default')
-              this.categoryTitles.push(sub[i]);
+            if (sub[i] != 'default') {
+              let s1 = {
+                value: sub[i],
+                text: sub[i]
+              };
+              cat.push(s1);
+            }
           }
-          this.noSubject = false;
+          this.categoryTitles = cat;
+          this.selected_category = 'default';
         } else {
+          this.categoryTitles = [];
           this.noSubject = true;
         }
       },
@@ -180,7 +189,7 @@
         this.isShop = false;
         this.isFilter = false;
 
-        axios.post('https://memeseeds.herokuapp.com/shop/filter', {
+        axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/shop/filter', {
           "Subject": this.selected_subject,
           "Category": this.selected_category,
           "IsFree": this.status
@@ -227,38 +236,39 @@
 
       drawSubjects: function (data) {
         let subject_keys = Object.keys(data);
-        let sb = new Array(subject_keys.length);
 
         for (let i = 0; i < subject_keys.length; i++) {
           let subject = data[subject_keys[i]];
-          let mm = new Array(subject.length);
-          for (let k = 0; k < subject.length; k++) {
-            let terms = '';
-            for (let j = 0; (j < subject[k].terms.length && j < 4); j++) {
-              if (j == 3 || j == subject[k].terms.length - 1)
-                terms += subject[k].terms[j].name + ".";
-              else
-                terms += subject[k].terms[j].name + ", ";
+          if (subject.length > 0) {
+            let mm = new Array(subject.length);
+            for (let k = 0; k < subject.length; k++) {
+              let terms = '';
+              for (let j = 0; (j < subject[k].terms.length && j < 4); j++) {
+                if (j == 3 || j == subject[k].terms.length - 1)
+                  terms += subject[k].terms[j].name + ".";
+                else
+                  terms += subject[k].terms[j].name + ", ";
+              }
+              let m = {
+                title: subject[k].name,
+                wordsInModule: subject[k].terms.length,
+                words: terms,
+                moduleId: subject[k].moduleId
+              };
+              mm[k] = m;
             }
-            let m = {
-              title: subject[k].name,
-              wordsInModule: subject[k].terms.length,
-              words: terms,
-              moduleId: subject[k].moduleId
+            let subjectName = subject_keys[i];
+            if (subjectName == 'default')
+              subjectName = 'Other';
+            let s = {
+              id: i,
+              subjectName: subjectName,
+              modules: mm
             };
-            mm[k] = m;
+            this.subjects.push(s);
           }
-          let subjectName = subject_keys[i];
-          if (subjectName == 'default')
-            subjectName = 'Other';
-          let s = {
-            id: i,
-            subjectName: subjectName,
-            modules: mm
-          };
-          sb[i] = s;
         }
-        this.subjects = sb;
+
       },
 
       backClick: function () {
@@ -346,6 +356,7 @@
 
   .shop-wrapper {
     margin-bottom: 20px;
+    min-height: 345px;
   }
 
   /***********************************************/

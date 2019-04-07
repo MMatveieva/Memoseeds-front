@@ -4,95 +4,92 @@
 
     <div class="buy-credits-container">
 
-      <div class="credits-info row">
-        <div class="col-sm-4 info-part">
-          <h2 class="credits-title">Credits</h2>
-          <div class="credits-number">
-            <label id="userCredits">{{userCredits}}</label>
+      <div class="credits-info">
+        <div class="row">
+          <div class="col-sm-4 info-part">
+            <h2 class="credits-title">Credits</h2>
+            <div class="credits-number">
+              <label id="userCredits">{{userCredits}}</label>
+            </div>
+          </div>
+          <div class="col-sm-8 advice-part">
+            Use your credit card to get more credits
           </div>
         </div>
-        <div class="col-sm-8 advice-part">
-          Use your credit card to get more credits
-        </div>
-      </div>
 
-      <div class="choose-title">Choose the option</div>
+        <div class="choose-title">Choose the option</div>
 
-      <div class="buy-option row">
-        <div class="col-sm-1 coin-img">
-          <img src="../css/images/coin.png">
-        </div>
-        <div class="col-sm-9 buy-info">
+        <div class="buy-option">
           <div class="row">
-            <div class="col-sm-6 buy-number">{{credits[0]}} credits</div>
-            <div class="col-sm-6 buy-sum">{{price[0]}} {{currencySymbol}}</div>
+            <div class="col-sm-1 coin-img">
+              <img src="../css/images/coin.png">
+            </div>
+            <div class="col-sm-9 buy-info">
+              <div class="row">
+                <div class="col-sm-6 buy-number">{{credits[0]}} credits</div>
+                <div class="col-sm-6 buy-sum">{{price[0]}} {{currencySymbol}}</div>
+              </div>
+            </div>
+            <div class="col-sm-2 btn-wrapper">
+              <button id="0" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
+            </div>
           </div>
         </div>
-        <div class="col-sm-2 btn-wrapper">
-          <button id="0" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
-        </div>
-      </div>
 
-      <div class="buy-option row">
-        <div class="col-sm-1 coin-img">
-          <img src="../css/images/coin2.png">
-        </div>
-        <div class="col-sm-9 buy-info">
+        <div class="buy-option">
           <div class="row">
-            <div class="col-sm-6 buy-number">{{credits[1]}} credits</div>
-            <div class="col-sm-6 buy-sum">{{price[1]}} {{currencySymbol}}</div>
+            <div class="col-sm-1 coin-img">
+              <img src="../css/images/coin2.png">
+            </div>
+            <div class="col-sm-9 buy-info">
+              <div class="row">
+                <div class="col-sm-6 buy-number">{{credits[1]}} credits</div>
+                <div class="col-sm-6 buy-sum">{{price[1]}} {{currencySymbol}}</div>
+              </div>
+            </div>
+            <div class="col-sm-2 btn-wrapper">
+              <button id="1" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
+            </div>
           </div>
         </div>
-        <div class="col-sm-2 btn-wrapper">
-          <button id="1" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
-        </div>
-      </div>
 
-      <div class="buy-option row">
-        <div class="col-sm-1 coin-img">
-          <img src="../css/images/coin3.png">
-        </div>
-        <div class="col-sm-9 buy-info">
+        <div class="buy-option">
           <div class="row">
-            <div class="col-sm-6 buy-number">{{credits[2]}} credits</div>
-            <div class="col-sm-6 buy-sum">{{price[2]}} {{currencySymbol}}</div>
+            <div class="col-sm-1 coin-img">
+              <img src="../css/images/coin3.png">
+            </div>
+            <div class="col-sm-9 buy-info">
+              <div class="row">
+                <div class="col-sm-6 buy-number">{{credits[2]}} credits</div>
+                <div class="col-sm-6 buy-sum">{{price[2]}} {{currencySymbol}}</div>
+              </div>
+            </div>
+            <div class="col-sm-2 btn-wrapper">
+              <button id="2" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
+            </div>
           </div>
         </div>
-        <div class="col-sm-2 btn-wrapper">
-          <button id="2" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
-        </div>
-      </div>
 
-      <div class="buy-option row">
-        <div class="col-sm-1 coin-img">
-          <img src="../css/images/coin4.png">
-        </div>
-        <div class="col-sm-9 buy-info">
+        <div class="buy-option">
           <div class="row">
-            <div class="col-sm-6 buy-number">{{credits[3]}} credits</div>
-            <div class="col-sm-6 buy-sum">{{price[3]}} {{currencySymbol}}</div>
+            <div class="col-sm-1 coin-img">
+              <img src="../css/images/coin4.png">
+            </div>
+            <div class="col-sm-9 buy-info">
+              <div class="row">
+                <div class="col-sm-6 buy-number">{{credits[3]}} credits</div>
+                <div class="col-sm-6 buy-sum">{{price[3]}} {{currencySymbol}}</div>
+              </div>
+            </div>
+            <div class="col-sm-2 btn-wrapper">
+              <button id="3" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
+            </div>
           </div>
         </div>
-        <div class="col-sm-2 btn-wrapper">
-          <button id="3" type="submit" class="btn buy-btn" v-on:click="buyClick($event)">BUY</button>
-        </div>
       </div>
-
-      <form action="/process-payment" method="POST">
-        <select v-model="buyPrice">
-          <option value="1">Product A</option>
-          <option value="2">Product B</option>
-          <option value="3">Product C</option>
-        </select>
-
-        <stripe-checkout
-          stripe-key="pk_test_ob6s7KZxZU1mouJbbsuFBjEe"
-          :products="credits"
-          :product-id="buyPrice">
-        </stripe-checkout>
-      </form>
 
     </div>
+
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
     </div>
@@ -100,7 +97,6 @@
 </template>
 
 <script>
-  import StripeCheckout from 'vue-stripe'
   import axios from 'axios'
   import router from '../router'
   import Header from './Header'
@@ -108,7 +104,6 @@
   export default {
     name: "BuyCredits",
     components: {
-      StripeCheckout,
       Header
     },
     data() {
@@ -117,11 +112,9 @@
         userCredits: "",
         price: [],
         credits: [],
+        purchaseId: [],
         currency: "",
         currencySymbol: "",
-
-        isClicked: false,
-        buyPrice: "",
 
         tokenFromPromise: {},
         tokenFromEvent: {},
@@ -135,7 +128,6 @@
       document.body.className = 'inside';
 
       let cur = this.$cookies.get('country');
-
       let config = {
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -144,13 +136,15 @@
           'Authorization': 'Bearer' + this.$cookies.get('user_session')
         }
       };
-
-      axios.post('https://memeseeds.herokuapp.com/purchase/options', {"country": cur}, config)
+      axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/purchase/options', {"country": cur}, config)
         .then(response => {
-          this.$cookies.set('stripeKey', response.data.publishableKey);
           let p = new Array(response.data.purchases.length);
+          response.data.purchases.sort(function (a, b) {
+            return a.credits - b.credits;
+          });
           for (let i = 0; i < response.data.purchases.length; i++) {
             p[i] = response.data.purchases[i].price.amount;
+            this.purchaseId.push(response.data.purchases[i].id);
             this.credits.push(response.data.purchases[i].credits);
           }
           this.currency = response.data.purchases[0].price.currency;
@@ -170,41 +164,27 @@
     methods: {
       buyClick: function (event) {
         let targetId = event.currentTarget.id;
-        this.buyPrice = this.price[targetId];
-
+        let id = this.purchaseId[targetId];
+        router.push('/');
+        router.push('/order/' + id);
       },
 
       getUserInfo: function () {
         this.userCredits = this.$cookies.get('userCredits');
         this.userName = this.$cookies.get('userName');
-      },
-      async checkout() {
-
-      },
-
-      done(token) {
-        this.tokenFromEvent = token;
-      },
-      opened() {
-        this.status = 'Opened';
-      },
-      closed() {
-        this.status = 'Closed';
-      },
-      submit(token) {
-        console.log('token', token);
-        console.log('Submit this token to your server to perform a stripe charge, or subscription.');
       }
-
     }
   }
 </script>
 
 <style scoped>
-  .credits-info {
+  .row {
     width: 100%;
-    padding: 30px 40px;
     margin: 0;
+  }
+
+  .credits-info {
+    padding: 30px 40px;
   }
 
   .info-part {
@@ -215,6 +195,7 @@
     border-bottom-left-radius: 30px;
     text-align: center;
     align-content: center;
+    box-sizing: border-box
   }
 
   .credits-info .credits-title {
@@ -234,6 +215,7 @@
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
     padding-top: 30px;
+    box-sizing: border-box
   }
 
   .choose-title {
@@ -241,8 +223,9 @@
     padding-left: 10%;
     text-align: left;
     color: #2095a6;
-    font-size: 15px;
+    font-size: 18px;
     margin-bottom: 10px;
+    margin-top: 30px;
   }
 
   .buy-option {

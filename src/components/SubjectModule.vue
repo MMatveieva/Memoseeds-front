@@ -33,7 +33,7 @@
 
   export default {
     name: "SubjectModule",
-    props: ['id', 'title', 'wordsInModule', 'words'],
+    props: ['moduleId', 'title', 'wordsInModule', 'words'],
     moduleId: '',
     price: '',
     components: {
@@ -42,7 +42,6 @@
 
     methods: {
       startClick: function () {
-
         let config = {
           headers: {
             'Access-Control-Allow-Origin': '*',
@@ -51,28 +50,27 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        axios.post('https://memeseeds.herokuapp.com/shop/user/' + this.$cookies.get('userId') + '/get/module/' +
-          this.id, {
+        axios.post('https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/get/module/' +
+          this.moduleId, {
           "userid": this.$cookies.get("userId"),
-          "moduleid": this.id
+          "moduleid": this.moduleId
         }, config)
           .then(response => {
-            console.log(response);
             console.log(response.data.result);
-            if(response.data.result == "User has this module.") {
+            if (response.data.result == "User has this module.") {
               this.$swal({
-                title: 'You have this mod',
+                title: 'You have this module',
                 text: 'Start?',
                 showCancelButton: true
               }).then((value) => {
                 if (value.value == true) {
                   router.push('/');
-                  router.push('myModule/' + this.id);
+                  router.push('myModule/' + this.moduleId);
                 }
               })
-            }else{
+            } else {
               router.push('/');
-              router.push('moduleView/' + this.id);
+              router.push('moduleView/' + this.moduleId);
             }
           })
           .catch(error => {
@@ -89,6 +87,7 @@
 <style scoped>
   .actions-part .action-text {
     margin: auto;
+    font-size: 17px;
   }
 
   .actions-part .btn-container {

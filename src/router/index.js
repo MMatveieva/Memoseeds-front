@@ -13,6 +13,7 @@ import Writing from '@/components/Writing'
 import Testing from '@/components/Testing'
 import SearchResults from '@/components/SearchResults'
 import NewModule from '@/components/NewModule'
+import Order from '@/components/Order'
 
 Vue.use(Router);
 
@@ -29,12 +30,12 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'SignUp',
+      name: 'signUp',
       component: SignUp
     },
     {
       path: '/signUp',
-      name: 'SignUp',
+      name: 'signUp',
       component: SignUp
     },
     {
@@ -107,6 +108,12 @@ export default new Router({
       name: 'newModule',
       component: NewModule,
       beforeEnter: ifAuthenticated
-    }
+    },
+    {
+      path: '/order/:id',
+      name: 'Order',
+      component: Order,
+      beforeEnter: ifAuthenticated
+    },
   ]
 })

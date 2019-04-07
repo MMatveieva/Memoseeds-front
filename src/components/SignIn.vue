@@ -106,7 +106,7 @@
             'Content-Type': 'application/json',
           }
         };
-        axios.post('https://memeseeds.herokuapp.com/login', {
+        axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/login', {
           "Username": this.name,
           "isUsername": isUserName,
           "Password": this.password
@@ -117,11 +117,12 @@
               this.loginError = response.data.error;
               this.noLogin = false;
             } else {
-              this.$cookies.set("user_session", response.data['token'], 60 * 60 * 2);
-              this.$cookies.set("userName", response.data.info.username, 60 * 60 * 2);
-              this.$cookies.set("userCredits", response.data.info.credits, 60 * 60 * 2);
-              this.$cookies.set("userMail", response.data.info.email, 60 * 60 * 2);
-              this.$cookies.set("userId", response.data.info.userId, 60 * 60 * 2);
+              this.$cookies.config(60 * 60 * 2);
+              this.$cookies.set("user_session", response.data['token']);
+              this.$cookies.set("userName", response.data.info.username);
+              this.$cookies.set("userCredits", response.data.info.credits);
+              this.$cookies.set("userMail", response.data.info.email);
+              this.$cookies.set("userId", response.data.info.userId);
               this.getCountry();
 
               localStorage.setItem("img", this.binToImg(response.data.info.img));
@@ -133,13 +134,13 @@
           });
       },
       getCountry: function () {
-        axios.get('http://ip-api.com/json/?fields=3')
+        axios.get('https://ipapi.co/country')
           .then(response => {
-            this.$cookies.set('country', response.data.country, 60 * 60 * 2);
+            this.$cookies.set('country', response.data, 60 * 60 * 2);
           });
       },
-      binToImg : function (data) {
-        var img = document.createElement('img');
+      binToImg: function (data) {
+        let img = document.createElement('img');
         img.src = 'data:image/jpeg;base64,' + btoa(data);
         return img;
       }
