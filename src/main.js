@@ -22,9 +22,7 @@ new Vue({
   el: '#app',
   router,
   components: {
-    App,
-    'stripe-checkout': StripeCheckout
+    App
   },
-
   template: '<App/>'
 });
