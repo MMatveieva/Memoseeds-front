@@ -211,10 +211,6 @@
     font-size: 19px;
   }
 
-  .form-group label {
-    color: #12496d;
-  }
-
   .purchase-info .btn-container {
     text-align: center;
   }
