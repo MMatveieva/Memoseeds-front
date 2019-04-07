@@ -223,9 +223,9 @@
     padding-left: 10%;
     text-align: left;
     color: #2095a6;
-    font-size: 15px;
+    font-size: 18px;
     margin-bottom: 10px;
-    margin-top: 15px;
+    margin-top: 30px;
   }
 
   .buy-option {
