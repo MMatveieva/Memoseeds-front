@@ -188,6 +188,9 @@
       filterClick: function () {
         this.isShop = false;
         this.isFilter = false;
+        console.log(this.selected_subject);
+        console.log(this.selected_category);
+        console.log(this.status);
 
         axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/shop/filter', {
           "Subject": this.selected_subject,
@@ -195,7 +198,7 @@
           "IsFree": this.status
         }, this.config)
           .then(response => {
-            //console.log(response.data);
+            console.log(response.data);
             this.drawFilter(response.data);
           })
           .catch(error => {
@@ -287,6 +290,10 @@
     border-bottom-left-radius: 40px;
     text-align: center;
     box-sizing: content-box;
+  }
+
+  .filter-wrapper {
+    min-height: 345px;
   }
 
   .filter-form {

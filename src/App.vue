@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
 
@@ -28,6 +28,7 @@
   body.home {
     background: url("css/images/background.png") center no-repeat;
   }
+
   body.inside {
     background: #f5f5f7;
   }

@@ -14,6 +14,7 @@ import Testing from '@/components/Testing'
 import SearchResults from '@/components/SearchResults'
 import NewModule from '@/components/NewModule'
 import Order from '@/components/Order'
+import EditModule from '@/components/EditModule'
 
 Vue.use(Router);
 
@@ -115,5 +116,11 @@ export default new Router({
       component: Order,
       beforeEnter: ifAuthenticated
     },
+    {
+      path: '/editModule/:id',
+      name: 'editModule',
+      component: EditModule,
+      beforeEnter: ifAuthenticated
+    }
   ]
 })
