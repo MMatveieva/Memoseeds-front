@@ -134,7 +134,7 @@
           });
       },
       getCountry: function () {
-        axios.get('https://ip-api.com/json/?fields=3')
+        axios.get('https://ipapi.co/8.8.8.8/json/country')
           .then(response => {
             this.$cookies.set('country', response.data.country, 60 * 60 * 2);
           });
