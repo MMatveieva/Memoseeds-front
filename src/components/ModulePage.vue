@@ -6,6 +6,7 @@
       <div class="settings-form row">
         <div class="col-sm-3 info-part">
           <h2 class="modules-title">{{moduleName}}</h2>
+          <div class="sub-cat">{{subjectName}}/{{categoryName}}</div>
           <div class="modules-info">
             <p>Number of words:</p>
             <label id="modules">{{wordsNumber}}</label>
@@ -260,6 +261,11 @@
     margin-bottom: 0;
   }
 
+  .info-part .sub-cat{
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+
   .modules-title {
     margin-top: 7%;
   }
@@ -280,7 +286,7 @@
     background: #eeeeee;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
-    padding-top: 47px;
+    padding-top: 54px;
     padding-bottom: 40px;
     text-align: center;
     flex: 0 0 70%;
