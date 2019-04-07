@@ -136,7 +136,6 @@
       getCountry: function () {
         axios.get('https://ipapi.co/country')
           .then(response => {
-            console.log(response.data);
             this.$cookies.set('country', response.data, 60 * 60 * 2);
           });
       },

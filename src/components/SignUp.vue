@@ -132,6 +132,10 @@
           this.noPass = false;
           this.passError = "Please enter password.";
         }
+        if (this.password.length < 8) {
+          this.noPass = false;
+          this.passError = "Password should be minimum 8 signs";
+        }
         if (this.password_confirmation == "") {
           this.noPassRep = false;
           this.passError1 = "Please repeat password.";
