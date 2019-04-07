@@ -324,7 +324,7 @@
     background-color: #bebfc0;
     color: white;
     letter-spacing: 5px;
-    position: absolute;
+    position: relative;
     width: 100%;
     bottom: 0;
   }

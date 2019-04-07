@@ -937,7 +937,6 @@
     }
   }
 
-
   /***********************************************/
 
   .footer {
@@ -945,7 +944,6 @@
     background-color: #bebfc0;
     color: white;
     letter-spacing: 5px;
-
     width: 100%;
     bottom: 0;
   }
