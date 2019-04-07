@@ -87,6 +87,43 @@
 
     methods: {
       editClick: function () {
+        let config = {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + this.$cookies.get('user_session')
+          }
+        };
+        if (this.price == '0') {
+          axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/get/module/' + this.$route.params.id,
+            {
+              "userid": this.$cookies.get("userId"),
+              "moduleid": this.$route.params.id
+            }, config).then(response => {
+            console.log(response);
+            console.log(response.data.result);
+            if (response.data.result == 'success') {
+              this.$swal({
+                title: 'Module added',
+                text: 'Start?',
+                showCancelButton: true
+              }).then((value) => {
+                if (value.value == true) {
+                  router.push('/');
+                  router.push('myModule/' + response.data.moduleId);
+                } else {
+                  router.push('/');
+                  router.push('allModules');
+                }
+              })
+            }
+          })
+            .catch(error => {
+              console.log(error);
+
+            });
+        }
         if (this.$cookies.get("userCredits") < this.price) {
           this.$swal({
             title: 'You do not have enough credits',
@@ -98,19 +135,45 @@
               router.push('buyCredits');
             }
           })
-        } else {
+        } else if(this.price != '0'){
           this.$swal({
             title: 'Purchase confirmation',
             text: 'This module costs ' + this.price + ' credits.',
             showCancelButton: true
           }).then((value) => {
             if (value.value) {
-              router.push('/');
-              router.push('buyCredits');
+              axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/get/module/' + this.$route.params.id,
+                {
+                  "userid": this.$cookies.get("userId"),
+                  "moduleid": this.$route.params.id
+                }, config).then(response => {
+                console.log(response);
+                console.log(response.data.result);
+                if (response.data.result == 'success') {
+                  this.$swal({
+                    title: 'Module added',
+                    text: 'Start?',
+                    showCancelButton: true
+                  }).then((value) => {
+                    if (value.value == true) {
+                      router.push('/');
+                      router.push('myModule/' + response.data.moduleId);
+                    } else {
+                      router.push('/');
+                      router.push('allModules');
+                    }
+                  })
+                }
+              })
+                .catch(error => {
+                  console.log(error);
+
+                });
             }
           })
         }
       },
+
 
       getModuleInfo: function () {
         let config = {
@@ -160,7 +223,7 @@
 </script>
 
 <style scoped>
-  .module-container{
+  .module-container {
     min-height: 438px;
   }
 
@@ -275,7 +338,6 @@
     width: 100%;
     bottom: 0;
   }
-
 
   .wide {
     width: 210px;

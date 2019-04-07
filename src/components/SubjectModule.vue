@@ -50,14 +50,14 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        axios.post('https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/get/module/' +
+        axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/has/module/' +
           this.moduleId, {
           "userid": this.$cookies.get("userId"),
           "moduleid": this.moduleId
         }, config)
           .then(response => {
-            console.log(response.data.result);
-            if (response.data.result == "User has this module.") {
+            //console.log(response.data.result);
+            if (response.data.result == true) {
               this.$swal({
                 title: 'You have this module',
                 text: 'Start?',
