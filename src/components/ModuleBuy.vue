@@ -121,7 +121,7 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://memeseeds.herokuapp.com/shop/modules/' + this.$route.params.id;
+        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/shop/modules/' + this.$route.params.id;
         axios.get(pass, config)
           .then(response => {
             this.moduleName = response.data.module.name;

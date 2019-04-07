@@ -106,7 +106,7 @@
             'Content-Type': 'application/json',
           }
         };
-        axios.post('https://memeseeds.herokuapp.com/login', {
+        axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/login', {
           "Username": this.name,
           "isUsername": isUserName,
           "Password": this.password

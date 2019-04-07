@@ -101,7 +101,7 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/delete/modules/' +
+        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/delete/modules/' +
           this.$route.params.id;
 
         axios.post(pass, config)
@@ -152,7 +152,7 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules/' +
+        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules/' +
           this.$route.params.id;
 
         axios.get(pass, config)
@@ -169,7 +169,6 @@
       },
 
       drawTerms: function (data) {
-        console.log(data);
         this.categoryName = data.category;
         this.subjectName = data.subject;
         this.moduleName = data.module.name;

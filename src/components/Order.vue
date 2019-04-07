@@ -100,7 +100,7 @@
     },
     methods: {
       getOrderInfo: function () {
-        axios.post('https://memeseeds.herokuapp.com/purchase/option', {purchaseId: this.$route.params.id}, this.config)
+        axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/purchase/option', {purchaseId: this.$route.params.id}, this.config)
           .then(response => {
             this.order.credits = response.data.credits;
             this.order.amount = response.data.price.amount;
@@ -146,7 +146,7 @@
               sourceToken: response.id,
               userId: this.$cookies.get('userId')
             };
-            const path = 'https://memeseeds.herokuapp.com/purchase/checkout';
+            const path = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/purchase/checkout';
             axios.post(path, payload, this.config)
               .then(response => {
                 if (response.data.charge.paid) {

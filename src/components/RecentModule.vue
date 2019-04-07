@@ -49,6 +49,7 @@
 <style scoped>
   .actions-part .action-text {
     margin: auto;
+    font-size: 17px;
   }
 
   .actions-part .btn-container {

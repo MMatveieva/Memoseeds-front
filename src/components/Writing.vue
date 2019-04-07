@@ -77,47 +77,46 @@
         wordDef: "",
 
         inputText: "",
-        module:[],
-        end:false
+        module: [],
+        end: false
       }
     },
     beforeCreate: function () {
       document.body.className = 'inside';
     },
-    created: function(){
+    created: function () {
       this.getModuleData();
     },
 
     methods: {
       nextClick: function () {
-        if(!this.end)
+        if (!this.end)
           this.check();
-        else{
-          var id =this.$route.params.id;
+        else {
+          var id = this.$route.params.id;
           router.push("/");
           router.push('myModule/' + id);
         }
 
       },
 
-      check(){
-        if(this.inputText==this.module[this.wordNow-1].name)
-          this.wordsCorrect+=1;
+      check() {
+        if (this.inputText == this.module[this.wordNow - 1].name)
+          this.wordsCorrect += 1;
         else
-          this.wordsIncorrect+=1;
+          this.wordsIncorrect += 1;
 
-        if(this.wordNow!=this.wordsAll){
-          this.wordNow+=1;
-          this.wordDef = this.module[this.wordNow-1].definition;
-          this.wordsLeft = this.wordsAll - this.wordNow; 
-        }
-        else{
+        if (this.wordNow != this.wordsAll) {
+          this.wordNow += 1;
+          this.wordDef = this.module[this.wordNow - 1].definition;
+          this.wordsLeft = this.wordsAll - this.wordNow;
+        } else {
           this.end = true;
-          this.wordDef = "Success! Your score is "+this.wordsCorrect/this.wordsAll+"%!" ;
+          this.wordDef = "Success! Your score is " + this.wordsCorrect / this.wordsAll + "%!";
         }
         this.inputText = "";
       },
-      getModuleData(){
+      getModuleData() {
         let config = {
           headers: {
             'Access-Control-Allow-Origin': '*',
@@ -125,15 +124,15 @@
             'Content-Type': 'application/json',
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
-          };
-          let pass = 'https://memeseeds.herokuapp.com/user/'+this.$cookies.get("userId")+'/modules/'+this.$route.params.id;
-          axios.get(pass, config)
-            .then(response => {
-               if (response.data.error == null) {
-                 this.module = response.data.terms;
-                 this.moduleName = response.data.name;
-                 this.init()
-               } else {
+        };
+        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get("userId") + '/modules/' + this.$route.params.id;
+        axios.get(pass, config)
+          .then(response => {
+            if (response.data.error == null) {
+              this.module = response.data.terms;
+              this.moduleName = response.data.name;
+              this.init()
+            } else {
               console.log(response);
             }
           })
@@ -141,20 +140,19 @@
             console.log(error)
           });
       },
-      init(){
+      init() {
         this.wordNow = 1;
         this.wordsAll = this.module.length;
         this.wordsLeft = this.wordsAll - this.wordNow;
-        console.log(this.module[this.wordNow-1]);
-
-        this.wordDef = this.module[this.wordNow-1].definition;
+        console.log(this.module[this.wordNow - 1]);
+        this.wordDef = this.module[this.wordNow - 1].definition;
       }
     }
   }
 </script>
 
-<style>
-   /***********************************************/
+<style scoped>
+  /***********************************************/
 
   .settings-form .actions-part {
     background: #ffffff;
@@ -169,8 +167,7 @@
   .actions-part .action-text {
     margin-top: 7%;
     color: #0b486d;
-    font-size: 1.7rem;
-    font-weight: 500;
+    font-size: 17px;
   }
 
   .actions-part .action-input {

@@ -79,7 +79,7 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        axios.get('https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/search/modules/' +
+        axios.get('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/search/modules/' +
           this.$route.params.str, this.config)
           .then(response => {
             let keys = Object.keys(response.data);

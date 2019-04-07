@@ -139,7 +139,7 @@
       },
 
       getFilter: function () {
-        axios.get('https://memeseeds.herokuapp.com/shop/subjects/categories', this.config)
+        axios.get('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/shop/subjects/categories', this.config)
           .then(response => {
             this.filterResponse = response.data;
             let sb = Object.keys(this.filterResponse);
@@ -188,7 +188,7 @@
         this.isShop = false;
         this.isFilter = false;
 
-        axios.post('https://memeseeds.herokuapp.com/shop/filter', {
+        axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/shop/filter', {
           "Subject": this.selected_subject,
           "Category": this.selected_category,
           "IsFree": this.status

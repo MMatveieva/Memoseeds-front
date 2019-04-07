@@ -22,7 +22,7 @@
               {{wordDef}}
             </div>
             <div style="overflow-y: scroll" v-bind:class="{hidden:end}">
-              <form v-on:keyup="keyUp" >
+              <form v-on:keyup="keyUp">
                 <TestTemplate
                   v-for="row in rows"
                   v-bind:key="row.rowId"
@@ -32,11 +32,7 @@
                   v-bind:definition="row.definition"
                 ></TestTemplate>
               </form>
-
-
             </div>
-
-
             <div class="action-service btn-container">
               <button type="submit" class="btn check-btn" v-on:click="nextClick">
                 CHECK THE MATCH
@@ -78,13 +74,13 @@
 
         inputText: "",
         module: [],
-        terms:[],
+        terms: [],
 
         // written by Masha
         rows: [],
         answers: new Array(this.wordsAll),
-        end : false,
-        wordDef : ""
+        end: false,
+        wordDef: ""
       }
     },
     beforeCreate: function () {
@@ -97,13 +93,9 @@
 
     methods: {
       keyUp: function () {
-        // this.answers.push(this.$cookies.get('answer'));
-        // console.log(this.$cookies.get('answer'));
-        // console.log(this.$cookies.get("id"));
-
         this.answers[this.$cookies.get('id')] = this.$cookies.get('answer');
-
       },
+
       backClick: function () {
         let p = this.$route.params.id;
         router.push('/');
@@ -111,8 +103,7 @@
       },
 
       nextClick: function () {
-
-        if(!this.end) {
+        if (!this.end) {
           var countSucs = 0;
           var terms = this.terms;
           var rows = this.rows
@@ -124,14 +115,11 @@
           var res = (countSucs / this.wordsAll) * 100;
           this.wordDef = "Your score is " + res.toPrecision(3) + "%!";
 
-        }
-        else{
+        } else {
           let id = this.$route.params.id;
           router.push("/");
           router.push('myModule/' + id);
         }
-
-
 
 
       },
@@ -145,7 +133,7 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get("userId") + '/modules/' + this.$route.params.id;
+        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get("userId") + '/modules/' + this.$route.params.id;
         axios.get(pass, config)
           .then(response => {
             if (response.data.error == null) {
@@ -153,15 +141,12 @@
               this.wordsAll = response.data.terms.length;
               this.moduleName = response.data.name;
               this.init();
-
             } else {
-              // console.log(response);
             }
           })
           .catch(error => {
             console.log(error)
           });
-        // console.log(this.module);
       },
 
       init: function () {
@@ -173,7 +158,6 @@
           c.push(item);
         });
         this.terms = c;
-        // console.log(this.module);
         this.module.forEach(function (item) {
           definitions.push(item.definition);
         });
@@ -205,7 +189,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   /***********************************************/
 
   .settings-form .actions-part {

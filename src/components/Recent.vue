@@ -70,12 +70,11 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
+        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
         axios.get(pass, config)
           .then(response => {
             if (response.data.modules.length != 0)
               this.drawModules(response.data.modules);
-            if (response.data.modules.length > 4) this.toBottom = true;
           })
           .catch(error => {
             console.log(error);

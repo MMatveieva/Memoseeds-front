@@ -160,7 +160,7 @@
             'Content-Type': 'application/json',
           }
         };
-        axios.post('https://memeseeds.herokuapp.com/signup', {
+        axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/signup', {
           "Username": this.name_signUp,
           "Email": this.email,
           "Password": this.password
@@ -191,7 +191,6 @@
       getCountry: function () {
         axios.get('http://ip-api.com/json/?fields=3')
           .then(response => {
-            // console.log(response.data);
             this.$cookies.set('country', response.data.country, 60 * 60 * 2);
           });
       }

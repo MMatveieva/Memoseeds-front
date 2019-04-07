@@ -721,7 +721,7 @@
 
 </script>
 
-<style>
+<style scoped>
 
   body {
     -webkit-touch-callout: none; /* iOS Safari */
