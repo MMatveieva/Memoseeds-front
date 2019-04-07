@@ -73,9 +73,10 @@
         moduleName: "",
 
         terms: [],
+        subjectName: '',
+        categoryName: '',
 
         added: false
-
       }
     },
 
@@ -156,8 +157,7 @@
 
         axios.get(pass, config)
           .then(response => {
-            this.moduleName = response.data.name;
-            if (this.$cookies.get('userId') == response.data.userId)
+            if (response.data.module.isLocal)
               this.added = true;
             this.drawTerms(response.data);
           })
@@ -169,14 +169,18 @@
       },
 
       drawTerms: function (data) {
-        let mm = new Array(data.terms.length);
-        this.wordsNumber = data.terms.length;
+        console.log(data);
+        this.categoryName = data.category;
+        this.subjectName = data.subject;
+        this.moduleName = data.module.name;
+        let mm = new Array(data.module.terms.length);
+        this.wordsNumber = data.module.terms.length;
 
-        for (let i = 0; i < data.terms.length; i++) {
+        for (let i = 0; i < data.module.terms.length; i++) {
           let m = {
-            word: data.terms[i].name,
-            definition: data.terms[i].definition,
-            id: data.terms[i].termId,
+            word: data.module.terms[i].name,
+            definition: data.module.terms[i].definition,
+            id: data.module.terms[i].termId,
             pos: i + 1
           };
           mm[i] = m;
