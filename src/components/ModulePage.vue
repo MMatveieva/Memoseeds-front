@@ -90,6 +90,9 @@
 
     methods: {
       editClick: function () {
+        let p = this.$route.params.id;
+        router.push('/');
+        router.push('editModule/' + p);
       },
 
       deleteClick: function () {
