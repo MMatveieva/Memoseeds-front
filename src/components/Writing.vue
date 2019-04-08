@@ -95,8 +95,7 @@
 
       backClick: function () {
         let p = this.$route.params.id;
-        router.push('/');
-        router.push('myModule/' + p);
+        router.push('../myModule/' + p);
       },
 
       nextClick: function () {
@@ -104,8 +103,7 @@
           this.check();
         else {
           var id = this.$route.params.id;
-          router.push("/");
-          router.push('myModule/' + id);
+          router.push('../myModule/' + id);
         }
 
       },

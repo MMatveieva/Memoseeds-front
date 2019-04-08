@@ -113,8 +113,7 @@
     methods: {
       editClick: function () {
         let p = this.$route.params.id;
-        router.push('/');
-        router.push('editModule/' + p);
+        router.push('../editModule/' + p);
       },
 
       deleteClick: function () {
@@ -135,8 +134,7 @@
               showCancelButton: false
             }).then((value) => {
               if (value.value) {
-                router.push('/');
-                router.push('recent');
+                router.push('../recent');
               }
             })
           })
@@ -148,18 +146,15 @@
 
       learnClick: function () {
         let p = this.$route.params.id;
-        router.push('/');
-        router.replace('learn/' + p);
+        router.push('../learn/' + p);
       },
       writeClick: function () {
         let p = this.$route.params.id;
-        router.push('/');
-        router.replace('write/' + p);
+        router.push('../write/' + p);
       },
       testClick: function () {
         let p = this.$route.params.id;
-        router.push('/');
-        router.replace('test/' + p);
+        router.push('../test/' + p);
       },
 
       getUserInfo: function () {

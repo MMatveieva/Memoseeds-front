@@ -38,12 +38,13 @@
     },
 
     methods: {
+
       startClick: function () {
-        router.push('/');
-        router.push('myModule/' + this.id);
+        router.push('../myModule/' + this.id);
       }
     }
   }
+
 </script>
 
 <style scoped>

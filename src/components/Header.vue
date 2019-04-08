@@ -79,14 +79,12 @@
         this.$cookies.remove("userMail");
         this.$cookies.remove("userId");
         this.$cookies.remove('country');
-        router.push('/');
-        router.push('signIn');
+        router.push('../signIn');
       },
 
       searchClick: function () {
         if (this.search != '') {
-          router.push('/');
-          router.push('searchResults/' + this.search);
+          router.push('../searchResults/' + this.search);
         }
       }
     }

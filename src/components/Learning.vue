@@ -114,8 +114,7 @@
 
       backClick: function () {
         let p = this.$route.params.id;
-        router.push('/');
-        router.push('myModule/' + p);
+        router.push('../myModule/' + p);
       }
     }
   }
