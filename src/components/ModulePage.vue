@@ -86,7 +86,28 @@
     },
 
     created: function () {
-      this.getModuleInfo();
+      let config = {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer' + this.$cookies.get('user_session')
+        }
+      };
+      axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/has/module/'
+        + this.$route.params.id, {
+        "userid": this.$cookies.get("userId"),
+        "moduleid": this.$route.params.id
+      }, config)
+        .then(response => {
+          this.added = response.data.result;
+          if (this.added)
+            this.getModuleInfo();
+        })
+        .catch(error => {
+          console.log(error);
+          alert("Error occurred during loading modules. Please try again");
+        });
     },
 
     methods: {
@@ -157,11 +178,8 @@
         };
         let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules/' +
           this.$route.params.id;
-
         axios.get(pass, config)
           .then(response => {
-            if (response.data.module.isLocal)
-              this.added = true;
             this.drawTerms(response.data);
           })
           .catch(error => {
@@ -195,7 +213,7 @@
 
 <style scoped>
   .module-container {
-    min-height: 438px;
+    min-height: 453px;
   }
 
   .btn-container, .btn-container-edit {
@@ -261,7 +279,7 @@
     margin-bottom: 0;
   }
 
-  .info-part .sub-cat{
+  .info-part .sub-cat {
     font-size: 13px;
     margin-bottom: 5px;
   }
