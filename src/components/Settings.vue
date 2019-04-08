@@ -218,8 +218,7 @@
       getUserInfo: function () {
         this.creditsNumber = this.$cookies.get('userCredits');
         this.userName = this.$cookies.get('userName');
-        this.userIMG = 'https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/getImage';;
-        // this.userIMG = "https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/"+1+"/getImage"
+        this.userIMG = 'https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/getImage';
       },
 
       getUserModules: function () {
@@ -271,8 +270,6 @@
               });
           }
         );
-
-        // this.userIMG = localStorage.getItem('img');
 
       },
       getCreditsClick: function () {
@@ -371,6 +368,7 @@
   .user-photo img{
     width: 110px;
     height: 110px;
+    border-radius: 50%;
   }
 
   .info-part p {
