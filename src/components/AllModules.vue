@@ -2,6 +2,14 @@
   <div>
     <Header></Header>
 
+    <div class="vld-parent">
+      <loading :active.sync="isLoading"
+               :can-cancel="false"
+               :is-full-page="true"
+               :color="color">
+      </loading>
+    </div>
+
     <div class="filter-form">
       <div class="row">
         <div class="col-sm-3 info-part">
@@ -81,14 +89,18 @@
   import router from '../router'
   import ShopModule from './ShopModule'
   import SubjectModule from './SubjectModule'
-  import Header from "./Header";
+  import Header from "./Header"
+
+  import Loading from 'vue-loading-overlay';
+  import 'vue-loading-overlay/dist/vue-loading.css';
 
   export default {
     name: "AllModules",
     components: {
       Header,
       ShopModule,
-      SubjectModule
+      SubjectModule,
+      Loading
     },
     data() {
       return {
@@ -107,7 +119,10 @@
 
         isShop: true,
         isFilter: true,
-        isFilterRes: true
+        isFilterRes: true,
+
+        isLoading: false,
+        color: "#12496d"
       }
     },
 
@@ -116,6 +131,11 @@
     },
 
     created: function () {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false
+      }, 1500);
+
       this.config = {
         headers: {
           'Access-Control-Allow-Origin': '*',
