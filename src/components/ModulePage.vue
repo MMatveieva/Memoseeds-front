@@ -101,7 +101,7 @@
       this.isLoading = true;
       setTimeout(() => {
         this.isLoading = false
-      }, 1500);
+      }, 1200);
 
       let config = {
         headers: {

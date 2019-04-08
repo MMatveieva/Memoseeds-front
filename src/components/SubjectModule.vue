@@ -56,13 +56,13 @@
           "moduleid": this.moduleId
         }, config)
           .then(response => {
-            if (response.data.result == true) {
+            if (response.data.result) {
               this.$swal({
                 title: 'You already have this module',
                 text: 'Start?',
                 showCancelButton: true
               }).then((value) => {
-                if (value.value == true) {
+                if (value.value) {
                   router.push('../myModule/' + this.moduleId);
                 }
               })
