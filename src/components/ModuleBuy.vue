@@ -37,7 +37,7 @@
       </div>
 
       <div class="btn-container">
-        <button id="buttonBuy" type="button" class="btn add-btn" v-on:click="editClick" v-bind:class="{wide:toBuy}">
+        <button id="buttonBuy" type="button" class="btn add-btn" v-on:click="addClick" v-bind:class="{wide:toBuy}">
           {{addOption}}
         </button>
       </div>
@@ -86,7 +86,7 @@
     },
 
     methods: {
-      editClick: function () {
+      addClick: function () {
         let config = {
           headers: {
             'Access-Control-Allow-Origin': '*',
@@ -101,8 +101,6 @@
               "userid": this.$cookies.get("userId"),
               "moduleid": this.$route.params.id
             }, config).then(response => {
-            console.log(response);
-            console.log(response.data.result);
             if (response.data.result == 'success') {
               this.$swal({
                 title: 'Module added',
@@ -121,7 +119,6 @@
           })
             .catch(error => {
               console.log(error);
-
             });
         }
         if (this.$cookies.get("userCredits") < this.price) {
@@ -135,7 +132,7 @@
               router.push('buyCredits');
             }
           })
-        } else if(this.price != '0'){
+        } else if (this.price != '0') {
           this.$swal({
             title: 'Purchase confirmation',
             text: 'This module costs ' + this.price + ' credits.',
@@ -147,9 +144,9 @@
                   "userid": this.$cookies.get("userId"),
                   "moduleid": this.$route.params.id
                 }, config).then(response => {
-                console.log(response);
-                console.log(response.data.result);
+                console.log(response.data);
                 if (response.data.result == 'success') {
+                  this.$cookies.set('userCredits', response.data.creditsLeft);
                   this.$swal({
                     title: 'Module added',
                     text: 'Start?',
@@ -173,7 +170,6 @@
           })
         }
       },
-
 
       getModuleInfo: function () {
         let config = {
