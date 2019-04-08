@@ -232,7 +232,8 @@
         let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
         axios.get(pass, config)
           .then(response => {
-            this.modulesNumber = response.data.length;
+            console.log(response.data);
+            this.modulesNumber = response.data.modules.length;
           })
           .catch(error => {
             console.log(error);
@@ -240,14 +241,12 @@
           });
       },
 
-
       loadPhoto: function () {
-
         this.getBase64(this.file).then(
           data => this.sendImage(data)
         );
-
       },
+
       sendImage: function(data){
         let config = {
           headers: {
@@ -376,6 +375,7 @@
 
   .modules-info {
     margin-bottom: 10px;
+    color: white;
   }
 
   .credits-info {
