@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-sm-5 info-part">
           <div class="user-photo">
-            <!--<img v-bind:src="userIMG">-->
+            <img v-bind:src="userIMG">
           </div>
           <div class="load-photo">
             <b-form-file v-model="file" class="mt-3" plain></b-form-file>
@@ -89,7 +89,7 @@
         mailError: "",
 
         file: "",
-        userIMG: null
+        userIMG: ""
       }
     },
     beforeCreate: function () {
@@ -218,8 +218,24 @@
       getUserInfo: function () {
         this.creditsNumber = this.$cookies.get('userCredits');
         this.userName = this.$cookies.get('userName');
-        this.userIMG = localStorage.getItem('img');
-
+        let config = {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': this.$cookies.get('user_session')
+          }
+        };
+        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/getImage';
+        axios.get(pass, config)
+          .then(response => {
+            this.userIMG = response.data;
+          })
+          .catch(error => {
+            console.log(error);
+            alert("Error occurred during loading modules. Please try again");
+          });
+        // this.userIMG = "https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/"+1+"/getImage"
       },
 
       getUserModules: function () {
@@ -242,11 +258,13 @@
           });
       },
 
-      loadPhoto: function () {
-        console.log(this.file);
 
-        localStorage.setItem('img', this.file);
-        this.userIMG = localStorage.getItem('img');
+      loadPhoto: function () {
+        this.getBase64(this.file).then(
+          data => console.log(data)
+        );
+
+        // this.userIMG = localStorage.getItem('img');
 
       },
       getCreditsClick: function () {
@@ -256,7 +274,21 @@
       createModuleClick: function () {
         router.push('/');
         router.push('newModule');
-      }
+      },
+       getBase64: function(file) {
+         return new Promise((resolve, reject) => {
+           const reader = new FileReader();
+           reader.readAsDataURL(file);
+           reader.onload = () => {
+             let encoded = reader.result.replace(/^data:(.*;base64,)?/, '');
+             if ((encoded.length % 4) > 0) {
+               encoded += '='.repeat(4 - (encoded.length % 4));
+             }
+             resolve(encoded);
+           };
+           reader.onerror = error => reject(error);
+         });
+       }
     }
   }
 </script>
