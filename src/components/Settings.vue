@@ -357,6 +357,12 @@
     width: 110px;
     height: 110px;
     border-radius: 50%;
+    box-sizing: border-box;
+  }
+
+  .user-photo img{
+    width: 110px;
+    height: 110px;
   }
 
   .info-part p {
