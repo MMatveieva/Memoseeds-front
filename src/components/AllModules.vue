@@ -34,8 +34,7 @@
                 v-model="status"
                 name="checkbox-1"
                 value="true"
-                unchecked-value="paid"
-              >
+                unchecked-value="paid">
                 Free
               </b-form-checkbox>
             </div>
