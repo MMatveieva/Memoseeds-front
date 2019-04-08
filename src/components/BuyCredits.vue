@@ -136,7 +136,7 @@
           'Authorization': 'Bearer' + this.$cookies.get('user_session')
         }
       };
-      axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/purchase/options', {"country": cur}, config)
+      axios.post('https://memeseeds.herokuapp.com/purchase/options', {"country": cur}, config)
         .then(response => {
           let p = new Array(response.data.purchases.length);
           response.data.purchases.sort(function (a, b) {

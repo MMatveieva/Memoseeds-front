@@ -99,7 +99,7 @@
           }
         };
         if (this.price == '0') {
-          axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/get/module/' + this.$route.params.id,
+          axios.post('https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/get/module/' + this.$route.params.id,
             {
               "userid": this.$cookies.get("userId"),
               "moduleid": this.$route.params.id
@@ -142,7 +142,7 @@
             showCancelButton: true
           }).then((value) => {
             if (value.value) {
-              axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/get/module/' + this.$route.params.id,
+              axios.post('https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/get/module/' + this.$route.params.id,
                 {
                   "userid": this.$cookies.get("userId"),
                   "moduleid": this.$route.params.id
@@ -183,7 +183,7 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/shop/modules/' + this.$route.params.id;
+        let pass = 'https://memeseeds.herokuapp.com/shop/modules/' + this.$route.params.id;
         axios.get(pass, config)
           .then(response => {
             this.drawTerms(response.data);

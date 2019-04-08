@@ -123,7 +123,7 @@
               'Authorization': 'Bearer' + this.$cookies.get('user_session')
             }
           };
-          let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/username';
+          let pass = 'https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/username';
           axios.post(pass, {"Old": this.$cookies.get('userName'), "New": this.name_edit}, config)
             .then(response => {
               if (response.data.error != null) {
@@ -154,7 +154,7 @@
               'Authorization': 'Bearer' + this.$cookies.get('user_session')
             }
           };
-          let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/email';
+          let pass = 'https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/email';
           axios.post(pass, {"Old": this.$cookies.get('userMail'), "New": this.email}, config)
             .then(response => {
               if (response.data.error != null) {
@@ -180,7 +180,7 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/password';
+        let pass = 'https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/password';
         axios.post(pass, {"Old": this.password, "New": this.password_new}, config)
           .then(response => {
             if (response.data.error != null) {
@@ -229,7 +229,7 @@
             'Authorization': this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
+        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
         axios.get(pass, config)
           .then(response => {
             this.modulesNumber = response.data.modules.length;
@@ -255,7 +255,7 @@
             'Authorization': this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/setImage';
+        let pass = 'https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/setImage';
         let info = {
           Description: "new photo",
           ImageData : data

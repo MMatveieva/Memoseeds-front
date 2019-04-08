@@ -361,7 +361,7 @@
             "TargetLanguage": targetLanguage_fullName
           };
 
-          axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/translate', data, config)
+          axios.post('https://memeseeds.herokuapp.com/translate', data, config)
             .then(response => {
               var translation = response.data.transResponse;
               if (translation != "") {
@@ -460,7 +460,7 @@
 
       var userId = this.$cookies.get('userId');
       var moduleId = this.moduleId;
-      axios.get('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + userId + '/modules/' + moduleId, config)
+      axios.get('https://cors-anywhehttps://memeseeds.herokuapp.com/user/' + userId + '/modules/' + moduleId, config)
         .then(response => {
           //select subject
           this.selected_subject = response.data.subject;

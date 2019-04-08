@@ -94,7 +94,7 @@
           'Authorization': 'Bearer' + this.$cookies.get('user_session')
         }
       };
-      axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/has/module/'
+      axios.post('https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/has/module/'
         + this.$route.params.id, {
         "userid": this.$cookies.get("userId"),
         "moduleid": this.$route.params.id
@@ -126,7 +126,7 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/delete/modules/' +
+        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/delete/modules/' +
           this.$route.params.id;
         axios.post(pass, config)
           .then(response => {
@@ -176,7 +176,7 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules/' +
+        let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules/' +
           this.$route.params.id;
         axios.get(pass, config)
           .then(response => {

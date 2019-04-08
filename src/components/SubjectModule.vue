@@ -50,7 +50,7 @@
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
         };
-        axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/has/module/' +
+        axios.post('https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/has/module/' +
           this.moduleId, {
           "userid": this.$cookies.get("userId"),
           "moduleid": this.moduleId
