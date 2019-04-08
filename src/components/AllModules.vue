@@ -211,6 +211,11 @@
         this.isFilter = false;
         this.isFilterRes = true;
 
+        this.isLoading = true;
+        setTimeout(() => {
+          this.isLoading = false
+        }, 1300);
+
         axios.post('https://memeseeds.herokuapp.com/shop/filter', {
           "Subject": this.selected_subject,
           "Category": this.selected_category,
