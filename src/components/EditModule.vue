@@ -711,7 +711,7 @@
           .then(response => {
             var moduleId = response.data.moduleId;
 
-            this.$router.push('/mymodule/' + moduleId);
+            this.$router.push('/myModule/' + moduleId);
           })
           .catch(error => {
             console.log(error)

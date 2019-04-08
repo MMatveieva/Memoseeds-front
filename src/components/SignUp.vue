@@ -181,7 +181,7 @@
               this.$cookies.set("userMail", response.data.info.email, 60 * 60 * 2);
               this.$cookies.set("userId", response.data.info.userId, 60 * 60 * 2);
               this.getCountry();
-              router.push('allModules');
+              router.push('/allModules');
             }
           })
           .catch(error => {

@@ -124,7 +124,7 @@
               this.$cookies.set("userMail", response.data.info.email);
               this.$cookies.set("userId", response.data.info.userId);
               this.getCountry();
-              router.push('recent');
+              router.push('/recent');
             }
           })
           .catch(error => {

@@ -129,11 +129,9 @@
                 showCancelButton: true
               }).then((value) => {
                 if (value.value == true) {
-                  router.push('/');
-                  router.push('myModule/' + response.data.moduleId);
+                  router.push('../myModule/' + response.data.moduleId);
                 } else {
-                  router.push('/');
-                  router.push('allModules');
+                  router.push('../allModules');
                 }
               })
             }
@@ -149,8 +147,7 @@
             showCancelButton: true
           }).then((value) => {
             if (value.value) {
-              router.push('/');
-              router.push('buyCredits');
+              router.push('../buyCredits');
             }
           })
         } else if (this.price != '0') {
