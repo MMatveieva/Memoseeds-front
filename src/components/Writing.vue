@@ -6,7 +6,7 @@
       <div class="settings-form">
         <div class="row" style="width: 100%; margin: 0">
           <div class="col-sm-3 info-part">
-            <h2 class="modules-title">{{moduleName}}F</h2>
+            <h2 class="modules-title">{{moduleName}}</h2>
             <div class="modules-info">
               <p>Number of words:</p>
               <label id="modules1">{{wordsAll}}</label>
@@ -126,6 +126,7 @@
         }
         this.inputText = "";
       },
+
       getModuleData() {
         let config = {
           headers: {
@@ -139,8 +140,8 @@
         axios.get(pass, config)
           .then(response => {
             if (response.data.error == null) {
-              this.module = response.data.terms;
-              this.moduleName = response.data.name;
+              this.module = response.data.module.terms;
+              this.moduleName = response.data.module.name;
               this.init()
             } else {
               console.log(response);
@@ -275,6 +276,7 @@
     border-color: white;
     padding-top: 4px;
     margin-top: 20px;
+    margin-bottom: 10px;
   }
 
   /***********************************************/

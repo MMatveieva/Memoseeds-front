@@ -92,8 +92,8 @@
         axios.get(pass, config)
           .then(response => {
             if (response.data.error == null) {
-              this.moduleName = response.data.name;
-              let data = response.data.terms;
+              this.moduleName = response.data.module.name;
+              let data = response.data.module.terms;
               let w = new Array(data.length);
               for (let i = 0; i < data.length; i++) {
                 w[i] = {

@@ -21,7 +21,7 @@
             <div class="action-text">
               {{wordDef}}
             </div>
-            <div style="overflow-y: scroll" v-bind:class="{hidden:end}">
+            <div style="overflow-y: scroll; max-height: 200px" v-bind:class="{hidden:end}">
               <form v-on:keyup="keyUp">
                 <TestTemplate
                   v-for="row in rows"
@@ -137,9 +137,9 @@
         axios.get(pass, config)
           .then(response => {
             if (response.data.error == null) {
-              this.module = response.data.terms;
-              this.wordsAll = response.data.terms.length;
-              this.moduleName = response.data.name;
+              this.module = response.data.module.terms;
+              this.wordsAll = response.data.module.terms.length;
+              this.moduleName = response.data.module.name;
               this.init();
             } else {
             }
@@ -288,6 +288,7 @@
     border-color: white;
     padding-top: 4px;
     margin-top: 20px;
+    margin-bottom: 10px;
   }
 
   /***********************************************/
