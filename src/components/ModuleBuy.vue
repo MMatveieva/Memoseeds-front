@@ -7,6 +7,7 @@
         <div class="row" style="width: 100%; margin: 0">
           <div class="col-sm-3 info-part">
             <h2 class="modules-title">{{moduleName}}</h2>
+            <div class="sub-cat">{{subjectName}}/{{categoryName}}</div>
             <div class="modules-info">
               <p>Number of words:</p>
               <label id="modules">{{wordsNumber}}</label>
@@ -68,6 +69,8 @@
         creditsNumber: "",
         userName: "",
         moduleName: "",
+        categoryName: '',
+        subjectName: '',
         addOption: "",
         price: '',
         terms: [],
@@ -183,7 +186,6 @@
         let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/shop/modules/' + this.$route.params.id;
         axios.get(pass, config)
           .then(response => {
-            this.moduleName = response.data.module.name;
             this.drawTerms(response.data);
           })
           .catch(error => {
@@ -193,6 +195,10 @@
       },
 
       drawTerms: function (data) {
+        this.categoryName = data.category;
+        this.subjectName = data.subject;
+        this.moduleName = data.module.name;
+
         let mm = new Array(data.module.terms.length);
         this.wordsNumber = data.module.terms.length;
 
@@ -269,6 +275,11 @@
 
   .info-part p {
     margin-bottom: 0;
+  }
+
+  .info-part .sub-cat{
+    font-size: 13px;
+    margin-bottom: 5px;
   }
 
   .modules-title {
