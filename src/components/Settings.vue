@@ -211,7 +211,8 @@
           this.noPassMatch = false;
           this.passError = "Please fill both fields.";
         }
-        this.loadPhoto();
+        if (this.file != "")
+          this.loadPhoto();
       },
 
       getUserInfo: function () {
@@ -246,7 +247,7 @@
         );
       },
 
-      sendImage: function(data){
+      sendImage: function (data) {
         let config = {
           headers: {
             'Access-Control-Allow-Origin': '*',
@@ -258,7 +259,7 @@
         let pass = 'https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/setImage';
         let info = {
           Description: "new photo",
-          ImageData : data
+          ImageData: data
         };
         axios.post(pass, info, config)
           .then(response => {
@@ -277,20 +278,20 @@
         router.push('/');
         router.push('newModule');
       },
-       getBase64: function(file) {
-         return new Promise((resolve, reject) => {
-           const reader = new FileReader();
-           reader.readAsDataURL(file);
-           reader.addEventListener("loadend", function() {
-             let encoded = reader.result.replace(/^data:(.*;base64,)?/, '');
-             if ((encoded.length % 4) > 0) {
-               encoded += '='.repeat(4 - (encoded.length % 4));
-             }
-             resolve(encoded);
-           });
-           reader.onerror = error => reject(error);
-         });
-       }
+      getBase64: function (file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.addEventListener("loadend", function () {
+            let encoded = reader.result.replace(/^data:(.*;base64,)?/, '');
+            if ((encoded.length % 4) > 0) {
+              encoded += '='.repeat(4 - (encoded.length % 4));
+            }
+            resolve(encoded);
+          });
+          reader.onerror = error => reject(error);
+        });
+      }
     }
   }
 </script>
@@ -362,7 +363,7 @@
     box-sizing: border-box;
   }
 
-  .user-photo img{
+  .user-photo img {
     width: 110px;
     height: 110px;
     border-radius: 50%;
