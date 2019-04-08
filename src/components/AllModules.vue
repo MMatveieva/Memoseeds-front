@@ -209,6 +209,7 @@
       filterClick: function () {
         this.isShop = false;
         this.isFilter = false;
+        this.isFilterRes = true;
 
         axios.post('https://memeseeds.herokuapp.com/shop/filter', {
           "Subject": this.selected_subject,
@@ -297,6 +298,7 @@
       backClick: function () {
         this.isShop = true;
         this.isFilter = true;
+        this.isFilterRes = true;
       }
     }
   }
