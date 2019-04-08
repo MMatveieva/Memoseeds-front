@@ -212,7 +212,6 @@
           this.passError = "Please fill both fields.";
         }
         this.loadPhoto();
-
       },
 
       getUserInfo: function () {
