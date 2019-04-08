@@ -259,7 +259,7 @@
             'Authorization': this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/setImage';
+        let pass = 'https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/setImage';
         let info = {
           Description: "new photo",
           ImageData : data
