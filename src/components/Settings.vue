@@ -249,7 +249,6 @@
 
       },
       sendImage: function(data){
-        console.log(data);
         let config = {
           headers: {
             'Access-Control-Allow-Origin': '*',
@@ -258,16 +257,14 @@
             'Authorization': this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/setImage';
+        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/setImage';
         let info = {
           Description: "new photo",
           ImageData : data
         };
         axios.post(pass, info, config)
           .then(response => {
-
-            router.push('/');
-            router.push('settings/');
+            location.reload();
           })
           .catch(error => {
             console.log(error);
