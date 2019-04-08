@@ -232,7 +232,6 @@
         let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
         axios.get(pass, config)
           .then(response => {
-            console.log(response.data);
             this.modulesNumber = response.data.modules.length;
           })
           .catch(error => {
