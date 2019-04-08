@@ -25,8 +25,7 @@
                 :interval=0
                 background="white"
                 img-height="65"
-                img-width="200"
-              >
+                img-width="200">
 
                 <LearnTemplate
                   v-for="wordL in words"
@@ -91,8 +90,7 @@
         let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get("userId") + '/modules/' + this.$route.params.id;
         axios.get(pass, config)
           .then(response => {
-            if (response.data.error == null) {
-              this.moduleName = response.data.module.name;
+            if (response.data.error == null) {this.moduleName = response.data.module.name;
               let data = response.data.module.terms;
               let w = new Array(data.length);
               for (let i = 0; i < data.length; i++) {

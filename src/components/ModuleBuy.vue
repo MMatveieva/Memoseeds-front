@@ -1,6 +1,13 @@
 <template>
   <div>
     <Header></Header>
+    <div class="vld-parent">
+      <loading :active.sync="isLoading"
+               :can-cancel="false"
+               :is-full-page="true"
+               :color="color">
+      </loading>
+    </div>
 
     <div class="module-container">
       <div class="settings-form">
@@ -56,12 +63,15 @@
   import axios from 'axios'
   import Header from './Header'
   import Terms from './Terms'
+  import Loading from 'vue-loading-overlay';
+  import 'vue-loading-overlay/dist/vue-loading.css';
 
   export default {
     name: "ModuleBuy",
     components: {
       Header,
-      Terms
+      Terms,
+      Loading
     },
     data() {
       return {
@@ -76,7 +86,10 @@
         terms: [],
 
         added: false,
-        toBuy: false
+        toBuy: false,
+
+        isLoading: false,
+        color: "#12496d"
       }
     },
 
@@ -85,6 +98,11 @@
     },
 
     created: function () {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false
+      }, 1500);
+      
       this.getModuleInfo();
     },
 
