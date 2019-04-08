@@ -157,8 +157,7 @@
                     showCancelButton: false
                   }).then((value) => {
                     if (value.value) {
-                      router.push('/');
-                      router.push('allModules');
+                      router.push('../allModules');
                     }
                   })
                 } else {
@@ -168,8 +167,7 @@
                     showCancelButton: false
                   }).then((value) => {
                     if (value.value) {
-                      router.push('/');
-                      router.push('buyCredits');
+                      router.push('../buyCredits');
                     }
                   })
                 }

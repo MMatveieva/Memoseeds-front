@@ -271,12 +271,10 @@
           });
       },
       getCreditsClick: function () {
-        router.push('/');
-        router.push('buyCredits');
+        router.push('../buyCredits');
       },
       createModuleClick: function () {
-        router.push('/');
-        router.push('newModule');
+        router.push('../newModule');
       },
       getBase64: function (file) {
         return new Promise((resolve, reject) => {

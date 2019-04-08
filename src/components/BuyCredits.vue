@@ -165,8 +165,7 @@
       buyClick: function (event) {
         let targetId = event.currentTarget.id;
         let id = this.purchaseId[targetId];
-        router.push('/');
-        router.push('/order/' + id);
+        router.push('../order/' + id);
       },
 
       getUserInfo: function () {

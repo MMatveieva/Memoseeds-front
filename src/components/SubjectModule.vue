@@ -63,13 +63,11 @@
                 showCancelButton: true
               }).then((value) => {
                 if (value.value == true) {
-                  router.push('/');
-                  router.push('myModule/' + this.moduleId);
+                  router.push('../myModule/' + this.moduleId);
                 }
               })
             } else {
-              router.push('/');
-              router.push('moduleView/' + this.moduleId);
+              router.push('../moduleView/' + this.moduleId);
             }
           })
           .catch(error => {

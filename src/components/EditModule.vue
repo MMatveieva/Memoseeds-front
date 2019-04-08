@@ -272,18 +272,18 @@
 
   var Reusable = {
     template: '<div class="row newword_div">' +
-      '<div class="col-sm-6">' +
-      '<span :class="span_class">{{number}}. </span>' +
-      '<input :data-termid="termId" v-on:keyup="asynctranslation" type="text" ' +
-      'class="word_input" :id="input_id" style="width: 70%" placeholder="Enter a word or term" v-bind:value="word_val"></div>' +
-      '<div class="col-sm-6">' +
-      '<input type="text" class="translate_input" :id="translate_input_id" style="width: 70%" ' +
-      'placeholder="Enter translation or definition" v-bind:value="translate_val">' +
-      '<span :id="translate_span_id" class="t_e_span" v-on:click="setTranslation" style="cursor: pointer">' +
-      '<input type="text" v-on:click="setTranslation" :id="translate_example_id" class="translate_example" ' +
-      'style="cursor: pointer;width: 70%;margin-top:5px;"></span>' +
-      '</div>' +
-      '</div>',
+    '<div class="col-sm-6">' +
+    '<span :class="span_class">{{number}}. </span>' +
+    '<input :data-termid="termId" v-on:keyup="asynctranslation" type="text" ' +
+    'class="word_input" :id="input_id" style="width: 70%" placeholder="Enter a word or term" v-bind:value="word_val"></div>' +
+    '<div class="col-sm-6">' +
+    '<input type="text" class="translate_input" :id="translate_input_id" style="width: 70%" ' +
+    'placeholder="Enter translation or definition" v-bind:value="translate_val">' +
+    '<span :id="translate_span_id" class="t_e_span" v-on:click="setTranslation" style="cursor: pointer">' +
+    '<input type="text" v-on:click="setTranslation" :id="translate_example_id" class="translate_example" ' +
+    'style="cursor: pointer;width: 70%;margin-top:5px;"></span>' +
+    '</div>' +
+    '</div>',
 
     props: {
       span_class: {
@@ -858,7 +858,6 @@
     background: #e9ecef;
   }
 
-
   #public_checkbox {
     cursor: pointer;
     position: absolute;
@@ -967,7 +966,6 @@
     border: transparent;
   }
 
-
   .newword_div {
     margin-bottom: 15px;
   }
@@ -1035,7 +1033,6 @@
     position: absolute;
   }
 
-
   @media all and (min-width: 769px) and (max-width: 1024px) {
     #public_checkbox {
       width: 2vw;
@@ -1070,7 +1067,6 @@
       font-size: 20px;
     }
   }
-
 
   /***********************************************/
 

@@ -156,11 +156,9 @@
                     showCancelButton: true
                   }).then((value) => {
                     if (value.value == true) {
-                      router.push('/');
-                      router.push('myModule/' + response.data.moduleId);
+                      router.push('../myModule/' + response.data.moduleId);
                     } else {
-                      router.push('/');
-                      router.push('allModules');
+                      router.push('../allModules');
                     }
                   })
                 }
