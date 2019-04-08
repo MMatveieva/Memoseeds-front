@@ -218,23 +218,7 @@
       getUserInfo: function () {
         this.creditsNumber = this.$cookies.get('userCredits');
         this.userName = this.$cookies.get('userName');
-        let config = {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': this.$cookies.get('user_session')
-          }
-        };
-        let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/getImage';
-        axios.get(pass, config)
-          .then(response => {
-            this.userIMG = response.data;
-          })
-          .catch(error => {
-            console.log(error);
-            alert("Error occurred during loading modules. Please try again");
-          });
+        this.userIMG = 'https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/getImage';;
         // this.userIMG = "https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/"+1+"/getImage"
       },
 
@@ -261,7 +245,31 @@
 
       loadPhoto: function () {
         this.getBase64(this.file).then(
-          data => console.log(data)
+          data => function (){
+            let config = {
+              headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': this.$cookies.get('user_session')
+              }
+            };
+            let pass = 'https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/setImage';
+            let info = {
+              Description: "new photo",
+              ImageData : data
+            };
+
+            axios.post(pass, info, config)
+              .then(response => {
+                this.userIMG = 'https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/getImage';;
+
+              })
+              .catch(error => {
+                console.log(error);
+                alert("Error occurred during loading modules. Please try again");
+              });
+          }
         );
 
         // this.userIMG = localStorage.getItem('img');
