@@ -347,7 +347,7 @@
   }
 
   .wide {
-    width: 210px;
+    width: 220px;
   }
 
 </style>
