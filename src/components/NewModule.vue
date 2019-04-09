@@ -9,7 +9,7 @@
         Please, try again later</h1></div>
       <form v-bind:style="{display: form_display}" style="user-select: none" id="new_set_form" onsubmit="return false">
         <div class="container">
-          <h2 style="color: #12496d">{{title}}</h2>
+          <h2 style="color: #12496d; margin-bottom: 13px">{{title}}</h2>
           <div class="row" style="margin-bottom: 15px">
             <div class="col-sm-3">
               <input id="name" type="text" placeholder="Name" required>
