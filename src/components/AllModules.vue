@@ -1,82 +1,82 @@
 <template>
   <div>
     <Header></Header>
+    <div class="page-wrapper">
+      <div class="vld-parent">
+        <loading :active.sync="isLoading"
+                 :can-cancel="false"
+                 :is-full-page="true"
+                 :color="color">
+        </loading>
+      </div>
 
-    <div class="vld-parent">
-      <loading :active.sync="isLoading"
-               :can-cancel="false"
-               :is-full-page="true"
-               :color="color">
-      </loading>
-    </div>
+      <div class="filter-form">
+        <div class="row">
+          <div class="col-sm-3 info-part">
+            <h2 class="filter-title">Filter</h2>
+          </div>
 
-    <div class="filter-form">
-      <div class="row">
-        <div class="col-sm-3 info-part">
-          <h2 class="filter-title">Filter</h2>
-        </div>
+          <div class="col-sm-9 actions-part">
+            <div class="row">
+              <div class="col-sm-4 subject-filter-wrapper">
+                <b-form-select v-model="selected_subject" :options="subjectsTitles"
+                               v-on:change="selectSubject"></b-form-select>
+              </div>
+              <div class="col-sm-4 category-filter-wrapper">
+                <b-form-select v-model="selected_category" :options="categoryTitles"
+                               v-bind:disabled="noSubject">
+                </b-form-select>
 
-        <div class="col-sm-9 actions-part">
-          <div class="row">
-            <div class="col-sm-4 subject-filter-wrapper">
-              <b-form-select v-model="selected_subject" :options="subjectsTitles"
-                             v-on:change="selectSubject"></b-form-select>
-            </div>
-            <div class="col-sm-4 category-filter-wrapper">
-              <b-form-select v-model="selected_category" :options="categoryTitles"
-                             v-bind:disabled="noSubject">
-              </b-form-select>
-
-            </div>
-            <div class="col-sm-1 price-filter-wrapper">
-              <b-form-checkbox
-                id="price-checkbox"
-                v-model="status"
-                name="checkbox-1"
-                value="true"
-                unchecked-value="paid">
-                Free
-              </b-form-checkbox>
-            </div>
-            <div class="col-sm-3 btn-container">
-              <button type="submit" class="btn action-btn" v-on:click="filterClick">
-                SEARCH
-              </button>
+              </div>
+              <div class="col-sm-1 price-filter-wrapper">
+                <b-form-checkbox
+                  id="price-checkbox"
+                  v-model="status"
+                  name="checkbox-1"
+                  value="true"
+                  unchecked-value="paid">
+                  Free
+                </b-form-checkbox>
+              </div>
+              <div class="col-sm-3 btn-container">
+                <button type="submit" class="btn action-btn" v-on:click="filterClick">
+                  SEARCH
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="shop-wrapper" v-bind:class="{hidden: !isShop}">
-      <ShopModule
-        v-for="subject in subjects"
-        v-bind:key="subject.subjectId"
-        v-bind:subject="subject"
-        v-bind:subjectName="subject.subjectName"
-        v-bind:modules="subject.modules">
-      </ShopModule>
-    </div>
+      <div class="shop-wrapper" v-bind:class="{hidden: !isShop}">
+        <ShopModule
+          v-for="subject in subjects"
+          v-bind:key="subject.subjectId"
+          v-bind:subject="subject"
+          v-bind:subjectName="subject.subjectName"
+          v-bind:modules="subject.modules">
+        </ShopModule>
+      </div>
 
-    <div class="filter-wrapper" v-bind:class="{hidden: isFilter}">
-      <div class="no-results" v-bind:class="{hidden: isFilterRes}">Nothing found.</div>
-      <SubjectModule
-        v-for="module in filterModules"
-        v-bind:key="module.moduleId"
-        v-bind:module="module"
-        v-bind:title="module.title"
-        v-bind:wordsInModule="module.wordsInModule"
-        v-bind:words="module.words"
-        v-bind:id="module.moduleId">
-      </SubjectModule>
+      <div class="filter-wrapper" v-bind:class="{hidden: isFilter}">
+        <div class="no-results" v-bind:class="{hidden: isFilterRes}">Nothing found.</div>
+        <SubjectModule
+          v-for="module in filterModules"
+          v-bind:key="module.moduleId"
+          v-bind:module="module"
+          v-bind:title="module.title"
+          v-bind:wordsInModule="module.wordsInModule"
+          v-bind:words="module.words"
+          v-bind:id="module.moduleId">
+        </SubjectModule>
 
-      <div class="go-to-shop">
-        <button type="button" class="go-btn" v-on:click="backClick">
-          GO BACK
-        </button>
+        <div class="go-to-shop">
+          <button type="button" class="go-btn" v-on:click="backClick">
+            GO BACK
+          </button>
+        </div>
       </div>
     </div>
-
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
     </div>
@@ -308,6 +308,10 @@
 </script>
 
 <style scoped>
+  .page-wrapper{
+    position: relative;
+  }
+
   .info-part {
     background: #acd8c7;
     color: #ffffff;
@@ -327,7 +331,7 @@
   }
 
   .filter-wrapper {
-    min-height: 345px;
+    /*min-height: 345px;*/
   }
 
   .filter-form {
