@@ -49,10 +49,9 @@
             <!--<v-facebook-login app-id="363509570928956"></v-facebook-login>-->
             <facebook-login class="facebook-btn"
                             appId="363509570928956"
-                            @login="getUserData"
+                            @login="onLogin"
                             @logout="onLogout"
-                            @get-initial-status="getUserData"
-                            v-on:click="btnClick">
+                            @sdk-loaded="sdkLoaded">
             </facebook-login>
           </div>
 
