@@ -119,7 +119,34 @@
             this.personalID = userInformation.id;
             this.email = userInformation.email;
             this.name = userInformation.name;
-          }
+          },
+
+        axios.post('https://memeseeds.herokuapp.com/signup', {
+          "Username": this.name,
+          "Email": this.email,
+          "Password": this.personalID
+        }, config)
+          .then(response => {
+            if (response.data.error != null) {
+              this.signUpError = false;
+              this.signUpError = response.data.error;
+            } else {
+              this.$cookies.config(60 * 60 * 2);
+              this.$cookies.set("user_session", response.data['token']);
+              this.$cookies.set("userName", response.data.info.username);
+              this.$cookies.set("userCredits", response.data.info.credits);
+              this.$cookies.set("userMail", response.data.info.email);
+              this.$cookies.set("userId", response.data.info.userId);
+              this.getCountry();
+              router.push('/allModules');
+            }
+          })
+          .catch(error => {
+            console.log(error);
+            this.signUpError = "Error occurred during Sign Up. Please, try again.";
+            this.signUpSuccess = false;
+          })
+
         )
       },
       sdkLoaded(payload) {
