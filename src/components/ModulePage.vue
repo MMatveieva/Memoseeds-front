@@ -140,7 +140,7 @@
         };
         let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/delete/modules/' +
           this.$route.params.id;
-        axios.post(pass, config)
+        axios.post(pass, {}, config)
           .then(response => {
             console.log(response.data);
             this.$swal({
