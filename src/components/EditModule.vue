@@ -438,7 +438,7 @@
     }
   });
 
-  let tweets = [];
+  var tweets = [];
 
   export default {
     name: "EditModule",
@@ -634,7 +634,7 @@
 
       },
       fill_words_and_translates() {
-
+        tweets.length = 0;
         var rsp_terms_length = this.edit_response.terms.length;
         //if length is <= 6 then simple for loop
         if (rsp_terms_length <= 6) {
