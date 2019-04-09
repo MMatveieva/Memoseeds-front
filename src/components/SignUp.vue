@@ -46,15 +46,23 @@
           <button id="signUp-btn" type="button" class="btn signUp-btn" v-on:click="btnClick">SIGN UP</button>
           <div>OR</div>
           <div class="facebook-btn">
-            <v-facebook-login app-id="363509570928956"></v-facebook-login>
+            <!--<v-facebook-login app-id="363509570928956"></v-facebook-login>-->
+            <facebook-login class="facebook-btn"
+                            appId="363509570928956"
+                            @login="getUserData"
+                            @logout="onLogout"
+                            @get-initial-status="getUserData"
+                            v-on:click="btnClick">
+            </facebook-login>
           </div>
-          <template>
-            <v-facebook-login-scope>
-              <button slot-scope="scope">
-                <!-- Compose HTML/CSS here, otherwise nothing will be rendered! -->
-              </button>
-            </v-facebook-login-scope>
-          </template>
+
+          <!--<template>-->
+            <!--<v-facebook-login-scope>-->
+              <!--<button slot-scope="scope">-->
+                <!--&lt;!&ndash; Compose HTML/CSS here, otherwise nothing will be rendered! &ndash;&gt;-->
+              <!--</button>-->
+            <!--</v-facebook-login-scope>-->
+          <!--</template>-->
         </form>
       </div>
     </div>
@@ -64,13 +72,17 @@
 <script>
   import axios from 'axios';
   import router from '../router';
-  import VFacebookLogin from 'vue-facebook-login-component'
+  // import VFacebookLogin from 'vue-facebook-login-component'
+  import facebookLogin from 'facebook-login-vuejs';
+
+
 
 
   export default {
     name: 'SignUp',
     components: {
-      VFacebookLogin
+      // VFacebookLogin,
+      facebookLogin
     },
     data() {
       return {
@@ -98,6 +110,32 @@
     },
 
     methods: {
+
+      // FB methods
+
+      getUserData() {
+        this.FB.api('/me', 'GET', { fields: 'id,name,email' },
+          userInformation => {
+          console.warn("user info",userInformation);
+            this.personalID = userInformation.id;
+            this.email = userInformation.email;
+            this.name = userInformation.name;
+          }
+        )
+      },
+      sdkLoaded(payload) {
+        this.isConnected = payload.isConnected
+        this.FB = payload.FB
+        if (this.isConnected) this.getUserData()
+      },
+      onLogin() {
+        this.isConnected = true
+        this.getUserData()
+      },
+      onLogout() {
+        this.isConnected = false;
+      },
+
       nameEdit: function () {
         this.noName = true;
         this.nameOk = true;
