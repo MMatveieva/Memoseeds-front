@@ -113,6 +113,13 @@
       // FB methods
 
       getUserData() {
+
+        let config = {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        };
+
         this.FB.api('/me', 'GET', { fields: 'id,name,email' },
           userInformation => {
           console.warn("user info",userInformation);
@@ -121,7 +128,9 @@
             this.name = userInformation.name;
           },
 
-        axios.post('https://memeseeds.herokuapp.com/signup', {
+
+
+        axios.post('https://memeseeds.herokuapp.com/fbsignup', {
           "Username": this.name,
           "Email": this.email,
           "Password": this.personalID
