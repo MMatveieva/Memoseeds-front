@@ -105,10 +105,8 @@
 
       let config = {
         headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer' + this.$cookies.get('user_session')
+          'Authorization': 'Bearer ' + this.$cookies.get('user_session')
         }
       };
       axios.post('https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/has/module/'
@@ -136,10 +134,8 @@
       deleteClick: function () {
         let config = {
           headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + this.$cookies.get('user_session')
+            'Authorization': 'Bearer ' + this.$cookies.get('user_session')
           }
         };
         let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/delete/modules/' +
@@ -182,10 +178,8 @@
       getModuleInfo: function () {
         let config = {
           headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + this.$cookies.get('user_session')
+            'Authorization': 'Bearer ' + this.$cookies.get('user_session')
           }
         };
         let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules/' +

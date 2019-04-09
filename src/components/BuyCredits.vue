@@ -130,10 +130,8 @@
       let cur = this.$cookies.get('country');
       let config = {
         headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer' + this.$cookies.get('user_session')
+          'Authorization': 'Bearer ' + this.$cookies.get('user_session')
         }
       };
       axios.post('https://memeseeds.herokuapp.com/purchase/options', {"country": cur}, config)

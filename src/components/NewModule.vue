@@ -325,10 +325,8 @@
           //send on server
           let config = {
             headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Accept': 'application/json',
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer' + this.$cookies.get('user_session')
+              'Authorization': 'Bearer ' + this.$cookies.get('user_session')
             }
           };
 
@@ -411,10 +409,8 @@
       document.body.className = 'inside';
       let config = {
         headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Accept': 'subjectsapplication/json',
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer' + this.$cookies.get('user_session')
+          'Authorization': 'Bearer ' + this.$cookies.get('user_session')
         }
       };
 
@@ -569,10 +565,8 @@
 
         let config = {
           headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + this.$cookies.get('user_session')
+            'Authorization': 'Bearer ' + this.$cookies.get('user_session')
           }
         };
 
@@ -633,10 +627,8 @@
           //send on server
           let config = {
             headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Accept': 'application/json',
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer' + this.$cookies.get('user_session')
+              'Authorization': 'Bearer ' + this.$cookies.get('user_session')
             }
           };
 

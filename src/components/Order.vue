@@ -81,32 +81,28 @@
         },
         errors: [],
         stripePublishableKey: 'pk_test_ob6s7KZxZU1mouJbbsuFBjEe',
-        stripeCheck: false,
-        config: null
+        stripeCheck: false
       }
-    },
-    beforeCreate() {
-      this.config = {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer' + this.$cookies.get('user_session')
-        }
-      };
     },
     created() {
       this.getOrderInfo()
     },
     methods: {
       getOrderInfo: function () {
-        axios.post('https://memeseeds.herokuapp.com/purchase/option', {purchaseId: this.$route.params.id}, this.config)
+        let config = {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.$cookies.get('user_session')
+          }
+        }
+        axios.post('https://memeseeds.herokuapp.com/purchase/option', {purchaseId: this.$route.params.id}, config)
           .then(response => {
             this.order.credits = response.data.credits;
             this.order.amount = response.data.price.amount;
             this.order.currency = response.data.price.currency;
           })
           .catch((error) => {
+            console.log(this.config);
             console.error(error);
           });
       },
@@ -147,7 +143,13 @@
               userId: this.$cookies.get('userId')
             };
             const path = 'https://memeseeds.herokuapp.com/purchase/checkout';
-            axios.post(path, payload, this.config)
+            let config = {
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.$cookies.get('user_session')
+              }
+            }
+            axios.post(path, payload, config)
               .then(response => {
                 if (response.data.charge.paid) {
                   this.$cookies.set('userCredits', response.data.updatedUserCredits);

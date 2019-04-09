@@ -117,10 +117,8 @@
 
           let config = {
             headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Accept': 'application/json',
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer' + this.$cookies.get('user_session')
+              'Authorization': 'Bearer ' + this.$cookies.get('user_session')
             }
           };
           let pass = 'https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/username';
@@ -148,10 +146,8 @@
         } else {
           let config = {
             headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Accept': 'application/json',
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer' + this.$cookies.get('user_session')
+              'Authorization': 'Bearer ' + this.$cookies.get('user_session')
             }
           };
           let pass = 'https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/email';
@@ -174,10 +170,8 @@
       passwordChange: function () {
         let config = {
           headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + this.$cookies.get('user_session')
+            'Authorization': 'Bearer ' + this.$cookies.get('user_session')
           }
         };
         let pass = 'https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/password';
@@ -224,10 +218,8 @@
       getUserModules: function () {
         let config = {
           headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': this.$cookies.get('user_session')
+            'Authorization': 'Bearer ' + this.$cookies.get('user_session')
           }
         };
         let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get('userId') + '/modules';
@@ -250,10 +242,8 @@
       sendImage: function (data) {
         let config = {
           headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': this.$cookies.get('user_session')
+            'Authorization': 'Bearer ' + this.$cookies.get('user_session')
           }
         };
         let pass = 'https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/setImage';

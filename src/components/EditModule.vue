@@ -348,10 +348,8 @@
           //send on server
           let config = {
             headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Accept': 'application/json',
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer' + this.$cookies.get('user_session')
+              'Authorization': 'Bearer ' + this.$cookies.get('user_session')
             }
           };
 
@@ -451,16 +449,14 @@
 
       let config = {
         headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Accept': 'subjectsapplication/json',
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer' + this.$cookies.get('user_session')
+          'Authorization': 'Bearer ' + this.$cookies.get('user_session')
         }
       };
 
       var userId = this.$cookies.get('userId');
       var moduleId = this.moduleId;
-      axios.get('https://cors-anywhehttps://memeseeds.herokuapp.com/user/' + userId + '/modules/' + moduleId, config)
+      axios.get('https://memeseeds.herokuapp.com/user/' + userId + '/modules/' + moduleId, config)
         .then(response => {
           //select subject
           this.selected_subject = response.data.subject;

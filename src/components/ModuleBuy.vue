@@ -102,7 +102,7 @@
       setTimeout(() => {
         this.isLoading = false
       }, 1300);
-      
+
       this.getModuleInfo();
     },
 
@@ -110,10 +110,8 @@
       addClick: function () {
         let config = {
           headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + this.$cookies.get('user_session')
+            'Authorization': 'Bearer ' + this.$cookies.get('user_session')
           }
         };
         if (this.price == '0') {
