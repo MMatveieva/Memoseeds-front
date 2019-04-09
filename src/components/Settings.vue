@@ -117,8 +117,6 @@
 
           let config = {
             headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Accept': 'application/json',
               'Content-Type': 'application/json',
               'Authorization': 'Bearer' + this.$cookies.get('user_session')
             }
@@ -148,8 +146,6 @@
         } else {
           let config = {
             headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Accept': 'application/json',
               'Content-Type': 'application/json',
               'Authorization': 'Bearer' + this.$cookies.get('user_session')
             }
@@ -174,8 +170,6 @@
       passwordChange: function () {
         let config = {
           headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }
@@ -224,8 +218,6 @@
       getUserModules: function () {
         let config = {
           headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': this.$cookies.get('user_session')
           }
@@ -250,8 +242,6 @@
       sendImage: function (data) {
         let config = {
           headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': this.$cookies.get('user_session')
           }

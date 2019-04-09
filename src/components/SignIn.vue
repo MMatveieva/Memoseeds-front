@@ -101,8 +101,6 @@
 
         let config = {
           headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
           }
         };
@@ -113,7 +111,6 @@
         }, config)
           .then(response => {
             if (response.data.error != null) {
-              console.log(response.data.error);
               this.loginError = response.data.error;
               this.noLogin = false;
             } else {
