@@ -280,12 +280,10 @@
 
   .info-part {
     background: #acd8c7;
-    width: 20%;
     color: #ffffff;
     border-top-left-radius: 40px;
     border-bottom-left-radius: 40px;
     text-align: center;
-    align-content: center;
   }
 
   .info-part p {
@@ -320,7 +318,7 @@
     padding-top: 54px;
     padding-bottom: 40px;
     text-align: center;
-    flex: 0 0 70%;
+    flex: 0 0 60%;
   }
 
   .actions-part .action-btn {
