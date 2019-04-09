@@ -5,7 +5,8 @@
     <!--Add my components-->
 
     <div>
-      <div v-bind:style="{display: load_module_successfull_display}" style="text-align: center"><h1>Cannot load module. Please, try again later</h1></div>
+      <div v-bind:style="{display: load_module_successfull_display}" style="text-align: center"><h1>Cannot load module.
+        Please, try again later</h1></div>
       <form v-bind:style="{display: form_display}" style="user-select: none" id="new_set_form" onsubmit="return false">
         <div class="container">
           <h2 style="color: #12496d; margin-bottom: 13px">{{title}}</h2>
@@ -15,7 +16,8 @@
             </div>
             <div class="col-sm-3">
               <!--<input id="category" type="text" placeholder="Category...">-->
-              <b-form-select v-model="selected_category" :options="categoryTitles" v-bind:disabled="noSubject"></b-form-select>
+              <b-form-select v-model="selected_category" :options="categoryTitles"
+                             v-bind:disabled="noSubject"></b-form-select>
             </div>
             <div class="col-sm-3" id="language_check_div">
               <span>Language</span>
@@ -32,7 +34,8 @@
           <div class="row">
             <div class="col-sm-3">
               <!--<input id="subject" type="text" placeholder="Subject...">-->
-              <b-form-select id='subj_select' v-bind:value="selected_subject" :options="subjectsTitles" v-on:change="selectSubject"></b-form-select>
+              <b-form-select id='subj_select' v-bind:value="selected_subject" :options="subjectsTitles"
+                             v-on:change="selectSubject"></b-form-select>
             </div>
             <div class="col-sm-3 row" id="public_check_div">
 
@@ -45,7 +48,8 @@
 
               <div id="price_div" v-bind:style="{display: price_div_display}" class="col-sm-6"
                    style="padding-right: 0; padding-left: 0; display: none;">
-                <input :disabled="price_disabled" id="price" type="number" v-bind:value="price_value" placeholder="Price">
+                <input :disabled="price_disabled" id="price" type="number" v-bind:value="price_value"
+                       placeholder="Price">
                 <div style="display: inline; margin-left: 5px">
                   <img id="coin" src="../css/images/coin.png">
                 </div>
@@ -143,14 +147,17 @@
           <div id="words">
             <!--filling by for each loop-->
             <div class="row newword_div">
-              <div class="col-sm-6"><span class="word_index_1">1. </span><input :data-termid="terms[0][2]" v-on:keyup='asynctranslation'
+              <div class="col-sm-6"><span class="word_index_1">1. </span><input :data-termid="terms[0][2]"
+                                                                                v-on:keyup='asynctranslation'
                                                                                 type="text"
                                                                                 class="word_input" id="word_1"
-                                                                                style="width: 70%" v-bind:value="terms[0][0]"
+                                                                                style="width: 70%"
+                                                                                v-bind:value="terms[0][0]"
                                                                                 placeholder="Enter a word or term">
               </div>
               <div class="col-sm-6">
-                <input type="text" class="translate_input" v-on:keyup="check_translation" id="translate_1" style="width: 70%"
+                <input type="text" class="translate_input" v-on:keyup="check_translation" id="translate_1"
+                       style="width: 70%"
                        placeholder="Enter translation or definition" v-bind:value="terms[0][1]">
                 <span id="t_e_span_1" class="t_e_span" v-on:click="setTranslation" style="cursor: pointer">
                   <input type="text" id="translate_example_1" class="translate_example"
@@ -159,14 +166,17 @@
               </div>
             </div>
             <div class="row newword_div">
-              <div class="col-sm-6"><span class="word_index_2">2. </span><input :data-termid="terms[1][2]" v-on:keyup='asynctranslation'
+              <div class="col-sm-6"><span class="word_index_2">2. </span><input :data-termid="terms[1][2]"
+                                                                                v-on:keyup='asynctranslation'
                                                                                 type="text"
                                                                                 class="word_input" id="word_2"
-                                                                                style="width: 70%" v-bind:value="terms[1][0]"
+                                                                                style="width: 70%"
+                                                                                v-bind:value="terms[1][0]"
                                                                                 placeholder="Enter a word or term">
               </div>
               <div class="col-sm-6">
-                <input type="text" class="translate_input" v-on:keyup="check_translation" id="translate_2" style="width: 70%"
+                <input type="text" class="translate_input" v-on:keyup="check_translation" id="translate_2"
+                       style="width: 70%"
                        placeholder="Enter translation or definition" v-bind:value="terms[1][1]">
                 <span id="t_e_span_2" class="t_e_span" v-on:click="setTranslation" style="cursor: pointer">
                 <input type="text" id="translate_example_2" class="translate_example"
@@ -175,13 +185,16 @@
               </div>
             </div>
             <div class="row newword_div">
-              <div class="col-sm-6"><span class="word_index_3">3. </span><input :data-termid="terms[2][2]" v-on:keyup='asynctranslation'
+              <div class="col-sm-6"><span class="word_index_3">3. </span><input :data-termid="terms[2][2]"
+                                                                                v-on:keyup='asynctranslation'
                                                                                 type="text"
                                                                                 class="word_input" id="word_3"
-                                                                                style="width: 70%" v-bind:value="terms[2][0]"
+                                                                                style="width: 70%"
+                                                                                v-bind:value="terms[2][0]"
                                                                                 placeholder="Enter a word or term">
               </div>
-              <div class="col-sm-6"><input type="text" class="translate_input" v-on:keyup="check_translation" id="translate_3" style="width: 70%"
+              <div class="col-sm-6"><input type="text" class="translate_input" v-on:keyup="check_translation"
+                                           id="translate_3" style="width: 70%"
                                            placeholder="Enter translation or definition" v-bind:value="terms[2][1]">
                 <span id="t_e_span_3" class="t_e_span" v-on:click="setTranslation" style="cursor: pointer">
                 <input type="text" id="translate_example_3" class="translate_example"
@@ -190,13 +203,16 @@
               </div>
             </div>
             <div class="row newword_div">
-              <div class="col-sm-6"><span class="word_index_4">4. </span><input :data-termid="terms[3][2]" v-on:keyup='asynctranslation'
+              <div class="col-sm-6"><span class="word_index_4">4. </span><input :data-termid="terms[3][2]"
+                                                                                v-on:keyup='asynctranslation'
                                                                                 type="text"
                                                                                 class="word_input" id="word_4"
-                                                                                style="width: 70%" v-bind:value="terms[3][0]"
+                                                                                style="width: 70%"
+                                                                                v-bind:value="terms[3][0]"
                                                                                 placeholder="Enter a word or term">
               </div>
-              <div class="col-sm-6"><input type="text" class="translate_input" v-on:keyup="check_translation" id="translate_4" style="width: 70%"
+              <div class="col-sm-6"><input type="text" class="translate_input" v-on:keyup="check_translation"
+                                           id="translate_4" style="width: 70%"
                                            placeholder="Enter translation or definition" v-bind:value="terms[3][1]">
                 <span id="t_e_span_4" class="t_e_span" v-on:click="setTranslation" style="cursor: pointer">
                 <input type="text" id="translate_example_4" class="translate_example"
@@ -205,13 +221,16 @@
               </div>
             </div>
             <div class="row newword_div">
-              <div class="col-sm-6"><span class="word_index_5">5. </span><input :data-termid="terms[4][2]" v-on:keyup='asynctranslation'
+              <div class="col-sm-6"><span class="word_index_5">5. </span><input :data-termid="terms[4][2]"
+                                                                                v-on:keyup='asynctranslation'
                                                                                 type="text"
                                                                                 class="word_input" id="word_5"
-                                                                                style="width: 70%" v-bind:value="terms[4][0]"
+                                                                                style="width: 70%"
+                                                                                v-bind:value="terms[4][0]"
                                                                                 placeholder="Enter a word or term">
               </div>
-              <div class="col-sm-6"><input type="text" class="translate_input" v-on:keyup="check_translation" id="translate_5" style="width: 70%"
+              <div class="col-sm-6"><input type="text" class="translate_input" v-on:keyup="check_translation"
+                                           id="translate_5" style="width: 70%"
                                            placeholder="Enter translation or definition" v-bind:value="terms[4][1]">
                 <span id="t_e_span_5" class="t_e_span" v-on:click="setTranslation" style="cursor: pointer">
                 <input type="text" id="translate_example_5" class="translate_example"
@@ -220,13 +239,16 @@
               </div>
             </div>
             <div class="row newword_div">
-              <div class="col-sm-6"><span class="word_index_6">6. </span><input :data-termid="terms[5][2]" v-on:keyup='asynctranslation'
+              <div class="col-sm-6"><span class="word_index_6">6. </span><input :data-termid="terms[5][2]"
+                                                                                v-on:keyup='asynctranslation'
                                                                                 type="text"
                                                                                 class="word_input" id="word_6"
-                                                                                style="width: 70%" v-bind:value="terms[5][0]"
+                                                                                style="width: 70%"
+                                                                                v-bind:value="terms[5][0]"
                                                                                 placeholder="Enter a word or term">
               </div>
-              <div class="col-sm-6"><input type="text" class="translate_input" v-on:keyup="check_translation" id="translate_6" style="width: 70%"
+              <div class="col-sm-6"><input type="text" class="translate_input" v-on:keyup="check_translation"
+                                           id="translate_6" style="width: 70%"
                                            placeholder="Enter translation or definition" v-bind:value="terms[5][1]">
                 <span id="t_e_span_6" class="t_e_span" v-on:click="setTranslation" style="cursor: pointer">
                 <input type="text" v-on:click="setTranslation" id="translate_example_6" class="translate_example"
@@ -256,7 +278,8 @@
   import axios from 'axios';
   import Vue from 'vue';
   import Header from './Header'
-  Vue.component('tweet-component',{
+
+  Vue.component('tweet-component', {
     template: '<div class="row newword_div">' +
       '<div class="col-sm-6">' +
       '<span :class="tweet.span_class">{{tweet.number}}. </span>' +
@@ -305,27 +328,27 @@
         type: String
       }
     },
-    data () {
+    data() {
       return {
         bar: 'Bar'
       }
-    },methods: {
-      check_translation: function(evt){
-          var typed_div = evt.target.id;
-          var type_div_num = typed_div.match(/\d/g).join('');
+    }, methods: {
+      check_translation: function (evt) {
+        var typed_div = evt.target.id;
+        var type_div_num = typed_div.match(/\d/g).join('');
 
-          // //text for translation
-          var entering_line = document.getElementById("translate_" + type_div_num).value;
-          var translation_example = document.getElementById("translate_example_" + type_div_num).value;
-          if(entering_line != '' && !(translation_example.includes(entering_line))){
+        // //text for translation
+        var entering_line = document.getElementById("translate_" + type_div_num).value;
+        var translation_example = document.getElementById("translate_example_" + type_div_num).value;
+        if (entering_line != '' && !(translation_example.includes(entering_line))) {
+          document.getElementById("translate_example_" + type_div_num).style.display = 'none';
+        } else {
+          if (translation_example.length == entering_line.length) {
             document.getElementById("translate_example_" + type_div_num).style.display = 'none';
-          }else{
-            if(translation_example.length == entering_line.length){
-              document.getElementById("translate_example_" + type_div_num).style.display = 'none';
-            }else{
-              document.getElementById("translate_example_" + type_div_num).style.display = 'block';
-            }
+          } else {
+            document.getElementById("translate_example_" + type_div_num).style.display = 'block';
           }
+        }
       },
       asynctranslation: function (evt) {
 
@@ -425,8 +448,8 @@
         tweets,
         load_module_successfull_display: 'none',
         form_display: 'block',
-        title:'Edit Set',
-        create_btn_title:'EDIT SET',
+        title: 'Edit Set',
+        create_btn_title: 'EDIT SET',
         moduleId: '',
         filterResponse: [],
         subjectsTitles: [],
@@ -443,17 +466,17 @@
         price_div_display: "none",
         public_check_visibility: 'hidden',
         public_check_disabled: true,
-        terms:[['','',''],['','',''],['','',''],['','',''],['','',''],['','','']]
+        terms: [['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['', '', '']]
       }
     },
     created: function () {
       document.body.className = 'inside';
       var path = this.$route.path.split('/');
-      if(isNaN(path[path.length - 1])){
+      if (isNaN(path[path.length - 1])) {
         this.load_module_successfull_display = 'block';
         this.form_display = 'none';
         return;
-      }else{
+      } else {
         this.moduleId = path[path.length - 1];
       }
 
@@ -474,7 +497,7 @@
           //select category
           this.selected_category = response.data.category;
           this.edit_response = response.data.module;
-      this.is_Author = (response.data.module.userId == userId)? true: false;
+          this.is_Author = (response.data.module.userId == userId) ? true : false;
 
           //test data
           // this.is_Author = true;
@@ -553,32 +576,32 @@
         this.name_value = this.edit_response.name;
 
         // 3) if is public(not islocal) then set public_check + price + subject + category
-        if(this.edit_response.isLocal){
+        if (this.edit_response.isLocal) {
           // 4) else if not public (is local) then if subject/category are set => then set them
           //subject and category
-          var s1 = (this.selected_subject == 'default')?
+          var s1 = (this.selected_subject == 'default') ?
             {
-            value: 'default',
-            text: 'Subject'
-          }: {
-            value: this.selected_subject,
-            text: this.selected_subject
-          };
+              value: 'default',
+              text: 'Subject'
+            } : {
+              value: this.selected_subject,
+              text: this.selected_subject
+            };
 
           this.subjectsTitles.push(s1);
 
           //select category
-          var t1 = (this.selected_category == 'default')?
+          var t1 = (this.selected_category == 'default') ?
             {
               value: 'default',
               text: 'Category'
-            }: {
+            } : {
               value: this.selected_category,
               text: this.selected_category
             };
           this.categoryTitles.push(t1);
 
-        }else{
+        } else {
           //price
           this.price_value = this.edit_response.price;
           this.price_div_display = "block";
@@ -603,51 +626,51 @@
 
         //if is author
 
-        if(this.is_Author){
+        if (this.is_Author) {
           this.price_disabled = false;
         }
         //set terms
         this.fill_words_and_translates();
 
       },
-    fill_words_and_translates(){
+      fill_words_and_translates() {
 
-      var rsp_terms_length = this.edit_response.terms.length;
-      //if length is <= 6 then simple for loop
-      if(rsp_terms_length <= 6){
-        for (var index = 0; index < rsp_terms_length; index++){
-          this.terms[index][0] = this.edit_response.terms[index].name;
-          this.terms[index][1] = this.edit_response.terms[index].definition;
-          this.terms[index][2] = this.edit_response.terms[index].termId;
-        }
-      }else {
-        //for loop and add components
-        for (var index = 0; index < 6; index++) {
-          this.terms[index][0] = this.edit_response.terms[index].name;
-          this.terms[index][1] = this.edit_response.terms[index].definition;
-          this.terms[index][2] = this.edit_response.terms[index].termId;
-        }
+        var rsp_terms_length = this.edit_response.terms.length;
+        //if length is <= 6 then simple for loop
+        if (rsp_terms_length <= 6) {
+          for (var index = 0; index < rsp_terms_length; index++) {
+            this.terms[index][0] = this.edit_response.terms[index].name;
+            this.terms[index][1] = this.edit_response.terms[index].definition;
+            this.terms[index][2] = this.edit_response.terms[index].termId;
+          }
+        } else {
+          //for loop and add components
+          for (var index = 0; index < 6; index++) {
+            this.terms[index][0] = this.edit_response.terms[index].name;
+            this.terms[index][1] = this.edit_response.terms[index].definition;
+            this.terms[index][2] = this.edit_response.terms[index].termId;
+          }
 
-        for (var index = 6; index < rsp_terms_length; index++) {
-          var next_index = index + 1;
+          for (var index = 6; index < rsp_terms_length; index++) {
+            var next_index = index + 1;
 
-          tweets.push({
-            span_class: 'word_index_'+next_index,
+            tweets.push({
+              span_class: 'word_index_' + next_index,
               input_id: "word_" + next_index,
-            translate_input_id: "translate_" + next_index,
-            translate_span_id: "t_e_span_" + next_index,
-            translate_example_id: "translate_example_" + next_index,
-            word_val: this.edit_response.terms[index].name,
-            translate_val: this.edit_response.terms[index].definition,
-            termId: this.edit_response.terms[index].termId,
-            number: next_index
-          });
+              translate_input_id: "translate_" + next_index,
+              translate_span_id: "t_e_span_" + next_index,
+              translate_example_id: "translate_example_" + next_index,
+              word_val: this.edit_response.terms[index].name,
+              translate_val: this.edit_response.terms[index].definition,
+              termId: this.edit_response.terms[index].termId,
+              number: next_index
+            });
 
-          this.number++;
+            this.number++;
+          }
+
         }
-
-      }
-    },
+      },
       addNewWordComponent: function () {
         var num = this.number;
         var span_class = "word_index_" + num;
@@ -657,7 +680,7 @@
         var translate_example_id = "translate_example_" + num;
 
         tweets.push({
-          span_class: 'word_index_'+num,
+          span_class: 'word_index_' + num,
           input_id: "word_" + num,
           translate_input_id: "translate_" + num,
           translate_span_id: "t_e_span_" + num,
@@ -675,33 +698,33 @@
         var price = document.getElementById("price").value;
 
         // check if module is private or public
-        if(this.is_Author){
+        if (this.is_Author) {
           if (public_checkbox_visibility_status == "visible") {
-            if(name == ''){
+            if (name == '') {
               alert('Enter name!');
               return;
             }
-            if(this.selected_subject == 'default'){
+            if (this.selected_subject == 'default') {
               alert('Choose subject!');
               return;
             }
-            if(this.selected_category == 'default'){
+            if (this.selected_category == 'default') {
               alert('Choose category!');
               return;
             }
 
-            if(price == ''){
+            if (price == '') {
               alert('Enter price!');
               return;
             }
             this.editSet();
-          }else{
-            if(name != ''){
+          } else {
+            if (name != '') {
               this.editSet();
             }
           }
-        }else{
-          if(name != ''){
+        } else {
+          if (name != '') {
             this.editSet();
           }
         }
@@ -719,16 +742,16 @@
         var public_checkbox = document.getElementById("public_check_sign");
         var public_checkbox_visibility_status = window.getComputedStyle(public_checkbox).getPropertyValue('visibility');
         price = document.getElementById("price").value;
-        if(this.is_Author){
+        if (this.is_Author) {
           //if public or not
           if (public_checkbox_visibility_status == "visible" && price != "") {
             isLocal = 0;
-          }else{
+          } else {
             isLocal = 1;
             price = 0;
           }
           category = this.selected_category;
-        }else{
+        } else {
           isLocal = this.edit_response.isLocal;
           price = this.edit_response.price;
           category = this.selected_category;
@@ -739,12 +762,12 @@
         //getting all words with filled translations
         var num_of_word_divs = document.getElementById("words").childElementCount;
 
-        for(var i = 1; i <= num_of_word_divs; i++){
-          var word = document.getElementById('word_'+ i + '').value;
+        for (var i = 1; i <= num_of_word_divs; i++) {
+          var word = document.getElementById('word_' + i + '').value;
           var translate = document.getElementById('translate_' + i + '').value;
           var termId = document.getElementById('word_' + i + '').getAttribute('data-termid');
           if (word !== '' && translate !== '') {
-            termId = (termId == '' || termId == null)? '0':termId;
+            termId = (termId == '' || termId == null) ? '0' : termId;
             var term = {
               "TermId": termId,
               "Name": word,
@@ -756,7 +779,7 @@
         }
 
         // if terms object is empty
-        if(Object.keys(terms).length == 0){
+        if (Object.keys(terms).length == 0) {
           alert('Enter minimum one word with translation');
         }
 
@@ -799,19 +822,19 @@
 
         translate_example_element.style.display = "none";
       },
-      check_translation: function(evt){
+      check_translation: function (evt) {
         var typed_div = evt.target.id;
         var type_div_num = typed_div.match(/\d/g).join('');
 
         // //text for translation
         var entering_line = document.getElementById("translate_" + type_div_num).value;
         var translation_example = document.getElementById("translate_example_" + type_div_num).value;
-        if(entering_line != '' && !(translation_example.includes(entering_line))){
+        if (entering_line != '' && !(translation_example.includes(entering_line))) {
           document.getElementById("translate_example_" + type_div_num).style.display = 'none';
-        }else{
-          if(translation_example.length == entering_line.length){
+        } else {
+          if (translation_example.length == entering_line.length) {
             document.getElementById("translate_example_" + type_div_num).style.display = 'none';
-          }else{
+          } else {
             document.getElementById("translate_example_" + type_div_num).style.display = 'block';
           }
         }
@@ -904,7 +927,7 @@
         var public_checkbox = document.getElementById("public_check_sign");
         var public_checkbox_visibility_status = window.getComputedStyle(public_checkbox).getPropertyValue('visibility');
 
-        if(this.is_Author){
+        if (this.is_Author) {
           if (public_checkbox_visibility_status == "visible") {
             public_checkbox.style.visibility = "hidden";
             document.getElementById("price_div").style.display = "none";
@@ -914,46 +937,46 @@
             document.getElementById("price_div").style.display = "block";
             document.getElementById("price").setAttribute('required', 'required');
 
-            if(this.edit_response.isLocal){
+            if (this.edit_response.isLocal) {
               this.get_subjects_and_categories();
             }
           }
         }
       },
-    get_subjects_and_categories: function () {
-      let config = {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + this.$cookies.get('user_session')
-        }
-      };
-
-      axios.get('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/shop/subjects/categories', config)
-        .then(response => {
-          this.filterResponse = response.data;
-          let sb = Object.keys(this.filterResponse);
-          let k = {value: 'default', text: 'Subject'};
-          let sub = [k];
-          for (let i = 0; i < sb.length - 1; i++) {
-            if (sb[i] != 'default') {
-              let s1 = {
-                value: sb[i],
-                text: sb[i]
-              };
-              sub.push(s1);
-            }
+      get_subjects_and_categories: function () {
+        let config = {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.$cookies.get('user_session')
           }
+        };
 
-          this.subjectsTitles = sub;
-          this.noSubject = false;
-        })
-        .catch(error => {
-          this.load_module_successfull_display = 'block';
-          this.form_display = 'none';
-        });
+        axios.get('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/shop/subjects/categories', config)
+          .then(response => {
+            this.filterResponse = response.data;
+            let sb = Object.keys(this.filterResponse);
+            let k = {value: 'default', text: 'Subject'};
+            let sub = [k];
+            for (let i = 0; i < sb.length - 1; i++) {
+              if (sb[i] != 'default') {
+                let s1 = {
+                  value: sb[i],
+                  text: sb[i]
+                };
+                sub.push(s1);
+              }
+            }
 
-    },
-      selectSubject: function() {
+            this.subjectsTitles = sub;
+            this.noSubject = false;
+          })
+          .catch(error => {
+            this.load_module_successfull_display = 'block';
+            this.form_display = 'none';
+          });
+
+      },
+      selectSubject: function () {
         this.selected_subject = subj_select.value;
         if (this.edit_response.isLocal) {
           this.categoryTitles = [];
@@ -990,11 +1013,12 @@
 
 <style scoped>
 
-  input:disabled{
+  input:disabled {
     cursor: not-allowed;
     background: #e9ecef;
   }
-  select:disabled{
+
+  select:disabled {
     cursor: not-allowed;
     background: #e9ecef;
   }
@@ -1099,15 +1123,15 @@
     background: #f56e72 !important;
   }
 
-  >>>.word_input {
+  >>> .word_input {
     border-color: transparent;
   }
 
-  >>>.translate_input {
+  >>> .translate_input {
     border-color: transparent;
   }
 
-  >>>.translate_example {
+  >>> .translate_example {
     background: antiquewhite;
     display: none;
     pointer-events: none;
@@ -1177,13 +1201,10 @@
     font-size: 20px;
   }
 
-  #coin{
+  #coin {
     height: 90%;
     position: absolute;
   }
-
-
-
 
 
   @media all and (min-width: 769px) and (max-width: 1024px) {
@@ -1229,7 +1250,7 @@
     background-color: #bebfc0;
     color: white;
     letter-spacing: 5px;
-
+    position: relative;
     width: 100%;
     bottom: 0;
   }
