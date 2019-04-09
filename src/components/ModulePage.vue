@@ -142,6 +142,7 @@
           this.$route.params.id;
         axios.post(pass, config)
           .then(response => {
+            console.log(response.data);
             this.$swal({
               title: response.data.result,
               showCancelButton: false
