@@ -221,8 +221,8 @@
         let pass = 'https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/getImage';
         axios.get(pass, config)
           .then(response => {
-            console.log(response.data);
-            this.userIMG = "data:image/png;base64, "+this.getBase64(response.data);
+            // console.log(response.data);
+            this.userIMG =response.data;
           })
           .catch(error => {
             console.log(error);
