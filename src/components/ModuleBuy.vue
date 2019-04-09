@@ -188,8 +188,6 @@
       getModuleInfo: function () {
         let config = {
           headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': 'Bearer' + this.$cookies.get('user_session')
           }

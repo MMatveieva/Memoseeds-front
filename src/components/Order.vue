@@ -102,7 +102,6 @@
             this.order.currency = response.data.price.currency;
           })
           .catch((error) => {
-            console.log(this.config);
             console.error(error);
           });
       },

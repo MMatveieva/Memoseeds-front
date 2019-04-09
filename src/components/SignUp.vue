@@ -172,19 +172,18 @@
               this.signUpError = false;
               this.signUpError = response.data.error;
             } else {
-              console.log(response.data);
-              this.$cookies.set("user_session", response.data['token'], 60 * 60 * 2);
-              this.$cookies.set("userName", response.data.info.username, 60 * 60 * 2);
-              this.$cookies.set("userCredits", response.data.info.credits, 60 * 60 * 2);
-              this.$cookies.set("userMail", response.data.info.email, 60 * 60 * 2);
-              this.$cookies.set("userId", response.data.info.userId, 60 * 60 * 2);
+              this.$cookies.config(60 * 60 * 2);
+              this.$cookies.set("user_session", response.data['token']);
+              this.$cookies.set("userName", response.data.info.username);
+              this.$cookies.set("userCredits", response.data.info.credits);
+              this.$cookies.set("userMail", response.data.info.email);
+              this.$cookies.set("userId", response.data.info.userId);
               this.getCountry();
               router.push('/allModules');
             }
           })
           .catch(error => {
             console.log(error);
-            //console.log(this.name_signUp);
             this.signUpError = "Error occurred during Sign Up. Please, try again.";
             this.signUpSuccess = false;
           });

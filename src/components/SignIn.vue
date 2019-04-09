@@ -111,7 +111,6 @@
         }, config)
           .then(response => {
             if (response.data.error != null) {
-              console.log(response.data.error);
               this.loginError = response.data.error;
               this.noLogin = false;
             } else {
