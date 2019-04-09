@@ -1,42 +1,43 @@
 <template>
   <div>
-    <Header></Header>
-    <div class="sr-wrapper">
-      <div class="search-res-text">SEARCH RESULTS ON "{{searchInput}}"</div>
+    <div class="page-wrapper">
+      <Header></Header>
+      <div class="sr-wrapper">
+        <div class="search-res-text">SEARCH RESULTS ON "{{searchInput}}"</div>
 
-      <div class="my-models-wrapper">
-        <div class="title-text">My modules</div>
-        <RecentModule
-          v-for="module in myModules"
-          v-bind:key="module.moduleId"
-          v-bind:module="module"
-          v-bind:title="module.title"
-          v-bind:wordsInModule="module.wordsInModule"
-          v-bind:words="module.words"
-          v-bind:id="module.moduleId">
-        </RecentModule>
+        <div class="my-models-wrapper">
+          <div class="title-text">My modules</div>
+          <RecentModule
+            v-for="module in myModules"
+            v-bind:key="module.moduleId"
+            v-bind:module="module"
+            v-bind:title="module.title"
+            v-bind:wordsInModule="module.wordsInModule"
+            v-bind:words="module.words"
+            v-bind:id="module.moduleId">
+          </RecentModule>
+        </div>
+
+
+        <div class="all-models-wrapper">
+          <div class="title-text">All modules</div>
+          <SubjectModule
+            v-for="module in allModules"
+            v-bind:key="module.moduleId"
+            v-bind:module="module"
+            v-bind:title="module.title"
+            v-bind:wordsInModule="module.wordsInModule"
+            v-bind:words="module.words"
+            v-bind:id="module.moduleId">
+          </SubjectModule>
+        </div>
       </div>
-
-
-      <div class="all-models-wrapper">
-        <div class="title-text">All modules</div>
-        <SubjectModule
-          v-for="module in allModules"
-          v-bind:key="module.moduleId"
-          v-bind:module="module"
-          v-bind:title="module.title"
-          v-bind:wordsInModule="module.wordsInModule"
-          v-bind:words="module.words"
-          v-bind:id="module.moduleId">
-        </SubjectModule>
+      <div class="go-to-shop">
+        <router-link to="/allModules">
+          <button type="button" class="go-btn">GO TO ALL MODULES</button>
+        </router-link>
       </div>
     </div>
-    <div class="go-to-shop">
-      <router-link to="/allModules">
-        <button type="button" class="go-btn">GO TO ALL MODULES</button>
-      </router-link>
-    </div>
-
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
     </div>
@@ -139,8 +140,12 @@
 </script>
 
 <style scoped>
+  .page-wrapper {
+    position: relative;
+  }
+
   .sr-wrapper {
-    min-height: 368px;
+    /*min-height: 368px;*/
   }
 
   .search-res-text {
@@ -191,7 +196,7 @@
     background-color: #bebfc0;
     color: white;
     letter-spacing: 5px;
-    position: relative;
+    position: absolute;
     width: 100%;
     bottom: 0;
   }
