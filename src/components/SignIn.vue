@@ -121,6 +121,7 @@
               this.$cookies.set("userMail", response.data.info.email);
               this.$cookies.set("userId", response.data.info.userId);
               this.getCountry();
+              localStorage.setItem("img", response.data.info.img)
               router.push('/recent');
             }
           })
