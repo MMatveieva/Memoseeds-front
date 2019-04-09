@@ -212,22 +212,28 @@
       getUserInfo: function () {
         this.creditsNumber = this.$cookies.get('userCredits');
         this.userName = this.$cookies.get('userName');
+        if(localStorage.getItem("img")!= undefined){
+          this.userIMG = "data:image/png;base64, "+localStorage.getItem("img");
+        }
+        else{
+          let config = {
+            headers: {
+              'Authorization': 'Bearer ' + this.$cookies.get('user_session')
+            }
+          };
+          let pass = 'https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/getImage';
+          axios.get(pass, config)
+            .then(response => {
+              // this.userIMG = "data:image/png;base64, "+response.data.photo.fileContents;
+              this.userIMG = "data:image/png;base64, "+localStorage.getItem("img");
 
-        let config = {
-          headers: {
-            'Authorization': 'Bearer ' + this.$cookies.get('user_session')
-          }
-        };
-        let pass = 'https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/getImage';
-        axios.get(pass, config)
-          .then(response => {
-            console.log(response.data);
-            this.userIMG = "data:image/png;base64, "+response.data.photo.fileContents;
-          })
-          .catch(error => {
-            console.log(error);
-            alert("Error occurred during loading modules. Please try again");
-          });
+            })
+            .catch(error => {
+              console.log(error);
+              alert("Error occurred during loading modules. Please try again");
+            });
+        }
+
 
 
       },
@@ -268,6 +274,8 @@
           Description: "new photo",
           ImageData: data
         };
+        localStorage.clear();
+        localStorage.setItem('img', data);
         axios.post(pass, info, config)
           .then(response => {
             location.reload();
