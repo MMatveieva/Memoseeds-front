@@ -212,7 +212,23 @@
       getUserInfo: function () {
         this.creditsNumber = this.$cookies.get('userCredits');
         this.userName = this.$cookies.get('userName');
-        this.userIMG = 'https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/getImage';
+
+        let config = {
+          headers: {
+            'Authorization': 'Bearer ' + this.$cookies.get('user_session')
+          }
+        };
+        let pass = 'https://localhost:5001/' + this.$cookies.get('userId') + '/getImage';
+        axios.get(pass, config)
+          .then(response => {
+            this.userIMG = "data:image/png;base64,"+response.data.fileContents;
+          })
+          .catch(error => {
+            console.log(error);
+            alert("Error occurred during loading modules. Please try again");
+          });
+
+
       },
 
       getUserModules: function () {
