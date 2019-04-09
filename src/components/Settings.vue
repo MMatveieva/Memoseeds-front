@@ -175,20 +175,25 @@
           }
         };
         let pass = 'https://memeseeds.herokuapp.com/settings/' + this.$cookies.get('userId') + '/change/password';
-        axios.post(pass, {"Old": this.password, "New": this.password_new}, config)
-          .then(response => {
-            if (response.data.error != null) {
+        if (this.password_new >= 8) {
+          axios.post(pass, {"Old": this.password, "New": this.password_new}, config)
+            .then(response => {
+              if (response.data.error != null) {
+                this.noPassMatch = false;
+                this.passError = response.data.error;
+              } else {
+                console.log(response.data);
+              }
+            })
+            .catch(error => {
               this.noPassMatch = false;
-              this.passError = response.data.error;
-            } else {
-              console.log(response.data);
-            }
-          })
-          .catch(error => {
-            this.noPassMatch = false;
-            this.passError = "An error occured.";
-            console.log(error)
-          });
+              this.passError = "An error occured.";
+              console.log(error)
+            });
+        } else {
+          this.noPassMatch = false;
+          this.passError = "Password should have minimum 8 symbols.";
+        }
       },
 
       btnClick: function () {
@@ -212,10 +217,9 @@
       getUserInfo: function () {
         this.creditsNumber = this.$cookies.get('userCredits');
         this.userName = this.$cookies.get('userName');
-        if(localStorage.getItem("img")!= undefined){
-          this.userIMG = "data:image/png;base64, "+localStorage.getItem("img");
-        }
-        else{
+        if (localStorage.getItem("img") != undefined) {
+          this.userIMG = "data:image/png;base64, " + localStorage.getItem("img");
+        } else {
           let config = {
             headers: {
               'Authorization': 'Bearer ' + this.$cookies.get('user_session')
@@ -225,7 +229,7 @@
           axios.get(pass, config)
             .then(response => {
               // this.userIMG = "data:image/png;base64, "+response.data.photo.fileContents;
-              this.userIMG = "data:image/png;base64, "+localStorage.getItem("img");
+              this.userIMG = "data:image/png;base64, " + localStorage.getItem("img");
 
             })
             .catch(error => {
@@ -233,9 +237,6 @@
               alert("Error occurred during loading modules. Please try again");
             });
         }
-
-
-
       },
 
       getUserModules: function () {
