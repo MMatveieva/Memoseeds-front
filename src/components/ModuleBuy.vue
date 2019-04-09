@@ -188,8 +188,10 @@
       getModuleInfo: function () {
         let config = {
           headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + this.$cookies.get('user_session')
+            'Authorization': 'Bearer ' + this.$cookies.get('user_session')
           }
         };
         let pass = 'https://memeseeds.herokuapp.com/shop/modules/' + this.$route.params.id;
