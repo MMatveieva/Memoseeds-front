@@ -103,7 +103,7 @@
       this.isLoading = true;
       setTimeout(() => {
         this.isLoading = false
-      }, 1200);
+      }, 1000);
 
       let config = {
         headers: {
