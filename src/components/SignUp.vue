@@ -56,11 +56,11 @@
           </div>
 
           <!--<template>-->
-            <!--<v-facebook-login-scope>-->
-              <!--<button slot-scope="scope">-->
-                <!--&lt;!&ndash; Compose HTML/CSS here, otherwise nothing will be rendered! &ndash;&gt;-->
-              <!--</button>-->
-            <!--</v-facebook-login-scope>-->
+          <!--<v-facebook-login-scope>-->
+          <!--<button slot-scope="scope">-->
+          <!--&lt;!&ndash; Compose HTML/CSS here, otherwise nothing will be rendered! &ndash;&gt;-->
+          <!--</button>-->
+          <!--</v-facebook-login-scope>-->
           <!--</template>-->
         </form>
       </div>
@@ -73,8 +73,6 @@
   import router from '../router';
   // import VFacebookLogin from 'vue-facebook-login-component'
   import facebookLogin from 'facebook-login-vuejs';
-
-
 
 
   export default {
@@ -120,51 +118,49 @@
           }
         };
 
-        this.FB.api('/me', 'GET', { fields: 'id,name,email' },
+        this.FB.api('/me', 'GET', {fields: 'id,name,email'},
           userInformation => {
-          console.warn("user info",userInformation);
+            console.warn("user info", userInformation);
             this.personalID = userInformation.id;
             this.email = userInformation.email;
             this.name = userInformation.name;
           },
 
-
-
-        axios.post('https://memeseeds.herokuapp.com/fbsignup', {
-          "Username": this.name,
-          "Email": this.email,
-          "Password": this.personalID
-        }, config)
-          .then(response => {
-            if (response.data.error != null) {
-              this.signUpError = false;
-              this.signUpError = response.data.error;
-            } else {
-              this.$cookies.config(60 * 60 * 2);
-              this.$cookies.set("user_session", response.data['token']);
-              this.$cookies.set("userName", response.data.info.username);
-              this.$cookies.set("userCredits", response.data.info.credits);
-              this.$cookies.set("userMail", response.data.info.email);
-              this.$cookies.set("userId", response.data.info.userId);
-              this.getCountry();
-              router.push('/allModules');
-            }
-          })
-          .catch(error => {
-            console.log(error);
-            this.signUpError = "Error occurred during Sign Up. Please, try again.";
-            this.signUpSuccess = false;
-          })
-
+          axios.post('https://memeseeds.herokuapp.com/fbsignup', {
+            "Username": this.name,
+            "Email": this.email,
+            "Password": this.personalID
+          }, config)
+            .then(response => {
+              if (response.data.error != null) {
+                this.signUpError = false;
+                this.signUpError = response.data.error;
+              } else {
+                this.$cookies.config(60 * 60 * 2);
+                this.$cookies.set("user_session", response.data['token']);
+                this.$cookies.set("userName", response.data.info.username);
+                this.$cookies.set("userCredits", response.data.info.credits);
+                this.$cookies.set("userMail", response.data.info.email);
+                this.$cookies.set("userId", response.data.info.userId);
+                this.getCountry();
+                router.push('/allModules');
+              }
+            })
+            .catch(error => {
+              console.log(error);
+              this.signUpError = "Error occurred during Sign Up. Please, try again.";
+              this.signUpSuccess = false;
+            })
         )
       },
+
       sdkLoaded(payload) {
-        this.isConnected = payload.isConnected
-        this.FB = payload.FB
+        this.isConnected = payload.isConnected;
+        this.FB = payload.FB;
         if (this.isConnected) this.getUserData()
       },
       onLogin() {
-        this.isConnected = true
+        this.isConnected = true;
         this.getUserData()
       },
       onLogout() {
@@ -213,7 +209,8 @@
           this.noPassRep = false;
           this.passError1 = "Please repeat password.";
         }
-        if ((this.name_signUp !== "") && (this.email !== "") && (this.password !== "") && (this.password_confirmation !== "")) {
+        if ((this.name_signUp !== "") && (this.email !== "") && (this.password !== "") && (this.password_confirmation !== "")
+          && (this.password.length >= 8)) {
           if ((this.password === this.password_confirmation) && (this.nameOk))
             this.signUp();
           else {
