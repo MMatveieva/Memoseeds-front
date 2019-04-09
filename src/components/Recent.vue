@@ -1,29 +1,30 @@
 <template>
   <div>
-    <Header></Header>
+    <div class="page-wrapper">
+      <Header></Header>
 
-    <div class="recent-wrapper">
-      <div class="no-modules" v-bind:class="{hidden: notEmpty}">You don`t have any modules yet.</div>
+      <div class="recent-wrapper">
+        <div class="no-modules" v-bind:class="{hidden: notEmpty}">You don`t have any modules yet.</div>
 
-      <RecentModule
-        v-for="module in this.modules"
-        v-bind:key="module.moduleId"
-        v-bind:module="module"
-        v-bind:title="module.title"
-        v-bind:wordsInModule="module.wordsInModule"
-        v-bind:words="module.words"
-        v-bind:id="module.moduleId">
-      </RecentModule>
+        <RecentModule
+          v-for="module in this.modules"
+          v-bind:key="module.moduleId"
+          v-bind:module="module"
+          v-bind:title="module.title"
+          v-bind:wordsInModule="module.wordsInModule"
+          v-bind:words="module.words"
+          v-bind:id="module.moduleId">
+        </RecentModule>
+      </div>
+
+      <div class="go-to-shop">
+        <router-link to="/allModules">
+          <button type="button" class="go-btn">
+            GO TO ALL MODULES
+          </button>
+        </router-link>
+      </div>
     </div>
-
-    <div class="go-to-shop">
-      <router-link to="/allModules">
-        <button type="button" class="go-btn">
-          GO TO ALL MODULES
-        </button>
-      </router-link>
-    </div>
-
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
     </div>
@@ -116,9 +117,13 @@
 </script>
 
 <style scoped>
+  .page-wrapper {
+    position: relative;
+  }
+
   .recent-wrapper {
     margin-top: 20px;
-    min-height: 378px;
+    /*min-height: 378px;*/
   }
 
   .no-modules {
@@ -159,12 +164,12 @@
     background-color: #bebfc0;
     color: white;
     letter-spacing: 5px;
-    position: relative;
+    position: absolute;
     width: 100%;
     bottom: 0;
   }
 
-  .hidden{
+  .hidden {
     display: none;
   }
 

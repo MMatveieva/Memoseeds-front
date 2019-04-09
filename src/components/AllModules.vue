@@ -1,7 +1,8 @@
 <template>
   <div>
-    <Header></Header>
     <div class="page-wrapper">
+    <Header></Header>
+
       <div class="vld-parent">
         <loading :active.sync="isLoading"
                  :can-cancel="false"
@@ -401,7 +402,7 @@
 
   .shop-wrapper {
     margin-bottom: 20px;
-    min-height: 345px;
+    /*min-height: 345px;*/
   }
 
   /***********************************************/
@@ -435,7 +436,7 @@
     background-color: #bebfc0;
     color: white;
     letter-spacing: 5px;
-    position: relative;
+    position: absolute;
     width: 100%;
     bottom: 0;
     margin-top: 30px;

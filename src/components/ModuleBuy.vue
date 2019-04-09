@@ -1,57 +1,59 @@
 <template>
   <div>
-    <Header></Header>
-    <div class="vld-parent">
-      <loading :active.sync="isLoading"
-               :can-cancel="false"
-               :is-full-page="true"
-               :color="color">
-      </loading>
-    </div>
+    <div class="page-wrapper">
 
-    <div class="module-container">
-      <div class="settings-form">
-        <div class="row" style="width: 100%; margin: 0">
-          <div class="col-sm-4 info-part">
-            <h2 class="modules-title">{{moduleName}}</h2>
-            <div class="sub-cat">{{subjectName}}/{{categoryName}}</div>
-            <div class="modules-info">
-              <p>Number of words:</p>
-              <label id="modules">{{wordsNumber}}</label>
+      <Header></Header>
+      <div class="vld-parent">
+        <loading :active.sync="isLoading"
+                 :can-cancel="false"
+                 :is-full-page="true"
+                 :color="color">
+        </loading>
+      </div>
+
+      <div class="module-container">
+        <div class="settings-form">
+          <div class="row" style="width: 100%; margin: 0">
+            <div class="col-sm-4 info-part">
+              <h2 class="modules-title">{{moduleName}}</h2>
+              <div class="sub-cat">{{subjectName}}/{{categoryName}}</div>
+              <div class="modules-info">
+                <p>Number of words:</p>
+                <label id="modules">{{wordsNumber}}</label>
+              </div>
             </div>
-          </div>
-          <div class="col-sm-8 actions-part">
-            <button type="submit" class="btn action-btn" disabled="disabled">Learn</button>
-            <button type="submit" class="btn action-btn" disabled="disabled">Write</button>
-            <button type="submit" class="btn action-btn" disabled="disabled">Test</button>
-          </div>
+            <div class="col-sm-8 actions-part">
+              <button type="submit" class="btn action-btn" disabled="disabled">Learn</button>
+              <button type="submit" class="btn action-btn" disabled="disabled">Write</button>
+              <button type="submit" class="btn action-btn" disabled="disabled">Test</button>
+            </div>
 
+          </div>
         </div>
-      </div>
 
-      <div class="modules-words">
-        Words in this set:
-      </div>
-      <div class="words-wrapper">
+        <div class="modules-words">
+          Words in this set:
+        </div>
+        <div class="words-wrapper">
 
-        <Terms
-          v-for="term in this.terms"
-          v-bind:key="term.id"
-          v-bind:word="term.word"
-          v-bind:definition="term.definition"
-          v-bind:id="term.id"
-          v-bind:pos="term.pos">
-        </Terms>
-      </div>
+          <Terms
+            v-for="term in this.terms"
+            v-bind:key="term.id"
+            v-bind:word="term.word"
+            v-bind:definition="term.definition"
+            v-bind:id="term.id"
+            v-bind:pos="term.pos">
+          </Terms>
+        </div>
 
-      <div class="btn-container">
-        <button id="buttonBuy" type="button" class="btn add-btn" v-on:click="addClick" v-bind:class="{wide:toBuy}">
-          {{addOption}}
-        </button>
-      </div>
+        <div class="btn-container">
+          <button id="buttonBuy" type="button" class="btn add-btn" v-on:click="addClick" v-bind:class="{wide:toBuy}">
+            {{addOption}}
+          </button>
+        </div>
 
+      </div>
     </div>
-
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
     </div>
@@ -236,8 +238,12 @@
 </script>
 
 <style scoped>
+  .page-wrapper {
+    position: relative;
+  }
+
   .module-container {
-    min-height: 438px;
+    /*min-height: 438px;*/
   }
 
   .btn-container {
@@ -288,7 +294,7 @@
     margin-bottom: 0;
   }
 
-  .info-part .sub-cat{
+  .info-part .sub-cat {
     font-size: 13px;
     margin-bottom: 5px;
   }
@@ -352,7 +358,7 @@
     background-color: #bebfc0;
     color: white;
     letter-spacing: 5px;
-    position: relative;
+    position: absolute;
     width: 100%;
     bottom: 0;
   }

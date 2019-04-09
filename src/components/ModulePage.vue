@@ -1,7 +1,8 @@
 <template>
   <div>
-    <Header></Header>
     <div class="page-wrapper">
+      <Header></Header>
+
       <div class="vld-parent">
         <loading :active.sync="isLoading"
                  :can-cancel="false"
@@ -220,7 +221,7 @@
 </script>
 
 <style scoped>
-  .page-wrapper{
+  .page-wrapper {
     position: relative;
   }
 
