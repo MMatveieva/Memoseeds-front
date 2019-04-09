@@ -1089,10 +1089,14 @@
     border: none;
     width: 80%;
     padding-top: 4px;
-    background: #cd5c5cad;
+    background: #f59699;
     color: white;
     border-radius: 15px;
     margin-bottom: 30px;
+  }
+
+  #addmore_btn:hover {
+    background: #f56e72 !important;
   }
 
   >>>.word_input {

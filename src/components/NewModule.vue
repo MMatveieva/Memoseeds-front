@@ -5,7 +5,8 @@
     <!--Add my components-->
 
     <div>
-      <div v-bind:style="{display: load_module_successfull_display}" style="text-align: center"><h1>Cannot load module. Please, try again later</h1></div>
+      <div v-bind:style="{display: load_module_successfull_display}" style="text-align: center"><h1>Cannot load module.
+        Please, try again later</h1></div>
       <form v-bind:style="{display: form_display}" style="user-select: none" id="new_set_form" onsubmit="return false">
         <div class="container">
           <h2 style="color: #12496d">{{title}}</h2>
@@ -26,7 +27,7 @@
               </div>
             </div>
             <div class="col-sm-3">
-              <button id="create_btn" v-on:click="btnClick">{{create_btn_title}}</button>
+              <button type="submit" id="create_btn" v-on:click="btnClick">{{create_btn_title}}</button>
             </div>
           </div>
 
@@ -151,7 +152,8 @@
                                                                                 placeholder="Enter a word or term">
               </div>
               <div class="col-sm-6">
-                <input type="text" class="translate_input" v-on:keyup="check_translation" id="translate_1" style="width: 70%"
+                <input type="text" class="translate_input" v-on:keyup="check_translation" id="translate_1"
+                       style="width: 70%"
                        placeholder="Enter translation or definition">
                 <span id="t_e_span_1" class="t_e_span" v-on:click="setTranslation" style="cursor: pointer">
                   <input type="text" id="translate_example_1" class="translate_example"
@@ -167,7 +169,8 @@
                                                                                 placeholder="Enter a word or term">
               </div>
               <div class="col-sm-6">
-                <input type="text" class="translate_input"  v-on:keyup="check_translation"  id="translate_2" style="width: 70%"
+                <input type="text" class="translate_input" v-on:keyup="check_translation" id="translate_2"
+                       style="width: 70%"
                        placeholder="Enter translation or definition">
                 <span id="t_e_span_2" class="t_e_span" v-on:click="setTranslation" style="cursor: pointer">
                 <input type="text" id="translate_example_2" class="translate_example"
@@ -182,7 +185,8 @@
                                                                                 style="width: 70%"
                                                                                 placeholder="Enter a word or term">
               </div>
-              <div class="col-sm-6"><input type="text" class="translate_input"  v-on:keyup="check_translation"  id="translate_3" style="width: 70%"
+              <div class="col-sm-6"><input type="text" class="translate_input" v-on:keyup="check_translation"
+                                           id="translate_3" style="width: 70%"
                                            placeholder="Enter translation or definition">
                 <span id="t_e_span_3" class="t_e_span" v-on:click="setTranslation" style="cursor: pointer">
                 <input type="text" id="translate_example_3" class="translate_example"
@@ -197,7 +201,8 @@
                                                                                 style="width: 70%"
                                                                                 placeholder="Enter a word or term">
               </div>
-              <div class="col-sm-6"><input type="text" class="translate_input"  v-on:keyup="check_translation"  id="translate_4" style="width: 70%"
+              <div class="col-sm-6"><input type="text" class="translate_input" v-on:keyup="check_translation"
+                                           id="translate_4" style="width: 70%"
                                            placeholder="Enter translation or definition">
                 <span id="t_e_span_4" class="t_e_span" v-on:click="setTranslation" style="cursor: pointer">
                 <input type="text" id="translate_example_4" class="translate_example"
@@ -212,7 +217,8 @@
                                                                                 style="width: 70%"
                                                                                 placeholder="Enter a word or term">
               </div>
-              <div class="col-sm-6"><input type="text" class="translate_input"  v-on:keyup="check_translation"  id="translate_5" style="width: 70%"
+              <div class="col-sm-6"><input type="text" class="translate_input" v-on:keyup="check_translation"
+                                           id="translate_5" style="width: 70%"
                                            placeholder="Enter translation or definition">
                 <span id="t_e_span_5" class="t_e_span" v-on:click="setTranslation" style="cursor: pointer">
                 <input type="text" id="translate_example_5" class="translate_example"
@@ -227,8 +233,9 @@
                                                                                 style="width: 70%"
                                                                                 placeholder="Enter a word or term">
               </div>
-              <div class="col-sm-6"><input type="text" class="translate_input"  v-on:keyup="check_translation"  id="translate_6" style="width: 70%"
-                                           placeholder="Enter translation or definition" >
+              <div class="col-sm-6"><input type="text" class="translate_input" v-on:keyup="check_translation"
+                                           id="translate_6" style="width: 70%"
+                                           placeholder="Enter translation or definition">
                 <span id="t_e_span_6" class="t_e_span" v-on:click="setTranslation" style="cursor: pointer">
                 <input type="text" v-on:click="setTranslation" id="translate_example_6" class="translate_example"
                        style="cursor: pointer;width: 70%;margin-top:5px;">
@@ -239,7 +246,7 @@
           </div>
           <div class="row">
             <div class="offset-4 col-sm-3">
-              <button class="" id="addmore_btn" v-on:click="addNewWordComponent">Add more</button>
+              <button type="button" class="" id="addmore_btn" v-on:click="addNewWordComponent">Add more</button>
             </div>
           </div>
         </div>
@@ -259,18 +266,18 @@
 
   var Reusable = {
     template: '<div class="row newword_div">' +
-                '<div class="col-sm-6">' +
-                  '<span :class="span_class">{{number}}. </span>' +
-                    '<input v-on:keyup="asynctranslation" type="text" ' +
-                      'class="word_input" :id="input_id" style="width: 70%" placeholder="Enter a word or term"></div>' +
-                '<div class="col-sm-6">' +
-                  '<input type="text"  v-on:keyup="check_translation"  class="translate_input" :id="translate_input_id" style="width: 70%" ' +
-                      'placeholder="Enter translation or definition">' +
-                '<span :id="translate_span_id" class="t_e_span" v-on:click="setTranslation" style="cursor: pointer">' +
-                  '<input type="text" v-on:click="setTranslation" :id="translate_example_id" class="translate_example" ' +
-                    'style="cursor: pointer;width: 70%;margin-top:5px;"></span>' +
-                '</div>' +
-              '</div>',
+      '<div class="col-sm-6">' +
+      '<span :class="span_class">{{number}}. </span>' +
+      '<input v-on:keyup="asynctranslation" type="text" ' +
+      'class="word_input" :id="input_id" style="width: 70%" placeholder="Enter a word or term"></div>' +
+      '<div class="col-sm-6">' +
+      '<input type="text"  v-on:keyup="check_translation"  class="translate_input" :id="translate_input_id" style="width: 70%" ' +
+      'placeholder="Enter translation or definition">' +
+      '<span :id="translate_span_id" class="t_e_span" v-on:click="setTranslation" style="cursor: pointer">' +
+      '<input type="text" v-on:click="setTranslation" :id="translate_example_id" class="translate_example" ' +
+      'style="cursor: pointer;width: 70%;margin-top:5px;"></span>' +
+      '</div>' +
+      '</div>',
     props: {
       span_class: {
         type: String
@@ -294,24 +301,24 @@
         type: String
       }
     },
-    data () {
+    data() {
       return {
         bar: 'Bar'
       }
-    },methods: {
-      check_translation: function(evt){
+    }, methods: {
+      check_translation: function (evt) {
         var typed_div = evt.target.id;
         var type_div_num = typed_div.match(/\d/g).join('');
 
         // //text for translation
         var entering_line = document.getElementById("translate_" + type_div_num).value;
         var translation_example = document.getElementById("translate_example_" + type_div_num).value;
-        if(entering_line != '' && !(translation_example.includes(entering_line))){
+        if (entering_line != '' && !(translation_example.includes(entering_line))) {
           document.getElementById("translate_example_" + type_div_num).style.display = 'none';
-        }else{
-          if(translation_example.length == entering_line.length){
+        } else {
+          if (translation_example.length == entering_line.length) {
             document.getElementById("translate_example_" + type_div_num).style.display = 'none';
-          }else{
+          } else {
             document.getElementById("translate_example_" + type_div_num).style.display = 'block';
           }
         }
@@ -408,10 +415,11 @@
     name: "NewSet",
     components: {Header},
     data() {
-      return { load_module_successfull_display: 'none',
+      return {
+        load_module_successfull_display: 'none',
         form_display: 'block',
-        title:'Create new study set',
-        create_btn_title:'CREATE SET',
+        title: 'Create new study set',
+        create_btn_title: 'CREATE SET',
         filterResponse: [],
         subjectsTitles: [],
         selected_subject: 'default',
@@ -431,7 +439,7 @@
         }
       };
 
-      axios.get('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/shop/subjects/categories', config)
+      axios.get('https://memeseeds.herokuapp.com/shop/subjects/categories', config)
         .then(response => {
           this.filterResponse = response.data;
           let sb = Object.keys(this.filterResponse);
@@ -447,7 +455,6 @@
             }
           }
           this.subjectsTitles = sub;
-
         })
         .catch(error => {
           this.load_module_successfull_display = 'block';
@@ -455,7 +462,7 @@
         });
     },
     methods: {
-      addNewWordComponent () {
+      addNewWordComponent() {
         var num = this.number;
         var span_class = "word_index_" + num;
         var input_id = "word_" + num;
@@ -464,7 +471,7 @@
         var translate_example_id = "translate_example_" + num;
 
         const renderComponent = {
-          render (h) {
+          render(h) {
             return h(Reusable, {
               class: ['foo'],
               props: {
@@ -484,7 +491,7 @@
         this.items.push(renderComponent);
         this.number = ++num;
       },
-      selectSubject: function() {
+      selectSubject: function () {
         this.categoryTitles = [];
         if (this.selected_subject != 'default') {
           this.categoryTitles.push({value: 'default', text: 'Category'});
@@ -507,26 +514,26 @@
 
         // check if module is private or public
         if (public_checkbox_visibility_status == "visible") {
-          if(name == ''){
+          if (name == '') {
             alert('Enter name!');
             return;
           }
-          if(this.selected_subject == 'default'){
+          if (this.selected_subject == 'default') {
             alert('Choose subject!');
             return;
           }
-          if(this.selected_category == 'default'){
+          if (this.selected_category == 'default') {
             alert('Choose category!');
             return;
           }
 
-          if(price == ''){
+          if (price == '') {
             alert('Enter price!');
             return;
           }
           this.createSet();
-        }else{
-          if(name != ''){
+        } else {
+          if (name != '') {
             this.createSet();
           }
         }
@@ -548,18 +555,17 @@
         //if public or not
         if (public_checkbox_visibility_status == "visible" && price != "") {
           isLocal = false;
-        }else{
+        } else {
           isLocal = true;
           price = 0;
         }
 
-        var terms = {
-        };
+        var terms = {};
 
         //getting all words with filled translations
         var num_of_word_divs = document.getElementById("words").childElementCount;
-        for(var i = 1; i <= num_of_word_divs; i++){
-          var word = document.getElementById('word_'+ i + '').value;
+        for (var i = 1; i <= num_of_word_divs; i++) {
+          var word = document.getElementById('word_' + i + '').value;
           var translate = document.getElementById('translate_' + i + '').value;
           if (word !== '' && translate !== '') {
             terms[word] = translate;
@@ -567,7 +573,7 @@
         }
 
         // if terms object is empty
-        if(Object.keys(terms).length == 0){
+        if (Object.keys(terms).length == 0) {
           alert('Enter minimum one word with translation');
           return;
         }
@@ -611,19 +617,19 @@
 
         translate_example_element.style.display = "none";
       },
-      check_translation: function(evt){
+      check_translation: function (evt) {
         var typed_div = evt.target.id;
         var type_div_num = typed_div.match(/\d/g).join('');
 
         // //text for translation
         var entering_line = document.getElementById("translate_" + type_div_num).value;
         var translation_example = document.getElementById("translate_example_" + type_div_num).value;
-        if(entering_line != '' && !(translation_example.includes(entering_line))){
+        if (entering_line != '' && !(translation_example.includes(entering_line))) {
           document.getElementById("translate_example_" + type_div_num).style.display = 'none';
-        }else{
-          if(translation_example.length == entering_line.length){
+        } else {
+          if (translation_example.length == entering_line.length) {
             document.getElementById("translate_example_" + type_div_num).style.display = 'none';
-          }else{
+          } else {
             document.getElementById("translate_example_" + type_div_num).style.display = 'block';
           }
         }
@@ -746,11 +752,12 @@
 
 <style scoped>
 
-  input:disabled{
+  input:disabled {
     cursor: not-allowed;
     background: #e9ecef;
   }
-  select:disabled{
+
+  select:disabled {
     cursor: not-allowed;
     background: #e9ecef;
   }
@@ -845,19 +852,24 @@
     border: none;
     width: 80%;
     padding-top: 4px;
-    background: #cd5c5cad;
+    background: #f59699;
     color: white;
     border-radius: 15px;
     margin-bottom: 30px;
+  }
+
+  #addmore_btn:hover {
+    background: #f56e72 !important;
   }
 
   >>> .word_input {
     border-color: transparent;
   }
 
-  >>>  .translate_input {
+  >>> .translate_input {
     border-color: transparent;
   }
+
   >>> .translate_example {
     background: antiquewhite;
     display: none;
@@ -928,13 +940,10 @@
     font-size: 20px;
   }
 
-  #coin{
+  #coin {
     height: 90%;
     position: absolute;
   }
-
-
-
 
 
   @media all and (min-width: 769px) and (max-width: 1024px) {
