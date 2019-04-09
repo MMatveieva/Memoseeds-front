@@ -225,7 +225,7 @@
   }
 
   .module-container {
-    min-height: 453px;
+    /*min-height: 453px;*/
   }
 
   .btn-container, .btn-container-edit {
