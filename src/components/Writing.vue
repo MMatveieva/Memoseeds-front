@@ -24,9 +24,6 @@
               <p>Incorrect:</p>
               <label id="modules4">{{wordsIncorrect}}</label>
             </div>
-            <div class="modules-info">
-              <button type="button" class="back-btn" v-on:click="backClick">GO BACK</button>
-            </div>
           </div>
 
           <div class="col-sm-9 actions-part">
@@ -92,12 +89,6 @@
     },
 
     methods: {
-
-      backClick: function () {
-        let p = this.$route.params.id;
-        router.push('../myModule/' + p);
-      },
-
       nextClick: function () {
         if (!this.end)
           this.check();
@@ -260,19 +251,6 @@
     color: white !important;
     background: #f56e72 !important;
     text-decoration: none;
-  }
-
-  .modules-info .back-btn {
-    background-color: #0b486d;
-    color: white;
-    width: 150px;
-    border-radius: 20px;
-    font-size: 14px;
-    height: 35px;
-    border-color: white;
-    padding-top: 4px;
-    margin-top: 20px;
-    margin-bottom: 10px;
   }
 
   /***********************************************/

@@ -5,19 +5,16 @@
     <div class="module-container">
       <div class="settings-form">
         <div class="row" style="width: 100%; margin: 0">
-          <div class="col-sm-3 info-part">
+          <div class="col-sm-4 info-part">
             <h2 class="modules-title">{{moduleName}}</h2>
             <div class="modules-info">
               <p>Number of words:</p>
               <label id="modules1">{{wordsAll}}</label>
             </div>
             <h2 class="modules-title">Testing</h2>
-            <div class="modules-info">
-              <button type="button" class="back-btn" v-on:click="backClick">GO BACK</button>
-            </div>
           </div>
 
-          <div class="col-sm-9 actions-part">
+          <div class="col-sm-8 actions-part">
             <div class="action-text">
               {{wordDef}}
             </div>
@@ -68,15 +65,10 @@
       return {
         moduleName: "",
         wordsAll: 0,
-        wordsLeft: "",
-        wordsCorrect: "",
-        wordsIncorrect: "",
 
-        inputText: "",
         module: [],
         terms: [],
 
-        // written by Masha
         rows: [],
         answers: new Array(this.wordsAll),
         end: false,
@@ -94,11 +86,6 @@
     methods: {
       keyUp: function () {
         this.answers[this.$cookies.get('id')] = this.$cookies.get('answer');
-      },
-
-      backClick: function () {
-        let p = this.$route.params.id;
-        router.push('../myModule/' + p);
       },
 
       nextClick: function () {
@@ -195,7 +182,7 @@
     padding-top: 40px;
     padding-bottom: 8px;
     text-align: center;
-    flex: 0 0 70%;
+    flex: 0 0 60%;
   }
 
   .actions-part .action-input {
@@ -272,19 +259,6 @@
   .modules-info a {
     color: white;
     text-decoration: none;
-  }
-
-  .modules-info .back-btn {
-    background-color: #0b486d;
-    color: white;
-    width: 150px;
-    border-radius: 20px;
-    font-size: 14px;
-    height: 35px;
-    border-color: white;
-    padding-top: 4px;
-    margin-top: 20px;
-    margin-bottom: 10px;
   }
 
   /***********************************************/

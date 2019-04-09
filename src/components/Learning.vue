@@ -131,7 +131,7 @@
     padding-top: 40px;
     padding-bottom: 8px;
     text-align: center;
-    flex: 0 0 70%;
+    flex: 0 0 60%;
   }
 
   /*********************************/
@@ -194,6 +194,7 @@
     border-color: white;
     padding-top: 4px;
     margin-top: 20px;
+    margin-bottom: 13px;
   }
 
   /****************************************/
