@@ -4,7 +4,7 @@
     <div class="module-container">
       <div class="settings-form">
         <div class="row" style="width: 100%; margin: 0">
-          <div class="col-sm-3 info-part">
+          <div class="col-sm-4 info-part">
             <h2 class="modules-title">{{moduleName}}</h2>
             <div class="modules-info">
               <p>Number of words:</p>
@@ -16,8 +16,7 @@
             </div>
           </div>
 
-
-          <div class="col-sm-9 actions-part">
+          <div class="col-sm-8 actions-part">
             <div class="carousel-wrapper">
               <b-carousel
                 id="module-carousel"
