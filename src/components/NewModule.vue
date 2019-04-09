@@ -6,9 +6,9 @@
 
     <div>
       <div v-bind:style="{display: load_module_successfull_display}" style="text-align: center"><h1>Cannot load module. Please, try again</h1></div>
-      <form v-bind:style="{display: form_display}" id="new_set_form" onsubmit="return false">
+      <form v-bind:style="{display: form_display}" style="user-select: none" id="new_set_form" onsubmit="return false">
         <div class="container">
-          <h2>{{title}}</h2>
+          <h2 style="color: #12496d">{{title}}</h2>
           <div class="row" style="margin-bottom: 15px">
             <div class="col-sm-3">
               <input id="name" type="text" placeholder="Name" required>
@@ -45,7 +45,7 @@
                 </div>
               </div>
 
-              <div class="col-sm-6" style="padding-right: 0; padding-left: 0">
+              <div id="price_div" class="col-sm-6" style="padding-right: 0; padding-left: 0; display: none;">
                 <input id="price" type="number" placeholder="Price">
                 <div style="display: inline; margin-left: 5px">
                   <img id="coin" src="../css/images/coin.png">
@@ -53,7 +53,7 @@
               </div>
 
             </div>
-            <div class="col-sm-5 row">
+            <div class="col-sm-5 row" style="padding-top: 4px; padding-bottom:4px;">
               <div class="col-sm-5" style="padding-right: 0">
                 <select id="lang1" disabled>
                   <option value="sq">Albanian</option>
@@ -347,6 +347,7 @@
                 element.style.display = "block";
               } else {
                 //send via js
+                console.log('sending for translation via js');
                 var link = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' + sourceLanguageValue +
                   '&tl=' + targetLanguageValue + '&dt=t&q=' + souceText;
                 axios.post(link)
@@ -491,6 +492,10 @@
 
         // check if module is private or public
         if (public_checkbox_visibility_status == "visible") {
+          if(name == ''){
+            alert('Enter name!');
+            return;
+          }
           if(this.selected_subject == 'default'){
             alert('Choose subject!');
             return;
@@ -512,7 +517,6 @@
         }
       },
       createSet: function () {
-
         //collect all data from form
         var name = document.getElementById('name').value;
         var userId = this.$cookies.get('userId');
@@ -525,6 +529,7 @@
         var public_checkbox = document.getElementById("public_check_sign");
         var public_checkbox_visibility_status = window.getComputedStyle(public_checkbox).getPropertyValue('visibility');
         price = document.getElementById("price").value;
+
         //if public or not
         if (public_checkbox_visibility_status == "visible" && price != "") {
           isLocal = false;
@@ -574,8 +579,7 @@
         axios.post('https://cors-anywhere.herokuapp.com/https://memeseeds.herokuapp.com/user/create/module', data, config)
           .then(response => {
             var moduleId = response.data.moduleId;
-
-            this.$router.push('/mymodule/' + moduleId);
+            this.$router.push('/myModule/' + moduleId);
           })
           .catch(error => {
             console.log(error)
@@ -651,6 +655,7 @@
                 element.style.display = "block";
               } else {
                 //send via js
+                console.log('sending for translation via js');
                 var link = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' + sourceLanguageValue +
                   '&tl=' + targetLanguageValue + '&dt=t&q=' + souceText;
                 axios.post(link)
@@ -681,14 +686,14 @@
 
         var public_checkbox = document.getElementById("public_check_sign");
         var public_checkbox_visibility_status = window.getComputedStyle(public_checkbox).getPropertyValue('visibility');
+
         if (public_checkbox_visibility_status == "visible") {
           public_checkbox.style.visibility = "hidden";
-          document.getElementById("price").setAttribute('disabled', 'disabled');
+          document.getElementById("price_div").style.display = "none";
           document.getElementById('price').removeAttribute('required');
         } else {
           public_checkbox.style.visibility = "visible";
-
-          document.getElementById("price").removeAttribute('disabled');
+          document.getElementById("price_div").style.display = "block";
           document.getElementById("price").setAttribute('required', 'required');
         }
       },
@@ -796,6 +801,7 @@
     cursor: pointer;
     width: 100%;
     border: none;
+    padding-top: 5px;
     background: #1894a5;
     color: white;
     border-radius: 15px;
@@ -809,21 +815,25 @@
     margin-left: 5px;
     border: none;
     width: 80%;
-    background: #1894a5;
+    padding-top: 4px;
+    background: #f59699;
     color: white;
     border-radius: 15px;
     margin-bottom: 30px;
   }
 
-  .word_input {
+  #addmore_btn:hover{
+    background: #f56e72 !important;
+  }
+
+  >>> .word_input {
     border-color: transparent;
   }
 
-  .translate_input {
+  >>>  .translate_input {
     border-color: transparent;
   }
-
-  .translate_example {
+  >>> .translate_example {
     background: antiquewhite;
     display: none;
     pointer-events: none;
@@ -937,6 +947,7 @@
     }
   }
 
+
   /***********************************************/
 
   .footer {
@@ -944,6 +955,7 @@
     background-color: #bebfc0;
     color: white;
     letter-spacing: 5px;
+
     width: 100%;
     bottom: 0;
   }

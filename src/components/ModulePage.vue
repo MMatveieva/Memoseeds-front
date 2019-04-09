@@ -11,7 +11,7 @@
 
     <div class="module-container">
       <div class="settings-form row">
-        <div class="col-sm-3 info-part">
+        <div class="col-sm-4 info-part">
           <h2 class="modules-title">{{moduleName}}</h2>
           <div class="sub-cat">{{subjectName}}/{{categoryName}}</div>
           <div class="modules-info">
@@ -19,7 +19,7 @@
             <label id="modules">{{wordsNumber}}</label>
           </div>
         </div>
-        <div class="col-sm-9 actions-part">
+        <div class="col-sm-8 actions-part">
           <button type="submit" class="btn action-btn" v-on:click="learnClick" v-bind:disabled=!added>Learn</button>
           <button type="submit" class="btn action-btn" v-on:click="writeClick" v-bind:disabled=!added>Write</button>
           <button type="submit" class="btn action-btn" v-on:click="testClick" v-bind:disabled=!added>Test</button>

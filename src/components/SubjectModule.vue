@@ -63,7 +63,7 @@
                 showCancelButton: true
               }).then((value) => {
                 if (value.value) {
-                  router.push('../myModule/' + this.moduleId);
+                  router.push('../myModule/' + response.data.moduleId);
                 }
               })
             } else {
