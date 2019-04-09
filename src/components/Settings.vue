@@ -218,7 +218,7 @@
             'Authorization': 'Bearer ' + this.$cookies.get('user_session')
           }
         };
-        let pass = 'https://localhost:5001/' + this.$cookies.get('userId') + '/getImage';
+        let pass = 'https://memeseeds.herokuapp.com/' + this.$cookies.get('userId') + '/getImage';
         axios.get(pass, config)
           .then(response => {
             this.userIMG = "data:image/png;base64,"+response.data.fileContents;
