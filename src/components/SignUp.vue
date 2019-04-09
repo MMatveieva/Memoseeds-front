@@ -391,13 +391,16 @@
     background-color: #2b406e !important;
   }
 
-  .facebook-btn {
-    background-color: transparent !important;
-    font-size: 13px;
-    color: white;
-    margin-left: 10%;
-    margin-top: 10px;
-    margin-bottom: 10px;
+  .facebook-btn{
+    position: relative;
+    padding: 0 0px 0px 0px;
+    border: none;
+    border-radius: 20px;
+    line-height: 30px;
+    font-size: 6px;
+    color: #FFF;
+    min-width: 100px;
+    background-image: linear-gradient(#4C69BA, #3B55A0);
   }
 
   .hidden {
