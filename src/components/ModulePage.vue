@@ -1,61 +1,62 @@
 <template>
   <div>
     <Header></Header>
-    <div class="vld-parent">
-      <loading :active.sync="isLoading"
-               :can-cancel="false"
-               :is-full-page="true"
-               :color="color">
-      </loading>
-    </div>
+    <div class="page-wrapper">
+      <div class="vld-parent">
+        <loading :active.sync="isLoading"
+                 :can-cancel="false"
+                 :is-full-page="true"
+                 :color="color">
+        </loading>
+      </div>
 
-    <div class="module-container">
-      <div class="settings-form row">
-        <div class="col-sm-4 info-part">
-          <h2 class="modules-title">{{moduleName}}</h2>
-          <div class="sub-cat">{{subjectName}}/{{categoryName}}</div>
-          <div class="modules-info">
-            <p>Number of words:</p>
-            <label id="modules">{{wordsNumber}}</label>
+      <div class="module-container">
+        <div class="settings-form row">
+          <div class="col-sm-4 info-part">
+            <h2 class="modules-title">{{moduleName}}</h2>
+            <div class="sub-cat">{{subjectName}}/{{categoryName}}</div>
+            <div class="modules-info">
+              <p>Number of words:</p>
+              <label id="modules">{{wordsNumber}}</label>
+            </div>
+          </div>
+          <div class="col-sm-8 actions-part">
+            <button type="submit" class="btn action-btn" v-on:click="learnClick" v-bind:disabled=!added>Learn</button>
+            <button type="submit" class="btn action-btn" v-on:click="writeClick" v-bind:disabled=!added>Write</button>
+            <button type="submit" class="btn action-btn" v-on:click="testClick" v-bind:disabled=!added>Test</button>
           </div>
         </div>
-        <div class="col-sm-8 actions-part">
-          <button type="submit" class="btn action-btn" v-on:click="learnClick" v-bind:disabled=!added>Learn</button>
-          <button type="submit" class="btn action-btn" v-on:click="writeClick" v-bind:disabled=!added>Write</button>
-          <button type="submit" class="btn action-btn" v-on:click="testClick" v-bind:disabled=!added>Test</button>
+
+        <div class="modules-words">
+          Words in this set:
         </div>
-      </div>
+        <div class="words-wrapper">
 
-      <div class="modules-words">
-        Words in this set:
-      </div>
-      <div class="words-wrapper">
-
-        <Terms
-          v-for="term in this.terms"
-          v-bind:key="term.id"
-          v-bind:word="term.word"
-          v-bind:definition="term.definition"
-          v-bind:id="term.id"
-          v-bind:pos="term.pos">
-        </Terms>
-      </div>
-
-      <div class="btn-part row">
-        <div class="btn-container-edit col-sm-6">
-          <button type="button" class="btn edit-btn" v-on:click="editClick">
-            EDIT
-          </button>
+          <Terms
+            v-for="term in this.terms"
+            v-bind:key="term.id"
+            v-bind:word="term.word"
+            v-bind:definition="term.definition"
+            v-bind:id="term.id"
+            v-bind:pos="term.pos">
+          </Terms>
         </div>
-        <div class="btn-container col-sm-6">
-          <button type="button" class="btn add-btn" v-on:click="deleteClick">
-            DELETE
-          </button>
-        </div>
-      </div>
 
+        <div class="btn-part row">
+          <div class="btn-container-edit col-sm-6">
+            <button type="button" class="btn edit-btn" v-on:click="editClick">
+              EDIT
+            </button>
+          </div>
+          <div class="btn-container col-sm-6">
+            <button type="button" class="btn add-btn" v-on:click="deleteClick">
+              DELETE
+            </button>
+          </div>
+        </div>
+
+      </div>
     </div>
-
     <div class="card-footer footer">
       MEMOSEEDS INC., ALL RIGHTS RESERVED
     </div>
@@ -219,6 +220,10 @@
 </script>
 
 <style scoped>
+  .page-wrapper{
+    position: relative;
+  }
+
   .module-container {
     min-height: 453px;
   }
