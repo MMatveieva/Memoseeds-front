@@ -989,7 +989,7 @@
     background-color: #bebfc0;
     color: white;
     letter-spacing: 5px;
-
+    position: relative;
     width: 100%;
     bottom: 0;
   }
