@@ -977,7 +977,7 @@
             let sb = Object.keys(this.filterResponse);
             let k = {value: 'default', text: 'Subject'};
             let sub = [k];
-            for (let i = 0; i < sb.length - 1; i++) {
+            for (let i = 0; i < sb.length; i++) {
               if (sb[i] != 'default') {
                 let s1 = {
                   value: sb[i],
