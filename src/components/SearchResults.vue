@@ -7,6 +7,7 @@
 
         <div class="my-models-wrapper">
           <div class="title-text">My modules</div>
+          <div class="no-found" v-bind:class="{hidden: noMyMod}">Nothing found</div>
           <RecentModule
             v-for="module in myModules"
             v-bind:key="module.moduleId"
@@ -21,6 +22,7 @@
 
         <div class="all-models-wrapper">
           <div class="title-text">All modules</div>
+          <div class="no-found" v-bind:class="{hidden: noAllMod}">Nothing found</div>
           <SubjectModule
             v-for="module in allModules"
             v-bind:key="module.moduleId"
@@ -61,7 +63,10 @@
       return {
         myModules: [],
         allModules: [],
-        searchInput: ""
+        searchInput: "",
+
+        noMyMod: true,
+        noAllMod: true
       }
     },
 
@@ -112,6 +117,8 @@
           mm[i] = m;
         }
         this.myModules = mm;
+        if (this.myModules.length == 0)
+          this.noMyMod = false;
 
         /////////////////////////////
 
@@ -134,6 +141,8 @@
           mm[i] = m;
         }
         this.allModules = mm;
+        if (this.allModules.length == 0)
+          this.noAllMod = false;
       }
     }
   }
@@ -199,6 +208,19 @@
     position: absolute;
     width: 100%;
     bottom: 0;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .no-found {
+    margin: auto;
+    padding-top: 60px;
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: 30px;
+    color: #12496d;
   }
 
 </style>
