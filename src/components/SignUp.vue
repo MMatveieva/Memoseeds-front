@@ -238,7 +238,7 @@
           "Password": this.password
         }, config)
           .then(response => {
-            if (response.data.error != null) {
+            if (response.data.error == null) {
               this.signUpError = false;
               this.signUpError = response.data.error;
             } else {
