@@ -213,9 +213,9 @@
         this.categoryName = data.category;
         this.subjectName = data.subject;
         this.moduleName = data.module.name;
-console.log(data.module);
+
         let mm = new Array(data.module.terms.length);
-        this.wordsNumber = data.module.terms.length;
+        this.wordsNumber = data.NumbTerms;
 
         for (let i = 0; (i < data.module.terms.length && i < 5); i++) {
           let m = {
