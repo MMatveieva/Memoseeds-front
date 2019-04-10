@@ -223,7 +223,7 @@
 <style scoped>
   .page-wrapper {
     position: relative;
-    min-height: 100vh;
+    min-height: 100%;
   }
 
   .module-container {
