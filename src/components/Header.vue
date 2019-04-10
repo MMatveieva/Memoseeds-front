@@ -79,6 +79,7 @@
         this.$cookies.remove("userMail");
         this.$cookies.remove("userId");
         this.$cookies.remove('country');
+        localStorage.clear();
         router.push('../signIn');
       },
 
