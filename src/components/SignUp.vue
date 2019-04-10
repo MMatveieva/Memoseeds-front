@@ -99,7 +99,9 @@
         mailError: "",
         passError1: "",
         passError: "",
-        signUpError: ""
+        signUpError: "",
+
+        wide: false
       }
     },
     beforeCreate: function () {
@@ -388,16 +390,17 @@
     background-color: #2b406e !important;
   }
 
-  .facebook-btn{
+  .facebook-btn {
     position: relative;
-    padding: 0 0px 0px 0px;
+    padding: 0 0 0 0;
     border: none;
     border-radius: 20px;
     line-height: 30px;
     font-size: 6px;
     color: #FFF;
-    min-width: 100px;
+    width: 250px;
     background-image: linear-gradient(#4C69BA, #3B55A0);
+    margin: auto;
   }
 
   .hidden {
