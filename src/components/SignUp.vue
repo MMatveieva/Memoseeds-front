@@ -120,11 +120,10 @@
           }
         };
 
-        this.FB.api('/me', 'GET', {fields: 'id,name,email'},
+        this.FB.api('/me', 'GET', {fields: 'id,name'},
           userInformation => {
             console.warn("user info", userInformation);
             this.personalID = userInformation.id;
-            this.email = userInformation.email;
             this.name = userInformation.name;
           },
 
