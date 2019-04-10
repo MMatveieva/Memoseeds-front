@@ -2,6 +2,14 @@
   <div style="display: flex;flex-direction: column;justify-content: space-between; height: 100vh">
     <Header></Header>
 
+    <div class="vld-parent">
+      <loading :active.sync="isLoading"
+               :can-cancel="false"
+               :is-full-page="true"
+               :color="color">
+      </loading>
+    </div>
+
     <!--Add my components-->
 
     <div>
@@ -278,6 +286,8 @@
   import axios from 'axios';
   import Vue from 'vue';
   import Header from './Header'
+  import Loading from 'vue-loading-overlay';
+  import 'vue-loading-overlay/dist/vue-loading.css';
 
   Vue.component('tweet-component', {
     template: '<div class="row newword_div">' +
@@ -466,11 +476,21 @@
         price_div_display: "none",
         public_check_visibility: 'hidden',
         public_check_disabled: true,
-        terms: [['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['', '', '']]
+        terms: [['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['', '', ''], ['', '', '']],
+
+
+        isLoading: false,
+        color: "#12496d"
       }
     },
     created: function () {
       document.body.className = 'inside';
+
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false
+      }, 1700);
+
       var path = this.$route.path.split('/');
       if (isNaN(path[path.length - 1])) {
         this.load_module_successfull_display = 'block';
