@@ -211,7 +211,7 @@
           this.passError1 = "Please repeat password.";
         }
         if ((this.name_signUp !== "") && (this.email !== "") && (this.password !== "") && (this.password_confirmation !== "")
-          && (this.password.length >= 8)) {
+          && (this.password.length >= 8) && this.email.includes('@')) {
           if ((this.password === this.password_confirmation) && (this.nameOk))
             this.signUp();
           else {
