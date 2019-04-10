@@ -321,7 +321,6 @@
   .settings-form .row {
     width: 100%;
     margin: 0;
-    margin-bottom: 15px;
   }
 
   .settings-btn {
@@ -459,9 +458,10 @@
     background-color: #bebfc0;
     color: white;
     letter-spacing: 5px;
+    /*position: absolute;*/
     width: 100%;
     bottom: 0;
-    position: relative;
+    margin-top: 30px;
   }
 
   .hidden {
