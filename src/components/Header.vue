@@ -50,11 +50,13 @@
   import axios from 'axios'
   import router from '../router'
   import Header from './Header'
+  import facebookLogin from 'facebook-login-vuejs';
 
   export default {
     name: "Header",
     components: {
-      Header
+      Header,
+      facebookLogin
     },
     data() {
       return {
@@ -93,6 +95,9 @@
         this.$cookies.remove("userId");
         this.$cookies.remove('country');
         localStorage.clear();
+        // this.FB.logout(function (response) {
+        //   router.push('../signIn');
+        // });
         router.push('../signIn');
       },
 
