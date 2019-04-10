@@ -93,8 +93,8 @@
               for (let i = 0; i < data.length; i++) {
                 w[i] = {
                   id: data[i].termId,
-                  word: data[i].name,
-                  definition: data[i].definition
+                  word:data[i].definition,
+                  definition:  data[i].name
                 };
               }
               this.wordsAll = data.length;
