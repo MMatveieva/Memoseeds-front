@@ -87,14 +87,15 @@
         let pass = 'https://memeseeds.herokuapp.com/user/' + this.$cookies.get("userId") + '/modules/' + this.$route.params.id;
         axios.get(pass, config)
           .then(response => {
-            if (response.data.error == null) {this.moduleName = response.data.module.name;
+            if (response.data.error == null) {
+              this.moduleName = response.data.module.name;
               let data = response.data.module.terms;
               let w = new Array(data.length);
               for (let i = 0; i < data.length; i++) {
                 w[i] = {
                   id: data[i].termId,
-                  word:data[i].definition,
-                  definition:  data[i].name
+                  word: data[i].definition,
+                  definition: data[i].name
                 };
               }
               this.wordsAll = data.length;
@@ -163,18 +164,18 @@
   }
 
   .modules-info {
-  font-size: 100%;
-  color: #12496d;
+    font-size: 100%;
+    color: #12496d;
   }
 
   /********************************/
 
   .carousel-control-next-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3e%3c/svg%3e")
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3e%3c/svg%3e") !important;
   }
 
   .carousel-control-prev-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3e%3c/svg%3e") !important;
   }
 
   /***********************************************/
@@ -201,7 +202,7 @@
 
   .footer {
     text-align: center;
-    background-color: #bebfc0;
+    background-color: #bebfc0 !important;
     color: white;
     letter-spacing: 5px;
     position: absolute;
