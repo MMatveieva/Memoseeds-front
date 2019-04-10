@@ -215,7 +215,7 @@
         this.moduleName = data.module.name;
 
         let mm = new Array(data.module.terms.length);
-        this.wordsNumber = data.NumbTerms;
+        this.wordsNumber = data.numbTerms;
 
         for (let i = 0; (i < data.module.terms.length && i < 5); i++) {
           let m = {
