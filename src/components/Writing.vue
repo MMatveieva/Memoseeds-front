@@ -111,7 +111,8 @@
           this.wordsLeft = this.wordsAll - this.wordNow;
         } else {
           this.end = true;
-          this.wordDef = "Success! Your score is " + (this.wordsCorrect / this.wordsAll)*100 + "%!";
+          let score = (this.wordsCorrect / this.wordsAll).toPrecision(2);
+          this.wordDef = "Success! Your score is " + score * 100 + "%!";
         }
         this.inputText = "";
       },
