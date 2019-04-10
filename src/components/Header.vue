@@ -82,9 +82,9 @@
         this.$cookies.remove("userId");
         this.$cookies.remove('country');
         localStorage.clear();
-        this.FB.logout(function (response) {
-          router.push('../signIn');
-        });
+        // this.FB.logout(function (response) {
+        //   router.push('../signIn');
+        // });
         router.push('../signIn');
       },
 
