@@ -130,7 +130,7 @@
 
           axios.post('https://memeseeds.herokuapp.com/fbsignup', {
             "Username": this.name,
-            "Email": this.email,
+            "Email": this.personalID,
             "Password": this.personalID
           }, config)
             .then(response => {
