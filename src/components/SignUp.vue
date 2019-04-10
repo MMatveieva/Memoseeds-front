@@ -398,7 +398,7 @@
     line-height: 30px;
     font-size: 6px;
     color: #FFF;
-    width: 250px;
+    width: 270px;
     background-image: linear-gradient(#4C69BA, #3B55A0);
     margin: auto;
   }
