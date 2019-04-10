@@ -100,9 +100,7 @@
               }
               this.wordsAll = data.length;
               this.words = w;
-              console.log(this.words);
             } else {
-              console.log(response);
             }
           })
           .catch(error => {
