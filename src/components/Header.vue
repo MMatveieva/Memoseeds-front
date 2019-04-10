@@ -24,14 +24,18 @@
           <div class="user-acc col-sm-6">
             <b-dropdown class="user-name" offset="-16">
               <template slot="button-content">{{userName}}</template>
-              <b-dropdown-item class="user-dropdown" href="#">
-                <router-link to="/settings">Settings</router-link>
+              <b-dropdown-item class="user-dropdown" href="#" @click="settingsClick">
+                <!--<router-link to="/settings">-->
+                Settings
+                <!--</router-link>-->
               </b-dropdown-item>
-              <b-dropdown-item class="user-dropdown" href="#">
-                <router-link to="/recent">My modules</router-link>
+              <b-dropdown-item class="user-dropdown" href="#" @click="recentClick">
+                <!--<router-link to="/recent">-->
+                My modules
+                <!--</router-link>-->
               </b-dropdown-item>
-              <b-dropdown-item class="user-dropdown" href="#">
-                <label v-on:click="logOut">Log out</label>
+              <b-dropdown-item class="user-dropdown" href="#" v-on:click="logOut">
+                Log out
               </b-dropdown-item>
             </b-dropdown>
           </div>
@@ -70,6 +74,15 @@
       getUserInfo: function () {
         this.creditsNumber = this.$cookies.get('userCredits');
         this.userName = this.$cookies.get('userName');
+      },
+
+      settingsClick: function () {
+        router.push('../settings');
+      },
+
+      recentClick: function () {
+        router.push('../recent');
+
       },
 
       logOut: function () {
@@ -210,6 +223,7 @@
   .user-name a:hover {
     color: #0b486d !important;
     text-decoration: none;
+    cursor: pointer;
   }
 
   a:hover {
